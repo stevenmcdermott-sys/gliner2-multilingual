@@ -17,7 +17,7 @@
 
 [build]
   publish = "dist"
-  command = "mkdir -p dist && sed 's|%%RAILWAY_URL%%|'\"$RAILWAY_BACKEND_URL\"'|g' frontend/index.html > dist/index.html"
+  command = "node build.js"
 
 [build.environment]
   NODE_VERSION = "18"

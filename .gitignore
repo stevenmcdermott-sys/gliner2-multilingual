@@ -25,3 +25,9 @@ Thumbs.db
 
 # Docker
 *.tar
+
+# Local Netlify folder
+.netlify
+
+# Netlify build output
+dist/
