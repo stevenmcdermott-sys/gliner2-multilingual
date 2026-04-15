@@ -98,11 +98,6 @@ COPY static/ ./static/
 # These can be populated via volume mounts at runtime
 RUN mkdir -p adapters models/moe_multilingual data
 
-# Copy adapters if they exist at build time
-# (use .dockerignore to exclude if building before training)
-COPY adapters/ ./adapters/ 2>/dev/null || true
-COPY models/ ./models/ 2>/dev/null || true
-
 # Health check
 HEALTHCHECK --interval=30s --timeout=10s --retries=3 \
     CMD curl -f http://localhost:8000/health || exit 1
