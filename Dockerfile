@@ -79,11 +79,8 @@ print('Downloading GLiNER2 base model...'); \
 GLiNER2.from_pretrained('fastino/gliner2-multi-v1'); \
 print('Model cached successfully.')"
 
-# Pre-download language detection model
-RUN python -c "\
-from ftlangdetect import detect; \
-detect('test'); \
-print('Language detection model ready.')"
+# Warm up langdetect (pure Python, no model download needed)
+RUN python -c "from langdetect import detect; detect('test'); print('langdetect ready.')"
 
 
 # ---------- Stage 4: Final image ----------

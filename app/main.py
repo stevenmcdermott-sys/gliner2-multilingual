@@ -150,15 +150,14 @@ class ModelManager:
             log.warning(f"MoE model failed to load: {e}")
 
     def _load_lang_detect(self):
-        """Load fastText language detection model."""
+        """Load langdetect language detection."""
         try:
-            from ftlangdetect import detect
-            # Trigger model download on first use
+            from langdetect import detect
             detect("test")
             self.lang_model = detect
-            log.info("Language detection (fastText) loaded.")
+            log.info("Language detection (langdetect) loaded.")
         except ImportError:
-            log.warning("fasttext-langdetect not installed. Auto language detection disabled.")
+            log.warning("langdetect not installed. Auto language detection disabled.")
         except Exception as e:
             log.warning(f"Language detection failed: {e}")
 
@@ -186,8 +185,7 @@ class ModelManager:
         if self.lang_model is None:
             return "en"  # Default fallback
         try:
-            result = self.lang_model(text)
-            return result.get("lang", "en")
+            return self.lang_model(text)
         except Exception:
             return "en"
 

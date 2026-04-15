@@ -13,7 +13,7 @@ fastapi>=0.110.0
 uvicorn[standard]>=0.29.0
 
 # --- Language Detection ---
-ftlangdetect
+langdetect>=1.0.9
 
 # --- Utilities ---
 pydantic>=2.7.0
