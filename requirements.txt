@@ -1,0 +1,23 @@
+# GLiNER2 Multilingual Extraction System
+# =======================================
+# Install: pip install -r requirements.txt
+
+# --- Core ML ---
+gliner2>=1.2.0
+torch>=2.0.0
+transformers>=4.40.0
+datasets>=2.19.0
+
+# --- API Server ---
+fastapi>=0.110.0
+uvicorn[standard]>=0.29.0
+
+# --- Language Detection ---
+ftlangdetect>=1.0.5
+
+# --- Utilities ---
+pydantic>=2.7.0
+huggingface_hub>=0.23.0
+
+# --- Optional: for MoE model (install separately) ---
+# git+https://github.com/mayank-rakesh-mck/GLiNER.git

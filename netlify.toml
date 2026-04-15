@@ -1,0 +1,31 @@
+# ═══════════════════════════════════════════════════════════
+# GLiNER2 Multilingual — Netlify Frontend Configuration
+# ═══════════════════════════════════════════════════════════
+#
+# SETUP:
+#   1. Deploy the backend to Railway first and get its public URL
+#   2. Push this repo to GitHub
+#   3. Create a Netlify site → "Import from Git"
+#   4. In Netlify dashboard → Site configuration → Environment variables:
+#      Add: RAILWAY_BACKEND_URL = https://your-app.railway.app
+#      (no trailing slash)
+#   5. Trigger a redeploy — Netlify injects the URL at build time
+#
+# The build command replaces %%RAILWAY_URL%% in the HTML template
+# with the actual Railway backend URL before publishing.
+# ═══════════════════════════════════════════════════════════
+
+[build]
+  publish = "dist"
+  command = "mkdir -p dist && sed 's|%%RAILWAY_URL%%|'\"$RAILWAY_BACKEND_URL\"'|g' frontend/index.html > dist/index.html"
+
+[build.environment]
+  NODE_VERSION = "18"
+
+# Security headers
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    X-Frame-Options = "SAMEORIGIN"
+    Referrer-Policy = "strict-origin-when-cross-origin"

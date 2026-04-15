@@ -1,0 +1,31 @@
+# ═══════════════════════════════════════════════════════════
+# GLiNER2 Multilingual — Railway Backend Configuration
+# ═══════════════════════════════════════════════════════════
+#
+# Deploy the FastAPI backend to Railway via the Dockerfile.
+#
+# SETUP:
+#   1. Push this repo to GitHub
+#   2. Create a new Railway project → "Deploy from GitHub repo"
+#   3. Railway auto-detects this file and uses the Dockerfile
+#   4. After deploy, copy the Railway public URL (e.g. https://gliner2-xxx.railway.app)
+#   5. Paste that URL into Netlify as RAILWAY_BACKEND_URL env var
+#
+# ENVIRONMENT VARIABLES (set in Railway dashboard):
+#   DEVICE   = cpu   (or cuda:0 if you have a GPU plan)
+#
+# RESOURCE RECOMMENDATIONS:
+#   Memory: 8GB+ (GLiNER2 base model needs ~3-4GB)
+#   Plan:   Pro ($20/month) or higher for sufficient RAM
+# ═══════════════════════════════════════════════════════════
+
+[build]
+builder = "DOCKERFILE"
+
+[deploy]
+# Railway injects $PORT; fall back to 8000 for local docker runs
+startCommand = "uvicorn app.main:app --host 0.0.0.0 --port ${PORT:-8000} --workers 1"
+healthcheckPath = "/health"
+healthcheckTimeout = 120
+restartPolicyType = "ON_FAILURE"
+restartPolicyMaxRetries = 3
