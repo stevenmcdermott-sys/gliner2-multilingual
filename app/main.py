@@ -389,7 +389,7 @@ async def languages():
 
 
 def _require_models():
-    if not _models_ready:
+    if mgr.gliner2 is None:
         raise HTTPException(503, "Models still loading — please retry in a moment")
 
 
