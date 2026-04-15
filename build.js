@@ -2,10 +2,9 @@
 // Replaces %%RAILWAY_URL%% in frontend/index.html with RAILWAY_BACKEND_URL env var
 const fs = require('fs');
 
-const url = process.env.RAILWAY_BACKEND_URL || '';
-if (!url) {
-  console.error('ERROR: RAILWAY_BACKEND_URL environment variable is not set.');
-  process.exit(1);
+const url = process.env.RAILWAY_BACKEND_URL || 'http://localhost:8000';
+if (!process.env.RAILWAY_BACKEND_URL) {
+  console.warn('RAILWAY_BACKEND_URL not set — using http://localhost:8000 for local dev');
 }
 
 const src = fs.readFileSync('frontend/index.html', 'utf8');
