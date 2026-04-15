@@ -12,6 +12,7 @@ import os
 import time
 import json
 import logging
+import threading
 from typing import Optional
 from contextlib import asynccontextmanager
 from pathlib import Path
@@ -298,16 +299,31 @@ class ModelManager:
 # ──────────────────────────────────────────────
 
 mgr = ModelManager()
+_models_ready = False
+
+
+def _load_models_background():
+    global _models_ready
+    log.info("=" * 60)
+    log.info("Loading models in background thread...")
+    log.info("=" * 60)
+    try:
+        mgr.load_all()
+        _models_ready = True
+        log.info("=" * 60)
+        log.info("Models ready. API fully operational.")
+        log.info("=" * 60)
+    except Exception as e:
+        log.error(f"Model loading failed: {e}")
+
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    log.info("=" * 60)
-    log.info("Starting GLiNER2 Multilingual Extraction API")
-    log.info("=" * 60)
-    mgr.load_all()
-    log.info("=" * 60)
-    log.info("API ready. Swagger docs at /docs")
-    log.info("=" * 60)
+    # Start model loading in background so the server binds immediately.
+    # This allows Railway's healthcheck to reach /health before models finish.
+    t = threading.Thread(target=_load_models_background, daemon=True)
+    t.start()
+    log.info("Server started. Models loading in background — check /health for status.")
     yield
     log.info("Shutting down.")
 
@@ -352,7 +368,7 @@ async def root():
 @app.get("/health", response_model=HealthResponse)
 async def health():
     return HealthResponse(
-        status="healthy",
+        status="healthy" if _models_ready else "loading",
         gliner2_loaded=mgr.gliner2 is not None,
         moe_loaded=mgr.moe_model is not None,
         adapters_available=mgr.available_adapters,
@@ -372,9 +388,15 @@ async def languages():
     }
 
 
+def _require_models():
+    if not _models_ready:
+        raise HTTPException(503, "Models still loading — please retry in a moment")
+
+
 @app.post("/extract")
 async def extract(req: ExtractRequest):
     """Extract named entities with automatic language routing."""
+    _require_models()
     start = time.time()
     result = mgr.extract_entities(req.text, req.labels, req.lang, req.threshold)
     result["processing_time_ms"] = round((time.time() - start) * 1000, 1)
@@ -384,6 +406,7 @@ async def extract(req: ExtractRequest):
 @app.post("/classify")
 async def classify(req: ClassifyRequest):
     """Classify text into labels."""
+    _require_models()
     start = time.time()
     result = mgr.classify_text(req.text, req.labels, req.category, req.lang)
     result["processing_time_ms"] = round((time.time() - start) * 1000, 1)
@@ -393,6 +416,7 @@ async def classify(req: ClassifyRequest):
 @app.post("/structured")
 async def structured(req: StructuredRequest):
     """Extract structured JSON data."""
+    _require_models()
     start = time.time()
     result = mgr.extract_structured(req.text, req.schema_name, req.fields, req.lang)
     result["processing_time_ms"] = round((time.time() - start) * 1000, 1)
