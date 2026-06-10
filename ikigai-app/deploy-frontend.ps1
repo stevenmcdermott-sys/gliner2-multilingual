@@ -3,4 +3,3 @@
 Set-Location "$PSScriptRoot\frontend"
 Write-Host "Deploying frontend to Netlify..." -ForegroundColor Cyan
 netlify deploy --prod --dir .
-Write-Host "Done. Live URL printed above." -ForegroundColor Green
