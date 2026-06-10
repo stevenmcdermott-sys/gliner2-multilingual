@@ -15,6 +15,9 @@ models/moe_multilingual/pytorch_model.bin
 data/*.jsonl
 data/*.json
 
+# Claude Code internal (worktrees, session data)
+.claude/
+
 # IDE
 .vscode/
 .idea/
