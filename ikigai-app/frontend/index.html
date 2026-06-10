@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ikigai — Your reason for being</title>
+  <meta name="description" content="A quiet journey to discover your ikigai — the intersection of what you love, what you're good at, what the world needs, and what you can offer.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Breathing rings background -->
+  <div id="rings" aria-hidden="true">
+    <div class="ring ring-love"></div>
+    <div class="ring ring-good"></div>
+    <div class="ring ring-world"></div>
+    <div class="ring ring-paid"></div>
+  </div>
+
+  <div class="app">
+    <!-- Language picker screen -->
+    <div id="screen-lang" class="screen active" role="main">
+      <div class="screen-inner screen-center">
+        <h1 class="brand">ikigai</h1>
+        <p class="tagline-small">生き甲斐</p>
+        <p id="select-lang-label" class="select-lang-label">Choose your language</p>
+        <div class="lang-grid">
+          <button class="lang-btn" data-lang="en" onclick="selectLang('en')">English</button>
+          <button class="lang-btn" data-lang="zh" onclick="selectLang('zh')">中文</button>
+          <button class="lang-btn" data-lang="hi" onclick="selectLang('hi')">हिन्दी</button>
+          <button class="lang-btn" data-lang="es" onclick="selectLang('es')">Español</button>
+          <button class="lang-btn" data-lang="fr" onclick="selectLang('fr')">Français</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Intro screen -->
+    <div id="screen-intro" class="screen" role="main">
+      <div class="screen-inner screen-center">
+        <h1 id="intro-title" class="main-title">Find Your Ikigai</h1>
+        <p id="intro-tagline" class="tagline">Your reason for getting up in the morning</p>
+        <p class="intro-detail">Eight quiet questions. A personalised reflection.</p>
+        <button class="btn btn-primary" id="btn-begin" onclick="startQuestions()">Begin</button>
+      </div>
+    </div>
+
+    <!-- Question screen -->
+    <div id="screen-question" class="screen" role="main">
+      <div class="progress-bar"><div id="progress-fill" class="progress-fill"></div></div>
+      <div class="screen-inner">
+        <p id="domain-label" class="domain-label"></p>
+        <p id="q-counter" class="q-counter"></p>
+        <h2 id="question-text" class="question-text"></h2>
+        <textarea id="answer-input" class="answer-input" rows="3" placeholder="..."></textarea>
+        <div class="question-nav">
+          <button class="btn btn-ghost" id="btn-back" onclick="goBack()">&#8592; Back</button>
+          <button class="btn btn-primary" id="btn-next" onclick="goNext()">Next &#8594;</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Loading screen -->
+    <div id="screen-loading" class="screen" role="main" aria-live="polite">
+      <div class="screen-inner screen-center">
+        <div class="loading-orb"></div>
+        <p id="loading-text" class="loading-text">Contemplating your path...</p>
+      </div>
+    </div>
+
+    <!-- Result screen -->
+    <div id="screen-result" class="screen" role="main">
+      <div class="screen-inner">
+        <p id="result-eyebrow" class="result-eyebrow"></p>
+        <p id="result-centre-intro" class="result-centre-intro"></p>
+
+        <!-- Venn diagram -->
+        <div class="venn-container" aria-hidden="true">
+          <svg class="venn-svg" viewBox="0 0 300 300">
+            <defs>
+              <filter id="glow">
+                <feGaussianBlur stdDeviation="4" result="blur"/>
+                <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+              </filter>
+            </defs>
+            <!-- Love (top) -->
+            <circle cx="150" cy="105" r="85" class="venn-circle vc-love"/>
+            <!-- World Needs (right) -->
+            <circle cx="195" cy="178" r="85" class="venn-circle vc-world"/>
+            <!-- Good At (bottom) -->
+            <circle cx="150" cy="195" r="85" class="venn-circle vc-good"/>
+            <!-- Paid For (left) -->
+            <circle cx="105" cy="178" r="85" class="venn-circle vc-paid"/>
+            <!-- Center ikigai -->
+            <circle cx="150" cy="158" r="22" class="venn-center" filter="url(#glow)"/>
+          </svg>
+          <div class="venn-labels">
+            <span class="vl vl-love"  id="vl-love">Love</span>
+            <span class="vl vl-world" id="vl-world">World</span>
+            <span class="vl vl-good"  id="vl-good">Good At</span>
+            <span class="vl vl-paid"  id="vl-paid">Paid For</span>
+          </div>
+        </div>
+
+        <p id="result-centre" class="result-centre"></p>
+
+        <div id="result-sections" class="result-sections"></div>
+
+        <p id="result-closing" class="result-closing"></p>
+
+        <button class="btn btn-ghost" id="btn-restart" onclick="restart()">Start Again</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="config.js"></script>
+  <script src="i18n.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
