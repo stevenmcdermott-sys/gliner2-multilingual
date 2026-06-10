@@ -6,7 +6,7 @@
   <title>Ikigai — The Scholar's Path</title>
   <link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
   <style>
-    /* ── Reset ────────────────────────────────────────────────────── */
+    /* ── Reset ─────────────────────────────────────────────────── */
     *, *::before, *::after {
       box-sizing: border-box;
       margin: 0;
@@ -15,9 +15,10 @@
 
     html {
       scroll-behavior: smooth;
+      height: 100%;
     }
 
-    /* ── Base ─────────────────────────────────────────────────────── */
+    /* ── Base ──────────────────────────────────────────────────── */
     body {
       background-color: #1a2e1a;
       color: #f5f0e8;
@@ -27,34 +28,39 @@
       flex-direction: column;
       align-items: center;
       justify-content: flex-start;
-      padding: 2.5rem 1.25rem 5rem;
+      padding: 3rem 1.5rem 5rem;
       line-height: 1.75;
       position: relative;
       overflow-x: hidden;
     }
 
-    /* Vignette for candlelight feel */
+    /* Radial vignette — candlelight warmth at center, darkness at edges */
     body::before {
       content: '';
       position: fixed;
       inset: 0;
-      background: radial-gradient(ellipse at 50% 35%, transparent 35%, rgba(0,0,0,0.55) 100%);
+      background:
+        radial-gradient(ellipse 80% 60% at 50% 30%,
+          rgba(201, 168, 76, 0.04) 0%,
+          transparent 60%),
+        radial-gradient(ellipse at 50% 50%,
+          transparent 40%,
+          rgba(0, 0, 0, 0.5) 100%);
       pointer-events: none;
       z-index: 0;
     }
 
-    /* Grain texture */
+    /* Subtle paper grain */
     body::after {
       content: '';
       position: fixed;
       inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
       pointer-events: none;
       z-index: 0;
-      opacity: 0.6;
     }
 
-    /* ── Layout wrapper ──────────────────────────────────────────── */
+    /* ── App wrapper (centered column) ─────────────────────────── */
     .app-wrapper {
       width: 100%;
       max-width: 680px;
@@ -62,32 +68,41 @@
       z-index: 1;
     }
 
-    /* ── Typography helpers ──────────────────────────────────────── */
-    .gold {
-      color: #c9a84c;
+    /* ── Card shell used by all screens ────────────────────────── */
+    .screen-card {
+      background: #1f361f;
+      border: 1px solid rgba(201, 168, 76, 0.22);
+      border-radius: 3px;
+      padding: 3rem 2.5rem;
+      width: 100%;
+      /* Soft inner glow */
+      box-shadow:
+        inset 0 1px 0 rgba(201, 168, 76, 0.06),
+        0 4px 40px rgba(0, 0, 0, 0.45);
     }
 
-    .muted {
-      color: #a09070;
-    }
-
-    .italic {
-      font-style: italic;
-    }
-
-    .small-caps {
-      font-variant: small-caps;
-      letter-spacing: 0.12em;
-    }
-
-    /* ── Gold rule ───────────────────────────────────────────────── */
+    /* ── Gold horizontal rule ───────────────────────────────────── */
     hr.gold-rule {
       border: none;
       border-top: 1px solid rgba(201, 168, 76, 0.35);
       margin: 1.5rem 0;
     }
 
-    /* ── Buttons ─────────────────────────────────────────────────── */
+    /* ── Decorative rule: line · compass · line ─────────────────── */
+    .deco-rule {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+      margin: 1.25rem 0;
+    }
+    .deco-rule::before,
+    .deco-rule::after {
+      content: '';
+      flex: 1;
+      border-top: 1px solid rgba(201, 168, 76, 0.35);
+    }
+
+    /* ── Buttons ────────────────────────────────────────────────── */
     .btn {
       display: inline-block;
       font-family: 'IM Fell English', Georgia, 'Times New Roman', serif;
@@ -95,25 +110,42 @@
       color: #c9a84c;
       background: transparent;
       border: 1px solid rgba(201, 168, 76, 0.5);
-      padding: 0.6rem 1.6rem;
+      padding: 0.6rem 1.75rem;
       border-radius: 2px;
       cursor: pointer;
-      transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease;
-      letter-spacing: 0.04em;
+      transition: background 0.22s ease, color 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease;
+      letter-spacing: 0.05em;
       text-decoration: none;
+      line-height: 1.4;
     }
 
     .btn:hover {
       background: #c9a84c;
       color: #1a2e1a;
       border-color: #c9a84c;
+      box-shadow: 0 0 12px rgba(201, 168, 76, 0.25);
     }
 
     .btn:active {
-      opacity: 0.85;
+      opacity: 0.82;
+      transform: translateY(1px);
     }
 
-    /* ── Links ───────────────────────────────────────────────────── */
+    .btn-prev {
+      font-size: 0.875rem;
+      padding: 0.5rem 1.15rem;
+      color: #a09070;
+      border-color: rgba(160, 144, 112, 0.35);
+    }
+
+    .btn-prev:hover {
+      background: #a09070;
+      color: #1a2e1a;
+      border-color: #a09070;
+      box-shadow: none;
+    }
+
+    /* ── Links ──────────────────────────────────────────────────── */
     a.subtle-link {
       color: #a09070;
       font-size: 0.875rem;
@@ -121,73 +153,86 @@
       font-style: italic;
       transition: color 0.2s ease;
       display: inline-block;
-      margin-top: 1.25rem;
     }
-
     a.subtle-link:hover {
       color: #c9a84c;
     }
 
-    /* ── Screen: Start ───────────────────────────────────────────── */
+    /* ── Scrollbar ──────────────────────────────────────────────── */
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: #1a2e1a; }
+    ::-webkit-scrollbar-thumb { background: rgba(201, 168, 76, 0.3); border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: rgba(201, 168, 76, 0.5); }
+
+    /* ══════════════════════════════════════════════════════════════
+       SCREEN: START
+    ══════════════════════════════════════════════════════════════ */
     #screen-start {
       text-align: center;
-      padding-top: 2rem;
     }
 
     #screen-start .top-label {
+      font-size: 0.76rem;
+      color: #c9a84c;
+      font-variant: small-caps;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-bottom: 2rem;
+    }
+
+    #screen-start .compass-wrap {
+      margin: 0 auto 2rem;
+      display: flex;
+      justify-content: center;
+    }
+
+    #screen-start h1 {
+      font-size: 4.25rem;
+      font-weight: 400;
+      letter-spacing: 0.03em;
+      color: #f5f0e8;
+      line-height: 1.0;
+      margin-bottom: 0.65rem;
+    }
+
+    #screen-start .subtitle {
+      font-size: 1.1rem;
+      font-style: italic;
+      color: #c9a84c;
+      margin-bottom: 1.5rem;
+      line-height: 1.55;
+    }
+
+    #screen-start .description {
+      font-size: 0.95rem;
+      color: #a09070;
+      max-width: 460px;
+      margin: 0 auto 2.25rem;
+      line-height: 1.85;
+    }
+
+    #screen-start .start-actions {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.25rem;
+    }
+
+    /* ══════════════════════════════════════════════════════════════
+       SCREEN: QUESTION
+    ══════════════════════════════════════════════════════════════ */
+    #screen-question {
+      /* inherits screen-card */
+    }
+
+    .chapter-label {
       font-size: 0.78rem;
       color: #c9a84c;
       font-variant: small-caps;
       letter-spacing: 0.18em;
-      margin-bottom: 1.75rem;
-      text-transform: uppercase;
-    }
-
-    #screen-start .compass-wrap {
-      margin: 0 auto 1.75rem;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    #screen-start h1 {
-      font-size: 4rem;
-      font-weight: 400;
-      letter-spacing: 0.04em;
-      color: #f5f0e8;
-      line-height: 1.1;
-      margin-bottom: 0.5rem;
-    }
-
-    #screen-start .subtitle {
-      font-size: 1.15rem;
-      font-style: italic;
-      color: #c9a84c;
-      margin-bottom: 1.5rem;
-      line-height: 1.5;
-    }
-
-    #screen-start .description {
-      font-size: 0.975rem;
-      color: #a09070;
-      max-width: 480px;
-      margin: 0 auto 2.25rem;
-      line-height: 1.8;
-    }
-
-    /* ── Screen: Question ────────────────────────────────────────── */
-    #screen-question {
-      padding-top: 1rem;
-    }
-
-    .chapter-label {
-      font-size: 0.8rem;
-      color: #c9a84c;
-      font-variant: small-caps;
-      letter-spacing: 0.16em;
       text-align: center;
       text-transform: uppercase;
-      margin-bottom: 0.75rem;
+      margin-bottom: 0.6rem;
     }
 
     .question-text {
@@ -196,14 +241,8 @@
       text-align: center;
       color: #f5f0e8;
       font-weight: 400;
-      margin: 1.5rem 0 1.75rem;
       font-style: italic;
-    }
-
-    @media (max-width: 480px) {
-      .question-text {
-        font-size: 1.4rem;
-      }
+      margin: 1.5rem 0 1.75rem;
     }
 
     textarea#answer-textarea {
@@ -219,7 +258,7 @@
       padding: 1rem 1.1rem;
       resize: vertical;
       outline: none;
-      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+      transition: border-color 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
       display: block;
     }
 
@@ -230,6 +269,7 @@
 
     textarea#answer-textarea:focus {
       border-color: rgba(201, 168, 76, 0.65);
+      background: rgba(201, 168, 76, 0.07);
       box-shadow: 0 0 0 3px rgba(201, 168, 76, 0.07);
     }
 
@@ -241,54 +281,32 @@
       gap: 1rem;
     }
 
-    #prev-btn {
-      font-size: 0.875rem;
-      padding: 0.5rem 1.1rem;
-      color: #a09070;
-      border-color: rgba(160, 144, 112, 0.35);
-    }
-
-    #prev-btn:hover {
-      color: #1a2e1a;
-      background: #a09070;
-      border-color: #a09070;
-    }
-
     .progress-text {
       text-align: center;
-      font-size: 0.8rem;
+      font-size: 0.78rem;
       color: #a09070;
       font-variant: small-caps;
-      letter-spacing: 0.14em;
+      letter-spacing: 0.16em;
       margin-top: 1.5rem;
     }
 
-    /* ── Screen: Loading ─────────────────────────────────────────── */
+    /* ══════════════════════════════════════════════════════════════
+       SCREEN: LOADING
+    ══════════════════════════════════════════════════════════════ */
     #screen-loading {
       display: none;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      min-height: 60vh;
+      min-height: 340px;
       text-align: center;
-      gap: 1.25rem;
-    }
-
-    #screen-loading .loading-label {
-      font-size: 1.4rem;
-      font-style: italic;
-      color: #f5f0e8;
-    }
-
-    #screen-loading .loading-sub {
-      font-size: 0.95rem;
-      color: #a09070;
-      font-style: italic;
+      gap: 1.5rem;
     }
 
     .compass-spin {
       animation: compassRotate 8s linear infinite;
-      transform-origin: center;
+      transform-origin: center center;
+      display: block;
     }
 
     @keyframes compassRotate {
@@ -296,34 +314,34 @@
       to   { transform: rotate(360deg); }
     }
 
-    /* ── Screen: Result ──────────────────────────────────────────── */
+    #screen-loading .loading-label {
+      font-size: 1.45rem;
+      font-style: italic;
+      color: #f5f0e8;
+      font-weight: 400;
+    }
+
+    #screen-loading .loading-sub {
+      font-size: 0.92rem;
+      color: #a09070;
+      font-style: italic;
+    }
+
+    /* ══════════════════════════════════════════════════════════════
+       SCREEN: RESULT
+    ══════════════════════════════════════════════════════════════ */
     #screen-result {
-      padding-top: 1rem;
+      /* inherits screen-card */
     }
 
     .result-eyebrow {
-      font-size: 0.78rem;
+      font-size: 0.76rem;
       color: #c9a84c;
       font-variant: small-caps;
-      letter-spacing: 0.18em;
+      letter-spacing: 0.2em;
       text-transform: uppercase;
       text-align: center;
-      margin-bottom: 1rem;
-    }
-
-    /* Decorative rule with compass rose centered */
-    .deco-rule {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      margin: 1rem 0;
-    }
-
-    .deco-rule::before,
-    .deco-rule::after {
-      content: '';
-      flex: 1;
-      border-top: 1px solid rgba(201, 168, 76, 0.35);
+      margin-bottom: 0.75rem;
     }
 
     .result-intro {
@@ -331,46 +349,44 @@
       font-size: 1.05rem;
       color: #c9a84c;
       text-align: center;
-      line-height: 1.7;
-      margin: 1.25rem 0 1.5rem;
-      max-width: 540px;
-      margin-left: auto;
-      margin-right: auto;
+      line-height: 1.75;
+      margin: 1.25rem auto 1.5rem;
+      max-width: 520px;
     }
 
     .result-centre {
-      font-size: 2.5rem;
+      font-size: 2.6rem;
       color: #c9a84c;
       text-align: center;
       font-weight: 400;
-      line-height: 1.35;
-      margin: 1rem 0 1.5rem;
+      line-height: 1.3;
+      margin: 0.75rem 0 1.5rem;
       font-style: italic;
-    }
-
-    @media (max-width: 480px) {
-      .result-centre {
-        font-size: 1.9rem;
-      }
+      letter-spacing: 0.01em;
     }
 
     .result-section {
       border-left: 2px solid rgba(201, 168, 76, 0.5);
-      padding-left: 1.5rem;
+      padding: 0.5rem 0.75rem 0.5rem 1.5rem;
       margin-bottom: 2rem;
+      border-radius: 0 2px 2px 0;
+      transition: background 0.2s ease;
+    }
+    .result-section:hover {
+      background: rgba(201, 168, 76, 0.04);
     }
 
-    .result-section .section-title {
-      font-size: 0.82rem;
+    .section-title {
+      font-size: 0.8rem;
       color: #c9a84c;
       font-variant: small-caps;
-      letter-spacing: 0.15em;
+      letter-spacing: 0.16em;
       text-transform: uppercase;
       font-weight: 400;
-      margin-bottom: 0.6rem;
+      margin-bottom: 0.55rem;
     }
 
-    .result-section .section-body {
+    .section-body {
       font-size: 1rem;
       color: #f5f0e8;
       line-height: 1.7;
@@ -378,45 +394,46 @@
 
     .result-closing {
       font-style: italic;
-      font-size: 0.95rem;
+      font-size: 0.93rem;
       color: #a09070;
       text-align: center;
-      line-height: 1.8;
+      line-height: 1.85;
       max-width: 480px;
-      margin: 0 auto 2rem;
+      margin: 0 auto 0.5rem;
     }
 
     .result-actions {
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 0.5rem;
-      margin-top: 1.5rem;
+      gap: 1.1rem;
+      margin-top: 2rem;
     }
 
-    /* ── Card bg for screens ─────────────────────────────────────── */
-    .screen-card {
-      background: #1f361f;
-      border: 1px solid rgba(201, 168, 76, 0.2);
-      border-radius: 4px;
-      padding: 2.5rem 2.25rem;
-      width: 100%;
+    /* ══════════════════════════════════════════════════════════════
+       RESPONSIVE
+    ══════════════════════════════════════════════════════════════ */
+    @media (max-width: 680px) {
+      body {
+        padding: 1.75rem 0.75rem 4rem;
+      }
+      .screen-card {
+        padding: 2rem 1.5rem;
+      }
     }
 
     @media (max-width: 480px) {
-      .screen-card {
-        padding: 1.75rem 1.25rem;
-      }
-    }
-
-    /* ── Responsive ──────────────────────────────────────────────── */
-    @media (max-width: 680px) {
-      body {
-        padding: 1.5rem 0.75rem 4rem;
-      }
-
       #screen-start h1 {
         font-size: 3rem;
+      }
+      .question-text {
+        font-size: 1.4rem;
+      }
+      .result-centre {
+        font-size: 2rem;
+      }
+      .question-footer {
+        flex-wrap: wrap;
       }
     }
   </style>
@@ -424,29 +441,32 @@
 <body>
   <div class="app-wrapper">
 
-    <!-- ═══════════════════════════════════════════════════════════ -->
-    <!-- SCREEN: START                                               -->
-    <!-- ═══════════════════════════════════════════════════════════ -->
+    <!-- ═══════════════════════════════════════════════════════════
+         SCREEN: START
+    ═══════════════════════════════════════════════════════════════ -->
     <div id="screen-start" class="screen-card">
       <div class="top-label">The Scholar's Path</div>
 
-      <!-- SVG Compass Rose (80px) -->
+      <!-- Compass rose 80px -->
       <div class="compass-wrap">
-        <svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <!-- Cardinal lines -->
-          <line x1="40" y1="8" x2="40" y2="72" stroke="#c9a84c" stroke-width="1.25" stroke-linecap="round"/>
-          <line x1="8" y1="40" x2="72" y2="40" stroke="#c9a84c" stroke-width="1.25" stroke-linecap="round"/>
-          <!-- Diagonal lines (shorter) -->
-          <line x1="18" y1="18" x2="62" y2="62" stroke="#c9a84c" stroke-width="0.7" stroke-linecap="round" opacity="0.5"/>
-          <line x1="62" y1="18" x2="18" y2="62" stroke="#c9a84c" stroke-width="0.7" stroke-linecap="round" opacity="0.5"/>
-          <!-- Small circles at cardinal tips -->
+        <svg width="80" height="80" viewBox="0 0 80 80" fill="none"
+             xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <!-- Cardinal arms -->
+          <line x1="40" y1="8"  x2="40" y2="72" stroke="#c9a84c" stroke-width="1.3" stroke-linecap="round"/>
+          <line x1="8"  y1="40" x2="72" y2="40" stroke="#c9a84c" stroke-width="1.3" stroke-linecap="round"/>
+          <!-- Diagonal arms (shorter, subtler) -->
+          <line x1="19" y1="19" x2="61" y2="61" stroke="#c9a84c" stroke-width="0.7" stroke-linecap="round" opacity="0.5"/>
+          <line x1="61" y1="19" x2="19" y2="61" stroke="#c9a84c" stroke-width="0.7" stroke-linecap="round" opacity="0.5"/>
+          <!-- Outer ring -->
+          <circle cx="40" cy="40" r="26" stroke="rgba(201,168,76,0.2)" stroke-width="1" fill="none"/>
+          <!-- Cardinal tip circles -->
           <circle cx="40" cy="8"  r="2.5" fill="#c9a84c"/>
           <circle cx="40" cy="72" r="2.5" fill="#c9a84c"/>
           <circle cx="8"  cy="40" r="2.5" fill="#c9a84c"/>
           <circle cx="72" cy="40" r="2.5" fill="#c9a84c"/>
-          <!-- Center circles -->
-          <circle cx="40" cy="40" r="5" stroke="#c9a84c" stroke-width="1.25" fill="#1f361f"/>
-          <circle cx="40" cy="40" r="2" fill="#c9a84c"/>
+          <!-- Center -->
+          <circle cx="40" cy="40" r="5.5" stroke="#c9a84c" stroke-width="1.3" fill="#1f361f"/>
+          <circle cx="40" cy="40" r="2"   fill="#c9a84c"/>
         </svg>
       </div>
 
@@ -454,15 +474,15 @@
       <p class="subtitle">Eight questions. Unhurried reflection. Your reason for being.</p>
       <p class="description">There are no correct answers. Write freely. The quality of your reflection determines the quality of your insight.</p>
 
-      <button id="btn-begin" class="btn">Begin &rarr;</button>
-
-      <br>
-      <a href="../../frontend/marketing.html" class="subtle-link">&larr; Return to the beginning</a>
+      <div class="start-actions">
+        <button id="btn-begin" class="btn">Begin &rarr;</button>
+        <a href="../../frontend/marketing.html" class="subtle-link">&larr; Return to the beginning</a>
+      </div>
     </div>
 
-    <!-- ═══════════════════════════════════════════════════════════ -->
-    <!-- SCREEN: QUESTION                                            -->
-    <!-- ═══════════════════════════════════════════════════════════ -->
+    <!-- ═══════════════════════════════════════════════════════════
+         SCREEN: QUESTION
+    ═══════════════════════════════════════════════════════════════ -->
     <div id="screen-question" class="screen-card" style="display:none;">
       <div class="chapter-label" id="chapter-label">Chapter I</div>
       <hr class="gold-rule">
@@ -471,48 +491,54 @@
       <textarea id="answer-textarea" rows="6" placeholder="Write whatever surfaces first..."></textarea>
 
       <div class="question-footer">
-        <button id="prev-btn" class="btn" style="display:none;">&larr; Previous</button>
+        <button id="prev-btn" class="btn btn-prev" style="display:none;">&larr; Previous</button>
         <button id="btn-continue" class="btn" style="margin-left:auto;">Continue &rarr;</button>
       </div>
 
       <p class="progress-text" id="progress-text">I of VIII</p>
     </div>
 
-    <!-- ═══════════════════════════════════════════════════════════ -->
-    <!-- SCREEN: LOADING                                             -->
-    <!-- ═══════════════════════════════════════════════════════════ -->
-    <div id="screen-loading" class="screen-card" style="display:none; flex-direction:column; align-items:center; justify-content:center; min-height:320px; text-align:center; gap:1.25rem;">
-      <!-- Animated SVG compass rose (120px) -->
-      <svg class="compass-spin" width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <line x1="60" y1="10" x2="60" y2="110" stroke="#c9a84c" stroke-width="1.4" stroke-linecap="round"/>
-        <line x1="10" y1="60" x2="110" y2="60" stroke="#c9a84c" stroke-width="1.4" stroke-linecap="round"/>
-        <line x1="24" y1="24" x2="96" y2="96" stroke="#c9a84c" stroke-width="0.8" stroke-linecap="round" opacity="0.5"/>
-        <line x1="96" y1="24" x2="24" y2="96" stroke="#c9a84c" stroke-width="0.8" stroke-linecap="round" opacity="0.5"/>
-        <circle cx="60" cy="10"  r="3.5" fill="#c9a84c"/>
-        <circle cx="60" cy="110" r="3.5" fill="#c9a84c"/>
-        <circle cx="10" cy="60"  r="3.5" fill="#c9a84c"/>
-        <circle cx="110" cy="60" r="3.5" fill="#c9a84c"/>
-        <circle cx="60" cy="60" r="8"  stroke="#c9a84c" stroke-width="1.4" fill="#1f361f"/>
-        <circle cx="60" cy="60" r="3"  fill="#c9a84c"/>
+    <!-- ═══════════════════════════════════════════════════════════
+         SCREEN: LOADING
+    ═══════════════════════════════════════════════════════════════ -->
+    <div id="screen-loading" class="screen-card"
+         style="display:none; flex-direction:column; align-items:center;
+                justify-content:center; min-height:340px;
+                text-align:center; gap:1.5rem;">
+      <!-- Animated compass rose 120px -->
+      <svg class="compass-spin" width="120" height="120" viewBox="0 0 80 80"
+           fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <line x1="40" y1="8"  x2="40" y2="72" stroke="#c9a84c" stroke-width="1.3" stroke-linecap="round"/>
+        <line x1="8"  y1="40" x2="72" y2="40" stroke="#c9a84c" stroke-width="1.3" stroke-linecap="round"/>
+        <line x1="19" y1="19" x2="61" y2="61" stroke="#c9a84c" stroke-width="0.7" stroke-linecap="round" opacity="0.5"/>
+        <line x1="61" y1="19" x2="19" y2="61" stroke="#c9a84c" stroke-width="0.7" stroke-linecap="round" opacity="0.5"/>
+        <circle cx="40" cy="40" r="26" stroke="rgba(201,168,76,0.2)" stroke-width="1" fill="none"/>
+        <circle cx="40" cy="8"  r="2.5" fill="#c9a84c"/>
+        <circle cx="40" cy="72" r="2.5" fill="#c9a84c"/>
+        <circle cx="8"  cy="40" r="2.5" fill="#c9a84c"/>
+        <circle cx="72" cy="40" r="2.5" fill="#c9a84c"/>
+        <circle cx="40" cy="40" r="5.5" stroke="#c9a84c" stroke-width="1.3" fill="#1f361f"/>
+        <circle cx="40" cy="40" r="2"   fill="#c9a84c"/>
       </svg>
 
       <p class="loading-label">Reflecting&hellip;</p>
       <p class="loading-sub">Your words are being considered.</p>
     </div>
 
-    <!-- ═══════════════════════════════════════════════════════════ -->
-    <!-- SCREEN: RESULT                                              -->
-    <!-- ═══════════════════════════════════════════════════════════ -->
+    <!-- ═══════════════════════════════════════════════════════════
+         SCREEN: RESULT
+    ═══════════════════════════════════════════════════════════════ -->
     <div id="screen-result" class="screen-card" style="display:none;">
       <p class="result-eyebrow" id="result-eyebrow">Your Reflection</p>
 
-      <!-- Decorative rule with inline compass rose -->
+      <!-- Decorative rule with compass rose centered -->
       <div class="deco-rule">
-        <svg width="28" height="28" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <svg width="28" height="28" viewBox="0 0 80 80"
+             fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
           <line x1="40" y1="8"  x2="40" y2="72" stroke="#c9a84c" stroke-width="1.5" stroke-linecap="round"/>
           <line x1="8"  y1="40" x2="72" y2="40" stroke="#c9a84c" stroke-width="1.5" stroke-linecap="round"/>
-          <line x1="18" y1="18" x2="62" y2="62" stroke="#c9a84c" stroke-width="0.8" stroke-linecap="round" opacity="0.5"/>
-          <line x1="62" y1="18" x2="18" y2="62" stroke="#c9a84c" stroke-width="0.8" stroke-linecap="round" opacity="0.5"/>
+          <line x1="19" y1="19" x2="61" y2="61" stroke="#c9a84c" stroke-width="0.8" stroke-linecap="round" opacity="0.5"/>
+          <line x1="61" y1="19" x2="19" y2="61" stroke="#c9a84c" stroke-width="0.8" stroke-linecap="round" opacity="0.5"/>
           <circle cx="40" cy="8"  r="3" fill="#c9a84c"/>
           <circle cx="40" cy="72" r="3" fill="#c9a84c"/>
           <circle cx="8"  cy="40" r="3" fill="#c9a84c"/>
@@ -522,14 +548,14 @@
         </svg>
       </div>
 
-      <p class="result-intro italic" id="result-intro"></p>
+      <p class="result-intro" id="result-intro"></p>
       <h2 class="result-centre" id="result-centre"></h2>
 
       <hr class="gold-rule">
 
       <div id="result-sections"></div>
 
-      <p class="result-closing italic" id="result-closing"></p>
+      <p class="result-closing" id="result-closing"></p>
 
       <div class="result-actions">
         <button id="btn-restart" class="btn">Begin again</button>
@@ -543,14 +569,46 @@
     window.IKIGAI_API_BASE = "";
 
     const questions = [
-      { text: "What draws your attention without effort?",                        roman: "I",    placeholder: "Write whatever surfaces first..." },
-      { text: "In what state do you feel most fully yourself?",                   roman: "II",   placeholder: "Describe a moment when you felt wholly present..." },
-      { text: "What knowledge or skill do others seek you out for?",              roman: "III",  placeholder: "What do people ask of you specifically?" },
-      { text: "What comes naturally to you that others struggle to grasp?",       roman: "IV",   placeholder: "What feels obvious to you but obscure to others?" },
-      { text: "What aspect of the human condition troubles you most deeply?",     roman: "V",    placeholder: "What injustice or suffering weighs on you?" },
-      { text: "What world would you build if you could?",                         roman: "VI",   placeholder: "Describe the world as it ought to be..." },
-      { text: "What would people pay to have you think through for them?",        roman: "VII",  placeholder: "What problems can you solve that others cannot?" },
-      { text: "What vocation would you choose if convention were no constraint?", roman: "VIII", placeholder: "Freed from expectation, what would you do?" }
+      {
+        text: "What draws your attention without effort?",
+        roman: "I",
+        placeholder: "Write whatever surfaces first..."
+      },
+      {
+        text: "In what state do you feel most fully yourself?",
+        roman: "II",
+        placeholder: "Describe a moment when you felt wholly present..."
+      },
+      {
+        text: "What knowledge or skill do others seek you out for?",
+        roman: "III",
+        placeholder: "What do people ask of you specifically?"
+      },
+      {
+        text: "What comes naturally to you that others struggle to grasp?",
+        roman: "IV",
+        placeholder: "What feels obvious to you but obscure to others?"
+      },
+      {
+        text: "What aspect of the human condition troubles you most deeply?",
+        roman: "V",
+        placeholder: "What injustice or suffering weighs on you?"
+      },
+      {
+        text: "What world would you build if you could?",
+        roman: "VI",
+        placeholder: "Describe the world as it ought to be..."
+      },
+      {
+        text: "What would people pay to have you think through for them?",
+        roman: "VII",
+        placeholder: "What problems can you solve that others cannot?"
+      },
+      {
+        text: "What vocation would you choose if convention were no constraint?",
+        roman: "VIII",
+        placeholder: "Freed from expectation, what would you do?"
+      }
     ];
 
     const romanNumerals = ["I","II","III","IV","V","VI","VII","VIII"];
@@ -559,31 +617,34 @@
     let answers = [];
     let state = "start"; // "start" | "question" | "loading" | "result"
 
-    /* ── Local fallback ──────────────────────────────────────────── */
+    /* ── Local fallback synthesis ──────────────────────────────── */
     function buildLocalFallback(answers) {
+      const words = answers[0].trim().split(/\s+/);
+      const centre = words.slice(0, 3).join(' ') + (words.length > 3 ? '…' : '');
+
       return {
         eyebrow: "Your Reflection",
         centre_intro: "Drawn from your own words, a pattern emerges — not as prescription, but as recognition.",
-        centre: answers[0].trim().split(/\s+/).slice(0, 3).join(' ') + (answers[0].trim().split(/\s+/).length > 3 ? '...' : ''),
+        centre: centre,
         sections: [
           {
             title: "What You Love",
-            body: `You described being drawn to: "${answers[0].trim()}". And feeling most fully yourself when: "${answers[1].trim()}". These are not accidents — they are the first coordinates of your nature.`,
+            body: "You described being drawn to: “" + answers[0].trim() + "”. And feeling most fully yourself when: “" + answers[1].trim() + "”. These are not accidents — they are the first coordinates of your nature.",
             domain: "love"
           },
           {
-            title: "What You're Good At",
-            body: `Others seek you for: "${answers[2].trim()}". What comes naturally: "${answers[3].trim()}". Mastery that feels effortless to you is often invisible to you — but visible to everyone else.`,
+            title: "What You’re Good At",
+            body: "Others seek you for: “" + answers[2].trim() + "”. What comes naturally: “" + answers[3].trim() + "”. Mastery that feels effortless to you is often invisible to you — but visible to everyone else.",
             domain: "good_at"
           },
           {
             title: "What the World Needs",
-            body: `You are troubled by: "${answers[4].trim()}". The world you would build: "${answers[5].trim()}". The wound you see most clearly is often the one you are meant to tend.`,
+            body: "You are troubled by: “" + answers[4].trim() + "”. The world you would build: “" + answers[5].trim() + "”. The wound you see most clearly is often the one you are meant to tend.",
             domain: "world_needs"
           },
           {
             title: "What You Can Be Paid For",
-            body: `People would engage you for: "${answers[6].trim()}". Your unconstrained vocation: "${answers[7].trim()}". Where gift meets need, livelihood follows.`,
+            body: "People would engage you for: “" + answers[6].trim() + "”. Your unconstrained vocation: “" + answers[7].trim() + "”. Where gift meets need, livelihood follows.",
             domain: "paid_for"
           }
         ],
@@ -591,16 +652,16 @@
       };
     }
 
-    /* ── API call ────────────────────────────────────────────────── */
+    /* ── API submission with fallback ──────────────────────────── */
     async function submitAnswers() {
       setState("loading");
       try {
-        const response = await fetch(`${window.IKIGAI_API_BASE}/api/ikigai`, {
+        const response = await fetch((window.IKIGAI_API_BASE || "") + "/api/ikigai", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ answers: answers, lang: "en" })
         });
-        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        if (!response.ok) throw new Error("HTTP " + response.status);
         const data = await response.json();
         renderResult(data);
       } catch (err) {
@@ -610,43 +671,32 @@
       setState("result");
     }
 
-    /* ── State machine ───────────────────────────────────────────── */
+    /* ── Screen state management ───────────────────────────────── */
     function setState(newState) {
       state = newState;
-      const startEl    = document.getElementById("screen-start");
-      const questionEl = document.getElementById("screen-question");
-      const loadingEl  = document.getElementById("screen-loading");
-      const resultEl   = document.getElementById("screen-result");
-
-      startEl.style.display    = newState === "start"    ? "block"        : "none";
-      questionEl.style.display = newState === "question" ? "block"        : "none";
-      loadingEl.style.display  = newState === "loading"  ? "flex"         : "none";
-      resultEl.style.display   = newState === "result"   ? "block"        : "none";
-
-      // Scroll to top of card on state change
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      document.getElementById("screen-start").style.display    = newState === "start"    ? "block" : "none";
+      document.getElementById("screen-question").style.display = newState === "question" ? "block" : "none";
+      document.getElementById("screen-loading").style.display  = newState === "loading"  ? "flex"  : "none";
+      document.getElementById("screen-result").style.display   = newState === "result"   ? "block" : "none";
+      window.scrollTo({ top: 0, behavior: "smooth" });
     }
 
-    /* ── Render question ─────────────────────────────────────────── */
+    /* ── Render a question ─────────────────────────────────────── */
     function renderQuestion(index) {
       const q = questions[index];
-      document.getElementById("chapter-label").textContent = "Chapter " + q.roman;
-      document.getElementById("question-text").textContent  = q.text;
-      document.getElementById("answer-textarea").value       = answers[index] || "";
-      document.getElementById("answer-textarea").placeholder = q.placeholder;
-      document.getElementById("answer-textarea").style.borderColor = "";
-      document.getElementById("progress-text").textContent   = romanNumerals[index] + " of VIII";
-
-      const prevBtn = document.getElementById("prev-btn");
-      prevBtn.style.display = index > 0 ? "inline-block" : "none";
-
-      // Focus textarea for accessibility
-      setTimeout(() => {
-        document.getElementById("answer-textarea").focus();
-      }, 80);
+      document.getElementById("chapter-label").textContent        = "Chapter " + q.roman;
+      document.getElementById("question-text").textContent        = q.text;
+      const ta = document.getElementById("answer-textarea");
+      ta.value                = answers[index] || "";
+      ta.placeholder          = q.placeholder;
+      ta.style.borderColor    = "";
+      ta.style.boxShadow      = "";
+      document.getElementById("progress-text").textContent        = romanNumerals[index] + " of VIII";
+      document.getElementById("prev-btn").style.display           = index > 0 ? "inline-block" : "none";
+      setTimeout(function() { ta.focus(); }, 80);
     }
 
-    /* ── Render result ───────────────────────────────────────────── */
+    /* ── Render result ─────────────────────────────────────────── */
     function renderResult(data) {
       document.getElementById("result-eyebrow").textContent = data.eyebrow || "";
       document.getElementById("result-intro").textContent   = data.centre_intro || "";
@@ -656,42 +706,44 @@
       const sectionsEl = document.getElementById("result-sections");
       sectionsEl.innerHTML = "";
       if (data.sections) {
-        data.sections.forEach((section, i) => {
+        data.sections.forEach(function(section, i) {
           const div = document.createElement("div");
           div.className = "result-section";
-          div.innerHTML = `<h3 class="section-title">${romanNumerals[i]} · ${escapeHtml(section.title)}</h3><p class="section-body">${escapeHtml(section.body)}</p>`;
+          const h3  = document.createElement("h3");
+          h3.className = "section-title";
+          h3.textContent = romanNumerals[i] + " · " + section.title;
+          const p = document.createElement("p");
+          p.className = "section-body";
+          p.textContent = section.body;
+          div.appendChild(h3);
+          div.appendChild(p);
           sectionsEl.appendChild(div);
         });
       }
     }
 
-    /* ── Utility: HTML-escape ────────────────────────────────────── */
-    function escapeHtml(str) {
-      return String(str)
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;");
-    }
-
-    /* ── Event listeners ─────────────────────────────────────────── */
-    document.addEventListener("DOMContentLoaded", () => {
+    /* ── Bootstrap ─────────────────────────────────────────────── */
+    document.addEventListener("DOMContentLoaded", function() {
       setState("start");
 
-      document.getElementById("btn-begin").addEventListener("click", () => {
+      document.getElementById("btn-begin").addEventListener("click", function() {
         currentQuestion = 0;
         answers = [];
         setState("question");
         renderQuestion(0);
       });
 
-      document.getElementById("btn-continue").addEventListener("click", () => {
-        const val = document.getElementById("answer-textarea").value.trim();
+      document.getElementById("btn-continue").addEventListener("click", function() {
+        const ta  = document.getElementById("answer-textarea");
+        const val = ta.value.trim();
         if (!val) {
-          const ta = document.getElementById("answer-textarea");
-          ta.style.borderColor = "rgba(201,100,100,0.6)";
+          ta.style.borderColor = "rgba(201,90,90,0.65)";
+          ta.style.boxShadow   = "0 0 0 3px rgba(201,90,90,0.1)";
           ta.focus();
-          setTimeout(() => { ta.style.borderColor = ""; }, 1500);
+          setTimeout(function() {
+            ta.style.borderColor = "";
+            ta.style.boxShadow   = "";
+          }, 1500);
           return;
         }
         answers[currentQuestion] = val;
@@ -703,21 +755,21 @@
         }
       });
 
-      document.getElementById("prev-btn").addEventListener("click", () => {
+      document.getElementById("prev-btn").addEventListener("click", function() {
         const val = document.getElementById("answer-textarea").value.trim();
         if (val) answers[currentQuestion] = val;
         currentQuestion--;
         renderQuestion(currentQuestion);
       });
 
-      document.getElementById("btn-restart").addEventListener("click", () => {
+      document.getElementById("btn-restart").addEventListener("click", function() {
         currentQuestion = 0;
         answers = [];
         setState("start");
       });
 
-      // Allow Ctrl+Enter or Cmd+Enter to advance
-      document.getElementById("answer-textarea").addEventListener("keydown", (e) => {
+      /* Ctrl/Cmd+Enter to advance from textarea */
+      document.getElementById("answer-textarea").addEventListener("keydown", function(e) {
         if ((e.ctrlKey || e.metaKey) && e.key === "Enter") {
           e.preventDefault();
           document.getElementById("btn-continue").click();
