@@ -36,6 +36,7 @@ class IkigaiResponse(BaseModel):
     closing: str
 
 
+@app.get("/health")
 @app.get("/api/health")
 def health():
     return {"status": "ok", "service": "ikigai"}
