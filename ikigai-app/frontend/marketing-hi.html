@@ -1,0 +1,1081 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>生き甲斐 · इकिगाई — जीवन का उद्देश्य खोजें</title>
+  <meta name="description" content="इकिगाई: जीवन के उद्देश्य की जापानी दर्शन-परंपरा। भारतीय स्वधर्म, कर्मयोग और पुरुषार्थ से जुड़ी एक गहरी खोज — उन विचारशील भारतीयों के लिए जो जानते हैं कि जीवन केवल जीने के लिए नहीं, सार्थक करने के लिए है।" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@300;400;500;600;700&family=Noto+Serif:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg:          #080814;
+      --accent:      #e8821a;
+      --gold:        #d4aa00;
+      --text:        #f5f0e4;
+      --muted:       rgba(245,240,228,0.60);
+      --card-bg:     #0e0e20;
+      --border:      rgba(232,130,26,0.30);
+      --gold-border: rgba(212,170,0,0.28);
+      --devanagari:  'Noto Sans Devanagari', system-ui, sans-serif;
+      --serif:       'Noto Serif', Georgia, serif;
+      --sans:        system-ui, -apple-system, 'Segoe UI', sans-serif;
+      --ease:        0.28s ease;
+      --r:           8px;
+      --max:         1100px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--devanagari);
+      font-size: 16px;
+      line-height: 1.80;
+      overflow-x: hidden;
+    }
+    a { color: var(--accent); text-decoration: none; transition: color var(--ease), opacity var(--ease); }
+    a:hover { color: var(--gold); }
+
+    .container { max-width: var(--max); margin: 0 auto; width: 100%; padding: 0 2rem; }
+
+    /* ── LANGUAGE NAV ───────────────────────────────── */
+    .lang-nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(8,8,20,0.88);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 2rem;
+    }
+    .lang-nav .container {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      height: 46px;
+    }
+    .lang-nav-label {
+      font-size: 0.70rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-right: 1.2rem;
+      font-family: var(--sans);
+      white-space: nowrap;
+    }
+    .lang-link {
+      display: inline-flex;
+      align-items: center;
+      height: 46px;
+      padding: 0 0.88rem;
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      color: var(--muted);
+      border-bottom: 2px solid transparent;
+      font-family: var(--sans);
+      transition: color var(--ease), border-color var(--ease);
+    }
+    .lang-link:hover { color: var(--text); }
+    .lang-link--active { color: var(--accent); border-bottom-color: var(--accent); }
+
+    /* ── SECTION HEADING ────────────────────────────── */
+    .section-heading {
+      font-family: var(--serif);
+      font-size: clamp(1.7rem, 3.8vw, 2.6rem);
+      color: var(--text);
+      text-align: center;
+      margin-bottom: 3.5rem;
+      position: relative;
+      padding-bottom: 1.2rem;
+    }
+    .section-heading::after {
+      content: '';
+      display: block;
+      position: absolute;
+      bottom: 0; left: 50%;
+      transform: translateX(-50%);
+      width: 60px; height: 2px;
+      background: linear-gradient(90deg, var(--accent), var(--gold));
+    }
+
+    /* ── HERO ───────────────────────────────────────── */
+    .hero {
+      position: relative;
+      overflow: hidden;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 4rem 2rem;
+      background: radial-gradient(ellipse at 50% 30%, #1a0d04 0%, #0a0618 45%, var(--bg) 70%);
+    }
+    .hero-bg { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
+    .hero-circle { position: absolute; border-radius: 50%; }
+
+    @keyframes floatUp    { 0%{transform:translateY(0)scale(1);opacity:.06}100%{transform:translateY(-65px)scale(1.07);opacity:.16} }
+    @keyframes floatDrift { 0%{transform:translate(0,0)scale(1);opacity:.05}100%{transform:translate(35px,-55px)scale(1.09);opacity:.15} }
+    @keyframes floatSway  { 0%{transform:translate(0,0)rotate(0);opacity:.08}100%{transform:translate(-42px,-38px)rotate(18deg);opacity:.17} }
+    @keyframes floatPulse { 0%{transform:scale(1);opacity:.04}100%{transform:scale(1.14);opacity:.14} }
+    @keyframes flamePulse { 0%{opacity:.12;transform:scale(1)}50%{opacity:.22;transform:scale(1.06)}100%{opacity:.12;transform:scale(1)} }
+
+    .hero-circle:nth-child(1)  {width:220px;height:220px;top:8%;left:5%;background:rgba(232,130,26,.07);border:1px solid rgba(232,130,26,.12);animation:floatUp 22s ease-in-out infinite alternate}
+    .hero-circle:nth-child(2)  {width:80px;height:80px;top:18%;left:22%;background:rgba(212,170,0,.10);border:2px solid rgba(212,170,0,.18);animation:floatDrift 18s ease-in-out infinite alternate;animation-delay:-3s}
+    .hero-circle:nth-child(3)  {width:150px;height:150px;top:5%;right:10%;background:transparent;border:2px solid rgba(232,130,26,.14);animation:floatSway 28s ease-in-out infinite alternate;animation-delay:-8s}
+    .hero-circle:nth-child(4)  {width:60px;height:60px;top:34%;right:18%;background:rgba(212,170,0,.12);border:1px solid rgba(212,170,0,.14);animation:floatPulse 15s ease-in-out infinite alternate;animation-delay:-2s}
+    .hero-circle:nth-child(5)  {width:190px;height:190px;bottom:13%;left:3%;background:transparent;border:1px solid rgba(232,130,26,.09);animation:floatDrift 35s ease-in-out infinite alternate;animation-delay:-12s}
+    .hero-circle:nth-child(6)  {width:50px;height:50px;bottom:24%;left:28%;background:rgba(212,170,0,.11);border:1px solid rgba(212,170,0,.16);animation:floatUp 20s ease-in-out infinite alternate;animation-delay:-5s}
+    .hero-circle:nth-child(7)  {width:120px;height:120px;bottom:9%;right:7%;background:rgba(232,130,26,.07);border:1px solid rgba(232,130,26,.12);animation:floatSway 32s ease-in-out infinite alternate;animation-delay:-18s}
+    .hero-circle:nth-child(8)  {width:30px;height:30px;top:54%;left:14%;background:rgba(212,170,0,.15);animation:flamePulse 10s ease-in-out infinite;animation-delay:-4s}
+    .hero-circle:nth-child(9)  {width:90px;height:90px;top:64%;right:33%;background:transparent;border:2px solid rgba(232,130,26,.11);animation:floatUp 25s ease-in-out infinite alternate;animation-delay:-10s}
+    .hero-circle:nth-child(10) {width:170px;height:170px;top:44%;left:42%;background:transparent;border:1px solid rgba(212,170,0,.06);animation:floatDrift 40s ease-in-out infinite alternate;animation-delay:-20s}
+
+    .hero-content { position: relative; z-index: 1; max-width: 780px; }
+    .hero-kanji {
+      font-family: var(--serif);
+      font-size: clamp(3.2rem, 10vw, 7rem);
+      color: var(--gold);
+      text-shadow: 0 0 28px rgba(232,130,26,.6), 0 0 55px rgba(212,170,0,.35), 0 0 90px rgba(212,170,0,.15);
+      letter-spacing: .04em;
+      line-height: 1.15;
+      margin-bottom: 1rem;
+    }
+    .hero-title {
+      font-family: var(--devanagari);
+      font-size: clamp(1.9rem, 5vw, 3.2rem);
+      font-weight: 600;
+      color: var(--text);
+      line-height: 1.28;
+      margin-bottom: 0.8rem;
+      letter-spacing: 0.01em;
+    }
+    .hero-tagline {
+      font-family: var(--devanagari);
+      font-size: clamp(1.1rem, 2.4vw, 1.5rem);
+      color: rgba(245,240,228,0.70);
+      margin-bottom: 0.7rem;
+      letter-spacing: 0.02em;
+    }
+    .hero-eyebrow {
+      font-size: 0.78rem;
+      letter-spacing: .13em;
+      text-transform: uppercase;
+      color: rgba(232,130,26,.75);
+      margin-bottom: 2.8rem;
+      font-family: var(--sans);
+    }
+    .btn-cta {
+      display: inline-block;
+      padding: .95rem 2.4rem;
+      border: 2px solid var(--accent);
+      border-radius: 4px;
+      color: var(--accent);
+      font-family: var(--devanagari);
+      font-size: 1.05rem;
+      font-weight: 500;
+      letter-spacing: .03em;
+      background: transparent;
+      transition: background-color var(--ease), color var(--ease), box-shadow var(--ease);
+    }
+    .btn-cta:hover {
+      background: var(--accent);
+      color: #080814;
+      box-shadow: 0 0 30px rgba(232,130,26,.45);
+    }
+
+    /* ── ETYMOLOGY ──────────────────────────────────── */
+    .section-etymology {
+      padding: 6rem 2rem;
+      background: linear-gradient(135deg, #080810 0%, #0c0a1a 50%, #080810 100%);
+      border-top: 1px solid rgba(232,130,26,.12);
+      border-bottom: 1px solid rgba(232,130,26,.12);
+    }
+    .etymology-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: start;
+    }
+    .etymology-text { color: var(--muted); font-size: .98rem; line-height: 1.85; }
+    .etymology-text p { margin-bottom: 1.2rem; }
+    .etymology-text strong { color: var(--text); }
+    .etymology-text em { color: var(--accent); font-style: normal; }
+    .kanji-block { display: flex; flex-direction: column; gap: 1.4rem; }
+    .kanji-card {
+      background: var(--card-bg);
+      border-left: 3px solid var(--accent);
+      border-radius: 0 var(--r) var(--r) 0;
+      padding: 1.3rem 1.6rem;
+    }
+    .kanji-char {
+      font-family: var(--serif);
+      font-size: 2.8rem;
+      color: var(--gold);
+      line-height: 1;
+      margin-bottom: .5rem;
+      text-shadow: 0 0 20px rgba(212,170,0,.35);
+    }
+    .kanji-roman {
+      font-size: .78rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      font-family: var(--sans);
+      margin-bottom: .3rem;
+    }
+    .kanji-meaning {
+      font-size: .97rem;
+      color: var(--text);
+      font-family: var(--devanagari);
+      margin-bottom: .25rem;
+    }
+    .kanji-meaning-sub {
+      font-size: .84rem;
+      color: var(--muted);
+      font-family: var(--devanagari);
+    }
+    .sanskrit-callout {
+      margin-top: 2rem;
+      padding: 1.4rem 1.8rem;
+      border: 1px solid var(--gold-border);
+      border-radius: var(--r);
+      background: rgba(212,170,0,.04);
+    }
+    .sanskrit-callout .label {
+      font-size: .72rem;
+      letter-spacing: .13em;
+      text-transform: uppercase;
+      color: var(--gold);
+      font-family: var(--sans);
+      margin-bottom: .6rem;
+    }
+    .sanskrit-word {
+      font-size: 2rem;
+      font-family: var(--devanagari);
+      font-weight: 600;
+      color: var(--gold);
+      margin-bottom: .3rem;
+      text-shadow: 0 0 16px rgba(212,170,0,.3);
+    }
+    .sanskrit-meaning {
+      font-size: .93rem;
+      color: var(--muted);
+      font-family: var(--devanagari);
+    }
+
+    /* ── INDIAN PHILOSOPHY ──────────────────────────── */
+    .section-philosophy {
+      padding: 6rem 2rem;
+      background: var(--bg);
+    }
+    .philosophy-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.8rem;
+    }
+    .phil-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      padding: 2rem 1.8rem;
+      transition: border-color var(--ease), box-shadow var(--ease);
+    }
+    .phil-card:hover {
+      border-color: rgba(232,130,26,.55);
+      box-shadow: 0 4px 32px rgba(232,130,26,.10);
+    }
+    .phil-label {
+      font-size: .70rem;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      font-family: var(--sans);
+      margin-bottom: .5rem;
+    }
+    .phil-title {
+      font-family: var(--devanagari);
+      font-size: 1.6rem;
+      font-weight: 600;
+      color: var(--gold);
+      margin-bottom: .2rem;
+      line-height: 1.3;
+    }
+    .phil-title-roman {
+      font-size: .82rem;
+      color: rgba(212,170,0,.65);
+      font-family: var(--sans);
+      margin-bottom: 1rem;
+      letter-spacing: .05em;
+    }
+    .phil-verse {
+      font-family: var(--devanagari);
+      font-size: .96rem;
+      color: rgba(245,240,228,.85);
+      line-height: 1.9;
+      border-left: 2px solid rgba(232,130,26,.35);
+      padding-left: 1rem;
+      margin-bottom: .9rem;
+      font-style: normal;
+    }
+    .phil-source {
+      font-size: .73rem;
+      color: var(--accent);
+      font-family: var(--sans);
+      letter-spacing: .06em;
+      margin-bottom: 1rem;
+    }
+    .phil-body {
+      font-size: .93rem;
+      color: var(--muted);
+      font-family: var(--devanagari);
+      line-height: 1.82;
+    }
+    .phil-body strong { color: var(--text); }
+
+    /* ── VENN DIAGRAM ───────────────────────────────── */
+    .section-venn {
+      padding: 6rem 2rem;
+      background: linear-gradient(180deg, #060610 0%, #0a0818 50%, #060610 100%);
+      border-top: 1px solid rgba(232,130,26,.10);
+      border-bottom: 1px solid rgba(232,130,26,.10);
+    }
+    .venn-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2.4rem;
+    }
+    .venn-svg-container {
+      width: 100%;
+      max-width: 580px;
+    }
+    .venn-svg-container svg {
+      width: 100%;
+      height: auto;
+    }
+    .venn-caption {
+      max-width: 620px;
+      text-align: center;
+      color: var(--muted);
+      font-size: .94rem;
+      font-family: var(--devanagari);
+      line-height: 1.75;
+    }
+
+    /* ── QUOTES ─────────────────────────────────────── */
+    .section-quotes {
+      padding: 6rem 2rem;
+      background: var(--bg);
+    }
+    .quotes-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.8rem;
+    }
+    .quote-card {
+      background: var(--card-bg);
+      border: 1px solid var(--gold-border);
+      border-radius: var(--r);
+      padding: 2rem 1.8rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      transition: border-color var(--ease), box-shadow var(--ease);
+    }
+    .quote-card:hover {
+      border-color: rgba(212,170,0,.45);
+      box-shadow: 0 4px 28px rgba(212,170,0,.09);
+    }
+    .quote-mark {
+      font-family: var(--serif);
+      font-size: 3.5rem;
+      color: var(--accent);
+      line-height: 1;
+      opacity: .5;
+      margin-bottom: -.6rem;
+    }
+    .quote-text {
+      font-family: var(--devanagari);
+      font-size: 1rem;
+      color: var(--text);
+      line-height: 1.85;
+    }
+    .quote-text .verse {
+      display: block;
+      font-size: .9rem;
+      color: rgba(245,240,228,.75);
+      margin-bottom: .5rem;
+    }
+    .quote-author {
+      font-size: .78rem;
+      color: var(--accent);
+      font-family: var(--sans);
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      margin-top: auto;
+      padding-top: .5rem;
+      border-top: 1px solid rgba(232,130,26,.18);
+    }
+
+    /* ── SOURCE LIBRARY ─────────────────────────────── */
+    .section-sources {
+      padding: 6rem 2rem;
+      background: linear-gradient(135deg, #08080f 0%, #0c0a1c 60%, #08080f 100%);
+      border-top: 1px solid rgba(212,170,0,.10);
+    }
+    .sources-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+    .source-card {
+      background: var(--card-bg);
+      border: 1px solid rgba(232,130,26,.20);
+      border-radius: var(--r);
+      padding: 1.6rem 1.5rem;
+      transition: border-color var(--ease), transform var(--ease);
+    }
+    .source-card:hover {
+      border-color: var(--border);
+      transform: translateY(-2px);
+    }
+    .source-author {
+      font-size: .78rem;
+      font-family: var(--sans);
+      color: var(--accent);
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      margin-bottom: .4rem;
+    }
+    .source-title {
+      font-style: italic;
+      font-family: var(--serif);
+      font-size: 1rem;
+      color: var(--text);
+      margin-bottom: .3rem;
+      line-height: 1.4;
+    }
+    .source-pub {
+      font-size: .78rem;
+      color: rgba(245,240,228,.45);
+      font-family: var(--sans);
+      margin-bottom: .8rem;
+    }
+    .source-note {
+      font-size: .88rem;
+      color: var(--muted);
+      font-family: var(--devanagari);
+      line-height: 1.7;
+      margin-bottom: .9rem;
+    }
+    .source-link {
+      font-size: .72rem;
+      font-family: var(--sans);
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--gold);
+      opacity: .7;
+      transition: opacity var(--ease);
+    }
+    .source-link:hover { opacity: 1; color: var(--gold); }
+
+    /* ── PATHS ──────────────────────────────────────── */
+    .section-paths {
+      padding: 6rem 2rem;
+      background: var(--bg);
+    }
+    .paths-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.8rem;
+    }
+    .path-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      padding: 2.2rem 1.8rem;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+      transition: border-color var(--ease), box-shadow var(--ease), transform var(--ease);
+    }
+    .path-card:hover {
+      border-color: var(--accent);
+      box-shadow: 0 6px 40px rgba(232,130,26,.14);
+      transform: translateY(-3px);
+    }
+    .path-icon {
+      font-size: 2.4rem;
+      line-height: 1;
+    }
+    .path-label {
+      font-size: .68rem;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      font-family: var(--sans);
+    }
+    .path-title {
+      font-family: var(--devanagari);
+      font-size: 1.35rem;
+      font-weight: 600;
+      color: var(--gold);
+      line-height: 1.3;
+    }
+    .path-subtitle {
+      font-size: .82rem;
+      color: rgba(212,170,0,.6);
+      font-family: var(--sans);
+      font-style: italic;
+    }
+    .path-desc {
+      font-size: .91rem;
+      color: var(--muted);
+      font-family: var(--devanagari);
+      line-height: 1.78;
+    }
+    .path-cta {
+      display: inline-block;
+      margin-top: .5rem;
+      padding: .6rem 1.5rem;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      font-size: .84rem;
+      font-family: var(--devanagari);
+      color: var(--accent);
+      transition: background var(--ease), border-color var(--ease), color var(--ease);
+    }
+    .path-cta:hover {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #080814;
+    }
+
+    /* ── FOOTER ─────────────────────────────────────── */
+    footer {
+      padding: 4rem 2rem 2.5rem;
+      background: #05050e;
+      border-top: 1px solid rgba(232,130,26,.15);
+      text-align: center;
+    }
+    .footer-verse {
+      max-width: 640px;
+      margin: 0 auto 2.5rem;
+    }
+    .footer-verse .verse-text {
+      font-family: var(--devanagari);
+      font-size: 1.1rem;
+      color: var(--text);
+      line-height: 1.9;
+      margin-bottom: .5rem;
+    }
+    .footer-verse .verse-attr {
+      font-size: .8rem;
+      color: var(--accent);
+      font-family: var(--sans);
+      letter-spacing: .08em;
+    }
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: .2rem .6rem;
+      margin-bottom: 1.8rem;
+    }
+    .footer-links a {
+      font-size: .76rem;
+      color: var(--muted);
+      font-family: var(--sans);
+      padding: 0 .4rem;
+      border-right: 1px solid rgba(245,240,228,.15);
+    }
+    .footer-links a:last-child { border-right: none; }
+    .footer-links a:hover { color: var(--accent); }
+    .footer-copy {
+      font-size: .73rem;
+      color: rgba(245,240,228,.25);
+      font-family: var(--sans);
+    }
+
+    /* ── DIVIDER ORNAMENT ───────────────────────────── */
+    .ornament {
+      text-align: center;
+      color: var(--accent);
+      opacity: .45;
+      font-size: 1.2rem;
+      margin: 0 auto 3.5rem;
+      letter-spacing: .4em;
+    }
+
+    /* ── RESPONSIVE ─────────────────────────────────── */
+    @media (max-width: 768px) {
+      .etymology-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .philosophy-grid { grid-template-columns: 1fr; }
+      .quotes-grid { grid-template-columns: 1fr; }
+      .sources-grid { grid-template-columns: 1fr 1fr; }
+      .paths-grid { grid-template-columns: 1fr; }
+      .lang-nav-label { display: none; }
+      .lang-link { padding: 0 .65rem; font-size: .73rem; }
+    }
+    @media (max-width: 520px) {
+      .sources-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════════
+     LANGUAGE NAV
+═══════════════════════════════════════════════════ -->
+<nav class="lang-nav" aria-label="Language selection">
+  <div class="container">
+    <span class="lang-nav-label">Language</span>
+    <a href="marketing.html" class="lang-link">English</a>
+    <a href="marketing-zh.html" class="lang-link">中文</a>
+    <a href="marketing-es.html" class="lang-link">Español</a>
+    <a href="marketing-fr.html" class="lang-link">Français</a>
+    <a href="marketing-hi.html" class="lang-link lang-link--active">हिन्दी</a>
+  </div>
+</nav>
+
+<!-- ══════════════════════════════════════════════════
+     HERO
+═══════════════════════════════════════════════════ -->
+<section class="hero">
+  <div class="hero-bg" aria-hidden="true">
+    <div class="hero-circle"></div>
+    <div class="hero-circle"></div>
+    <div class="hero-circle"></div>
+    <div class="hero-circle"></div>
+    <div class="hero-circle"></div>
+    <div class="hero-circle"></div>
+    <div class="hero-circle"></div>
+    <div class="hero-circle"></div>
+    <div class="hero-circle"></div>
+    <div class="hero-circle"></div>
+  </div>
+  <div class="hero-content">
+    <div class="hero-kanji" aria-label="Ikigai in Japanese kanji">生き甲斐</div>
+    <h1 class="hero-title">जीवन का उद्देश्य</h1>
+    <p class="hero-tagline">आप किस लिए जीते हैं?</p>
+    <p class="hero-eyebrow">ikigai · 生き甲斐 · इकिगाई</p>
+    <a href="index.html" class="btn-cta">अपना इकिगाई खोजें →</a>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════
+     ETYMOLOGY — व्युत्पत्ति
+═══════════════════════════════════════════════════ -->
+<section class="section-etymology" aria-labelledby="etymology-heading">
+  <div class="container">
+    <h2 class="section-heading" id="etymology-heading">व्युत्पत्ति</h2>
+    <div class="ornament">॰ ॰ ॰</div>
+    <div class="etymology-grid">
+      <div class="etymology-text">
+        <p>
+          जापानी भाषा में कुछ ऐसे शब्द होते हैं जो अनुवाद में पिघल जाते हैं — उनका सार किसी और भाषा में
+          उतना गहरा नहीं उतरता। <em>इकिगाई</em> उनमें से एक है।
+        </p>
+        <p>
+          यह दो शब्दों का संयोग है: <strong>生き (iki)</strong> — जीना, साँस लेना, अस्तित्व में रहना;
+          और <strong>甲斐 (kai)</strong> — मूल्य, वह फल जो प्रयास को सार्थक बनाए, वह कारण जिसके लिए
+          जागना उचित हो। मिलकर ये शब्द एक ऐसे भाव को जन्म देते हैं जिसका हिंदी में समतुल्य है —
+          <em>जीवन का वह केंद्रीय कारण जो हमें हर सुबह उठने की शक्ति देता है।</em>
+        </p>
+        <p>
+          रोचक बात यह है कि संस्कृत में भी इस भाव के लिए एक सटीक शब्द विद्यमान है। <strong>सार्थक</strong>
+          (sārthak) — सार्थक का अर्थ है वह जिसमें अर्थ हो, जो उद्देश्यपूर्ण हो। <em>स</em> (साथ) +
+          <em>अर्थ</em> (अर्थ/उद्देश्य) + <em>क</em> (युक्त) = जो अर्थ से युक्त हो।
+        </p>
+        <p>
+          पूर्व और पश्चिम, जापान और भारत — दोनों सभ्यताओं ने स्वतंत्र रूप से उस गहन प्रश्न का उत्तर
+          खोजने की चेष्टा की जो हर चेतन प्राणी के मन में उठता है: <strong>मैं क्यों हूँ? मेरा होना
+          किस बात को सार्थक बनाता है?</strong>
+        </p>
+        <div class="sanskrit-callout">
+          <div class="label">संस्कृत समतुल्य</div>
+          <div class="sanskrit-word">सार्थक</div>
+          <div class="sanskrit-meaning">sārthak — अर्थ से युक्त, उद्देश्यपूर्ण, सार्थ। वह जो केवल अस्तित्व में न हो, बल्कि जिसके होने का कारण हो।</div>
+        </div>
+      </div>
+      <div class="kanji-block">
+        <div class="kanji-card">
+          <div class="kanji-char">生き</div>
+          <div class="kanji-roman">Iki — जीवन-क्रिया</div>
+          <div class="kanji-meaning">जीना · साँस लेना · अस्तित्व में रहना</div>
+          <div class="kanji-meaning-sub">जीवन का वह सक्रिय पहलू जो केवल जैविक नहीं, चेतन है। जब आप 'iki' कहते हैं तो आप केवल जीवित होने की नहीं, जीवंत होने की बात करते हैं।</div>
+        </div>
+        <div class="kanji-card">
+          <div class="kanji-char">甲斐</div>
+          <div class="kanji-roman">Kai — सार्थकता का फल</div>
+          <div class="kanji-meaning">मूल्य · प्रयोजन · वह फल जो परिश्रम को सार्थक बनाए</div>
+          <div class="kanji-meaning-sub">甲斐 मूलतः एक पुराना जापानी प्रांत का नाम था। कालांतर में यह उस भाव का प्रतीक बना जो किसी कार्य को केवल करने से नहीं, उसके सार्थक होने से प्राप्त होता है।</div>
+        </div>
+        <div class="kanji-card">
+          <div class="kanji-char">生き甲斐</div>
+          <div class="kanji-roman">Ikigai — जीवन का कारण</div>
+          <div class="kanji-meaning">जीवन का वह उद्देश्य जिसके लिए प्रतिदिन उठना उचित है</div>
+          <div class="kanji-meaning-sub">यह दार्शनिक अवधारणा ओकिनावा के दीर्घजीवी लोगों के जीवन के अध्ययन से चर्चा में आई। मनोवैज्ञानिक मिएको कामिया ने 1966 में इसे अकादमिक रूप दिया।</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════
+     INDIAN PHILOSOPHY — भारतीय दर्शन
+═══════════════════════════════════════════════════ -->
+<section class="section-philosophy" aria-labelledby="philosophy-heading">
+  <div class="container">
+    <h2 class="section-heading" id="philosophy-heading">भारतीय दर्शन में इकिगाई</h2>
+    <div class="ornament">ॐ ॰ ॐ</div>
+    <div class="philosophy-grid">
+
+      <div class="phil-card">
+        <div class="phil-label">भगवद्गीता · अध्याय 18</div>
+        <div class="phil-title">स्वधर्म</div>
+        <div class="phil-title-roman">Swadharma — Your Own Path</div>
+        <blockquote class="phil-verse">
+          श्रेयान्स्वधर्मो विगुणः परधर्मात्स्वनुष्ठितात्।<br/>
+          स्वधर्मे निधनं श्रेयः परधर्मो भयावहः॥
+        </blockquote>
+        <div class="phil-source">गीता 18:47 — श्रीकृष्ण · अर्जुन को</div>
+        <p class="phil-body">
+          "अपना धर्म, चाहे वह अपूर्ण रूप से पालित हो, दूसरे के सुनिष्ठित धर्म से श्रेष्ठ है।"
+          <br/><br/>
+          आपका इकिगाई आपका <strong>स्वधर्म</strong> है — वह मार्ग जो आपके स्वभाव, प्रतिभा
+          और उद्देश्य से उत्पन्न होता है। इसे उधार नहीं लिया जा सकता, विरासत में नहीं मिलता,
+          किसी और द्वारा निर्धारित नहीं होता। जो कोई दूसरे का स्वधर्म अपनाता है, वह कुशलता से
+          निभाते हुए भी भटका हुआ है।
+        </p>
+      </div>
+
+      <div class="phil-card">
+        <div class="phil-label">भगवद्गीता · अध्याय 2</div>
+        <div class="phil-title">कर्मयोग</div>
+        <div class="phil-title-roman">Karma Yoga — The Yoga of Action</div>
+        <blockquote class="phil-verse">
+          कर्मण्येवाधिकारस्ते मा फलेषु कदाचन।<br/>
+          मा कर्मफलहेतुर्भूर्मा ते सङ्गोऽस्त्वकर्मणि॥
+        </blockquote>
+        <div class="phil-source">गीता 2:47 — श्रीकृष्ण · अर्जुन को</div>
+        <p class="phil-body">
+          "कर्म करना ही तुम्हारा अधिकार है, उसके फल पर कभी नहीं।"
+          <br/><br/>
+          इकिगाई एक दिशासूचक है, गंतव्य नहीं। <strong>कर्मयोग</strong> हमें सिखाता है कि
+          वह कार्य करो जो तुम्हारा है — पूर्ण समर्पण के साथ, फल की चिंता किए बिना।
+          जब कार्य ही उद्देश्य बन जाता है, तब उपलब्धि उसकी छाया की तरह स्वयं पीछे आती है।
+        </p>
+      </div>
+
+      <div class="phil-card">
+        <div class="phil-label">पुरुषार्थ · चतुर्विध लक्ष्य</div>
+        <div class="phil-title">अर्थ</div>
+        <div class="phil-title-roman">Artha — Purposeful Engagement with the World</div>
+        <p class="phil-body">
+          भारतीय दर्शन में मानव जीवन के चार परम लक्ष्य हैं — <strong>पुरुषार्थ</strong>:
+          धर्म (नैतिक व्यवस्था), <strong>अर्थ</strong> (प्रयोजन एवं समृद्धि), काम (इच्छाओं
+          की पूर्ति), और मोक्ष (मुक्ति)। अर्थ केवल धन नहीं है।
+          <br/><br/>
+          कौटिल्य के <em>अर्थशास्त्र</em> में अर्थ का अर्थ है — संसार के साथ वह सार्थक
+          संलग्नता जो प्रयोजन, उत्पादकता और समृद्धि का सृजन करे। इकिगाई और अर्थ एक
+          ही बात कहते हैं: <strong>अपनी विशेष क्षमता को संसार की आवश्यकता से जोड़ो।</strong>
+          यही वह संधि है जहाँ उद्देश्य, कार्य और प्रचुरता एकत्र होते हैं।
+        </p>
+      </div>
+
+      <div class="phil-card">
+        <div class="phil-label">स्वामी विवेकानंद · नव-वेदांत</div>
+        <div class="phil-title">विवेकानंद का संदेश</div>
+        <div class="phil-title-roman">Vivekananda's Call to Action</div>
+        <blockquote class="phil-verse">
+          उठो, जागो, और तब तक मत रुको<br/>
+          जब तक लक्ष्य प्राप्त न हो।
+        </blockquote>
+        <div class="phil-source">स्वामी विवेकानंद — कठोपनिषद् से प्रेरित</div>
+        <p class="phil-body">
+          स्वामी विवेकानंद ने भारत को उसकी आत्म-शक्ति की याद दिलाई। उनका यह आह्वान
+          केवल क्रांति का नहीं था — यह <strong>उद्देश्य-बोध</strong> का था। जब आप अपना
+          इकिगाई जान लेते हैं, तो वह लक्ष्य बन जाता है जिसके लिए नींद त्याग करना
+          उचित लगता है। वह ध्येय जो थकान को भी ऊर्जा में बदल दे।
+        </p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════
+     VENN DIAGRAM — चार वृत्त
+═══════════════════════════════════════════════════ -->
+<section class="section-venn" aria-labelledby="venn-heading">
+  <div class="container">
+    <h2 class="section-heading" id="venn-heading">चार वृत्त — इकिगाई का मानचित्र</h2>
+    <div class="ornament">॰ ॰ ॰</div>
+    <div class="venn-wrap">
+      <div class="venn-svg-container">
+        <svg viewBox="0 0 560 540" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="इकिगाई के चार वृत्तों का वेन आरेख">
+          <defs>
+            <radialGradient id="circA" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#e8821a" stop-opacity="0.22"/>
+              <stop offset="100%" stop-color="#e8821a" stop-opacity="0.04"/>
+            </radialGradient>
+            <radialGradient id="circB" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#d4aa00" stop-opacity="0.22"/>
+              <stop offset="100%" stop-color="#d4aa00" stop-opacity="0.04"/>
+            </radialGradient>
+            <radialGradient id="circC" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#e8821a" stop-opacity="0.18"/>
+              <stop offset="100%" stop-color="#e8821a" stop-opacity="0.03"/>
+            </radialGradient>
+            <radialGradient id="circD" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#d4aa00" stop-opacity="0.18"/>
+              <stop offset="100%" stop-color="#d4aa00" stop-opacity="0.03"/>
+            </radialGradient>
+            <filter id="glow">
+              <feGaussianBlur stdDeviation="3" result="blur"/>
+              <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+            </filter>
+          </defs>
+
+          <!-- Top circle: जो आप प्रेम करते हैं -->
+          <circle cx="280" cy="165" r="148" fill="url(#circA)" stroke="#e8821a" stroke-width="1.5" stroke-opacity="0.45"/>
+          <!-- Bottom circle: जिसके लिए आपको मिल सकता है -->
+          <circle cx="280" cy="375" r="148" fill="url(#circB)" stroke="#d4aa00" stroke-width="1.5" stroke-opacity="0.45"/>
+          <!-- Left circle: जो आप अच्छे से जानते हैं -->
+          <circle cx="175" cy="270" r="148" fill="url(#circC)" stroke="#e8821a" stroke-width="1.5" stroke-opacity="0.38"/>
+          <!-- Right circle: दुनिया को जो चाहिए -->
+          <circle cx="385" cy="270" r="148" fill="url(#circD)" stroke="#d4aa00" stroke-width="1.5" stroke-opacity="0.38"/>
+
+          <!-- Labels — outer -->
+          <text x="280" y="32" text-anchor="middle" font-family="'Noto Sans Devanagari', sans-serif" font-size="14" fill="#f5f0e4" opacity="0.92">जो आप</text>
+          <text x="280" y="50" text-anchor="middle" font-family="'Noto Sans Devanagari', sans-serif" font-size="14" fill="#f5f0e4" opacity="0.92">प्रेम करते हैं</text>
+
+          <text x="280" y="506" text-anchor="middle" font-family="'Noto Sans Devanagari', sans-serif" font-size="14" fill="#f5f0e4" opacity="0.92">जिसके लिए</text>
+          <text x="280" y="524" text-anchor="middle" font-family="'Noto Sans Devanagari', sans-serif" font-size="14" fill="#f5f0e4" opacity="0.92">आपको मिल सकता है</text>
+
+          <text x="46" y="264" text-anchor="middle" font-family="'Noto Sans Devanagari', sans-serif" font-size="13.5" fill="#f5f0e4" opacity="0.92">जो आप</text>
+          <text x="46" y="281" text-anchor="middle" font-family="'Noto Sans Devanagari', sans-serif" font-size="13.5" fill="#f5f0e4" opacity="0.92">अच्छे से</text>
+          <text x="46" y="298" text-anchor="middle" font-family="'Noto Sans Devanagari', sans-serif" font-size="13.5" fill="#f5f0e4" opacity="0.92">जानते हैं</text>
+
+          <text x="514" y="264" text-anchor="middle" font-family="'Noto Sans Devanagari', sans-serif" font-size="13.5" fill="#f5f0e4" opacity="0.92">दुनिया को</text>
+          <text x="514" y="281" text-anchor="middle" font-family="'Noto Sans Devanagari', sans-serif" font-size="13.5" fill="#f5f0e4" opacity="0.92">जो चाहिए</text>
+
+          <!-- Center label: इकिगाई -->
+          <circle cx="280" cy="270" r="44" fill="#0e0e20" stroke="#e8821a" stroke-width="1.8" stroke-opacity="0.7" filter="url(#glow)"/>
+          <text x="280" y="264" text-anchor="middle" font-family="'Noto Sans Devanagari', sans-serif" font-size="14.5" font-weight="600" fill="#d4aa00" filter="url(#glow)">इकि-</text>
+          <text x="280" y="282" text-anchor="middle" font-family="'Noto Sans Devanagari', sans-serif" font-size="14.5" font-weight="600" fill="#d4aa00" filter="url(#glow)">गाई</text>
+
+          <!-- Intersection hints -->
+          <text x="228" y="198" text-anchor="middle" font-family="'Noto Sans Devanagari', sans-serif" font-size="10.5" fill="#e8821a" opacity="0.75">जुनून</text>
+          <text x="332" y="198" text-anchor="middle" font-family="'Noto Sans Devanagari', sans-serif" font-size="10.5" fill="#d4aa00" opacity="0.75">व्यवसाय</text>
+          <text x="204" y="345" text-anchor="middle" font-family="'Noto Sans Devanagari', sans-serif" font-size="10.5" fill="#e8821a" opacity="0.75">विशेषज्ञता</text>
+          <text x="356" y="345" text-anchor="middle" font-family="'Noto Sans Devanagari', sans-serif" font-size="10.5" fill="#d4aa00" opacity="0.75">उद्देश्य</text>
+        </svg>
+      </div>
+      <p class="venn-caption">
+        जब <strong>वह जो आप प्रेम करते हैं</strong>, <strong>वह जो आप अच्छे से जानते हैं</strong>,
+        <strong>दुनिया को जो चाहिए</strong>, और <strong>जिसके लिए आपको पारिश्रमिक मिल सके</strong> —
+        ये चारों एक बिंदु पर मिलते हैं, तभी इकिगाई प्रकट होता है। यह संयोग आकस्मिक नहीं,
+        साधना से प्राप्त होता है।
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════
+     QUOTES — महान विचारकों के शब्द
+═══════════════════════════════════════════════════ -->
+<section class="section-quotes" aria-labelledby="quotes-heading">
+  <div class="container">
+    <h2 class="section-heading" id="quotes-heading">महान विचारकों के शब्द</h2>
+    <div class="ornament">॰ ॰ ॰</div>
+    <div class="quotes-grid">
+
+      <div class="quote-card">
+        <div class="quote-mark">"</div>
+        <div class="quote-text">
+          <span class="verse">कर्मण्येवाधिकारस्ते मा फलेषु कदाचन।<br/>मा कर्मफलहेतुर्भूर्मा ते सङ्गोऽस्त्वकर्मणि॥</span>
+          कर्म पर ही तुम्हारा अधिकार है, फल पर कभी नहीं। न तो फल के लिए कर्म करो,
+          और न ही कर्म से विमुख होओ।
+        </div>
+        <div class="quote-author">भगवद्गीता 2:47 · श्रीकृष्ण</div>
+      </div>
+
+      <div class="quote-card">
+        <div class="quote-mark">"</div>
+        <div class="quote-text">
+          उठो, जागो, और तब तक मत रुको जब तक लक्ष्य प्राप्त न हो।
+          <br/><br/>
+          <span style="font-size:.88rem; color:rgba(245,240,228,.6);">Arise, awake, and stop not until the goal is reached.</span>
+        </div>
+        <div class="quote-author">स्वामी विवेकानंद · कठोपनिषद् से प्रेरित</div>
+      </div>
+
+      <div class="quote-card">
+        <div class="quote-mark">"</div>
+        <div class="quote-text">
+          सपना वो नहीं जो आप नींद में देखो — सपना वो है जो आपको नींद न आने दे।
+          <br/><br/>
+          <span style="font-size:.88rem; color:rgba(245,240,228,.6);">A dream is not what you see in sleep; it is the thing that doesn't let you sleep.</span>
+        </div>
+        <div class="quote-author">डॉ. ए.पी.जे. अब्दुल कलाम · विंग्स ऑफ़ फायर</div>
+      </div>
+
+      <div class="quote-card">
+        <div class="quote-mark">"</div>
+        <div class="quote-text">
+          शक्ति का स्रोत अपने भीतर खोजो, बाहर नहीं।
+          <br/><br/>
+          <span style="font-size:.88rem; color:rgba(245,240,228,.6);">Seek the source of power within you, not outside.</span>
+        </div>
+        <div class="quote-author">चाणक्य · अर्थशास्त्र</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════
+     SOURCE LIBRARY — ग्रंथ-भंडार
+═══════════════════════════════════════════════════ -->
+<section class="section-sources" aria-labelledby="sources-heading">
+  <div class="container">
+    <h2 class="section-heading" id="sources-heading">ग्रंथ-भंडार</h2>
+    <div class="ornament">॰ ॰ ॰</div>
+    <div class="sources-grid">
+
+      <div class="source-card">
+        <div class="source-author">Mieko Kamiya</div>
+        <div class="source-title">Ikigai-ni-tsuite (生きがいについて)</div>
+        <div class="source-pub">Misuzu Shobo, Tokyo · 1966</div>
+        <p class="source-note">पहला अकादमिक अध्ययन जिसने इकिगाई को दार्शनिक और मनोवैज्ञानिक दृष्टि से परिभाषित किया। कामिया एक मनोचिकित्सक थीं जिन्होंने जीवन के अर्थ को व्यवस्थित रूप से समझने की कोशिश की।</p>
+        <a href="https://worldcat.org/search?q=ikigai+kamiya+misuzu" target="_blank" rel="noopener" class="source-link">WorldCat →</a>
+      </div>
+
+      <div class="source-card">
+        <div class="source-author">वेदव्यास / S. Radhakrishnan (trans.)</div>
+        <div class="source-title">श्रीमद्भगवद्गीता</div>
+        <div class="source-pub">Harper & Brothers, 1948 · मूल: ~500 BCE</div>
+        <p class="source-note">स्वधर्म और कर्मयोग का मूल स्रोत। डॉ. सर्वपल्ली राधाकृष्णन का अनुवाद पश्चिम में सर्वाधिक पढ़ा गया। Winthrop Sargeant का शब्दशः अनुवाद संस्कृत छात्रों के लिए अनुशंसित।</p>
+        <a href="https://worldcat.org/search?q=bhagavad+gita+radhakrishnan" target="_blank" rel="noopener" class="source-link">WorldCat →</a>
+      </div>
+
+      <div class="source-card">
+        <div class="source-author">कौटिल्य (चाणक्य)</div>
+        <div class="source-title">अर्थशास्त्र</div>
+        <div class="source-pub">~300 BCE · R. Shamasastry (trans.), 1915</div>
+        <p class="source-note">अर्थ और उद्देश्य का शास्त्र। चाणक्य ने राज्य, अर्थव्यवस्था और व्यक्तिगत उद्देश्य को एकीकृत दृष्टि से देखा। यह ग्रंथ सिद्ध करता है कि भारतीय परंपरा में उद्देश्य और व्यावहारिकता कभी विरोधाभासी नहीं थे।</p>
+        <a href="https://worldcat.org/search?q=arthashastra+kautilya" target="_blank" rel="noopener" class="source-link">WorldCat →</a>
+      </div>
+
+      <div class="source-card">
+        <div class="source-author">डॉ. ए.पी.जे. अब्दुल कलाम</div>
+        <div class="source-title">Wings of Fire: An Autobiography</div>
+        <div class="source-pub">Universities Press, Hyderabad · 1999</div>
+        <p class="source-note">भारतीय स्वप्नदृष्टि का आधुनिक प्रमाण। एक रॉकेट वैज्ञानिक से राष्ट्रपति तक की यात्रा में कलाम साहब ने दिखाया कि जब व्यक्ति का इकिगाई राष्ट्र के स्वप्न से जुड़ता है, तो असाधारण परिणाम निकलते हैं।</p>
+        <a href="https://worldcat.org/search?q=wings+of+fire+kalam" target="_blank" rel="noopener" class="source-link">WorldCat →</a>
+      </div>
+
+      <div class="source-card">
+        <div class="source-author">Viktor E. Frankl</div>
+        <div class="source-title">Man's Search for Meaning</div>
+        <div class="source-pub">Beacon Press, 1959 · हिंदी अनुवाद उपलब्ध</div>
+        <p class="source-note">अर्थ की खोज। फ्रैंकल ने नाज़ी यातना-शिविरों में रहते हुए सिद्ध किया कि जिस व्यक्ति के पास जीने का कारण हो, वह किसी भी परिस्थिति में जीवित रह सकता है। लोगोथेरेपी का आधार-ग्रंथ।</p>
+        <a href="https://worldcat.org/search?q=man%27s+search+for+meaning+frankl" target="_blank" rel="noopener" class="source-link">WorldCat →</a>
+      </div>
+
+      <div class="source-card">
+        <div class="source-author">Héctor García &amp; Francesc Miralles</div>
+        <div class="source-title">Ikigai: The Japanese Secret to a Long and Happy Life</div>
+        <div class="source-pub">Penguin, 2017 · हिंदी अनुवाद: Manjul Publishing</div>
+        <p class="source-note">इकिगाई का परिचय — ओकिनावा के शतायु निवासियों के जीवन से सीखे गए सूत्र। यह पुस्तक इकिगाई को पश्चिमी पाठकों तक ले जाने वाली पहली व्यापक कृति बनी। हिंदी अनुवाद मंजुल पब्लिशिंग से उपलब्ध है।</p>
+        <a href="https://worldcat.org/search?q=ikigai+garcia+miralles" target="_blank" rel="noopener" class="source-link">WorldCat →</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════
+     CHOOSE YOUR PATH — अपना मार्ग चुनें
+═══════════════════════════════════════════════════ -->
+<section class="section-paths" aria-labelledby="paths-heading">
+  <div class="container">
+    <h2 class="section-heading" id="paths-heading">अपना मार्ग चुनें</h2>
+    <div class="ornament">॰ ॰ ॰</div>
+    <div class="paths-grid">
+
+      <div class="path-card">
+        <div class="path-icon">📚</div>
+        <div class="path-label">Theme · Scholar</div>
+        <div class="path-title">विद्वान मार्ग</div>
+        <div class="path-subtitle">The Scholar's Path</div>
+        <p class="path-desc">
+          जो जिज्ञासा को अपनी शक्ति मानते हैं। ग्रंथों में, विचारों में, खोज में जीने वाले।
+          यह मार्ग उन लोगों के लिए है जिनका इकिगाई ज्ञान के अन्वेषण और उसे साझा करने में निहित है।
+        </p>
+        <a href="../themes/scholar/index.html" class="path-cta">विद्वान थीम →</a>
+      </div>
+
+      <div class="path-card">
+        <div class="path-icon">⚒️</div>
+        <div class="path-label">Theme · Maker</div>
+        <div class="path-title">निर्माता मार्ग</div>
+        <div class="path-subtitle">The Maker's Path</div>
+        <p class="path-desc">
+          जो विचारों को वस्तुओं में, सपनों को उत्पादों में बदलते हैं। निर्माण ही जिनकी साधना है।
+          यह मार्ग उन उद्यमियों, कारीगरों और सृजनकर्ताओं के लिए है जो संसार को बदलने का हौसला रखते हैं।
+        </p>
+        <a href="../themes/maker/index.html" class="path-cta">निर्माता थीम →</a>
+      </div>
+
+      <div class="path-card">
+        <div class="path-icon">🌅</div>
+        <div class="path-label">Core Experience</div>
+        <div class="path-title">मूल अनुभव</div>
+        <div class="path-subtitle">The Original Experience</div>
+        <p class="path-desc">
+          बिना किसी पूर्व-निर्धारित ढाँचे के — अपने इकिगाई को उसके मूल स्वरूप में खोजें।
+          यह वह स्थान है जहाँ से सभी मार्ग निकलते हैं। अपने चार वृत्तों को स्वयं परिभाषित करें।
+        </p>
+        <a href="index.html" class="path-cta">खोज शुरू करें →</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════
+     FOOTER
+═══════════════════════════════════════════════════ -->
+<footer>
+  <div class="footer-verse">
+    <div class="verse-text">
+      "योगस्थः कुरु कर्माणि सङ्गं त्यक्त्वा धनञ्जय।<br/>
+      सिद्ध्यसिद्ध्योः समो भूत्वा समत्वं योग उच्यते॥"
+    </div>
+    <div class="verse-attr">— भगवद्गीता 2:48 · समता ही योग है</div>
+  </div>
+  <nav class="footer-links" aria-label="Language navigation">
+    <a href="marketing.html">English</a>
+    <a href="marketing-zh.html">中文</a>
+    <a href="marketing-es.html">Español</a>
+    <a href="marketing-fr.html">Français</a>
+    <a href="marketing-hi.html">हिन्दी</a>
+    <a href="index.html">ऐप खोलें</a>
+  </nav>
+  <div class="footer-copy">
+    &copy; 2024 इकिगाई · 生き甲斐 · सभी अधिकार सुरक्षित
+  </div>
+</footer>
+
+</body>
+</html>
