@@ -4,90 +4,100 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>生き甲斐 · Ikigai — The Art of Finding Your Reason for Being</title>
+  <meta name="description" content="Ikigai: the Japanese philosophy of purpose. Heavy on philosophy, rich with history, for driven people who want to understand the why beneath the work." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=Crimson+Pro:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet" />
   <style>
-    /* =============================================
-       CSS CUSTOM PROPERTIES
-    ============================================= */
     :root {
-      --color-bg:        #0d1b2a;
-      --color-gold:      #c9a84c;
-      --color-text:      #f0ece4;
-      --color-text-muted: rgba(240, 236, 228, 0.62);
-      --color-card-bg:   #131f2e;
-      --color-border:    rgba(201, 168, 76, 0.3);
-      --font-serif:      'IM Fell English', Georgia, serif;
-      --font-sans:       system-ui, -apple-system, 'Segoe UI', sans-serif;
-      --transition:      0.3s ease;
-      --radius:          8px;
-      --max-width:       1100px;
+      --bg:          #0d1b2a;
+      --gold:        #c9a84c;
+      --text:        #f0ece4;
+      --muted:       rgba(240,236,228,0.60);
+      --card-bg:     #131f2e;
+      --border:      rgba(201,168,76,0.28);
+      --serif:       'IM Fell English', Georgia, serif;
+      --serif2:      'Crimson Pro', Georgia, serif;
+      --sans:        system-ui, -apple-system, 'Segoe UI', sans-serif;
+      --ease:        0.28s ease;
+      --r:           8px;
+      --max:         1100px;
     }
 
-    /* =============================================
-       RESET & BASE
-    ============================================= */
-    *, *::before, *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
-
     body {
-      background-color: var(--color-bg);
-      color: var(--color-text);
-      font-family: var(--font-sans);
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--sans);
       font-size: 16px;
-      line-height: 1.7;
+      line-height: 1.72;
       overflow-x: hidden;
     }
+    a { color: var(--gold); text-decoration: none; transition: color var(--ease), opacity var(--ease); }
 
-    a {
-      color: var(--color-gold);
-      text-decoration: none;
-      transition: color var(--transition), opacity var(--transition);
+    .container { max-width: var(--max); margin: 0 auto; width: 100%; }
+
+    /* ── LANGUAGE NAV ───────────────────────────────── */
+    .lang-nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(8,14,24,0.88);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 2rem;
     }
-
-    /* =============================================
-       LAYOUT
-    ============================================= */
-    .container {
-      max-width: var(--max-width);
-      margin: 0 auto;
-      width: 100%;
+    .lang-nav .container {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      height: 46px;
     }
+    .lang-nav-label {
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-right: 1.2rem;
+    }
+    .lang-link {
+      display: inline-flex;
+      align-items: center;
+      height: 46px;
+      padding: 0 0.95rem;
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+      border-bottom: 2px solid transparent;
+      transition: color var(--ease), border-color var(--ease);
+    }
+    .lang-link:hover { color: var(--text); }
+    .lang-link--active { color: var(--gold); border-bottom-color: var(--gold); }
 
-    /* =============================================
-       SECTION HEADINGS WITH GOLD UNDERLINE
-    ============================================= */
+    /* ── SECTION HEADING ────────────────────────────── */
     .section-heading {
-      font-family: var(--font-serif);
+      font-family: var(--serif);
       font-size: clamp(1.85rem, 4vw, 2.7rem);
-      color: var(--color-text);
+      color: var(--text);
       text-align: center;
       margin-bottom: 3.5rem;
       position: relative;
       padding-bottom: 1.2rem;
     }
-
     .section-heading::after {
       content: '';
       display: block;
       position: absolute;
-      bottom: 0;
-      left: 50%;
+      bottom: 0; left: 50%;
       transform: translateX(-50%);
-      width: 60px;
-      height: 2px;
-      background-color: var(--color-gold);
+      width: 60px; height: 2px;
+      background: var(--gold);
     }
 
-    /* =============================================
-       SECTION 1: HERO
-    ============================================= */
+    /* ── HERO ───────────────────────────────────────── */
     .hero {
       position: relative;
       overflow: hidden;
@@ -97,663 +107,639 @@
       justify-content: center;
       text-align: center;
       padding: 4rem 2rem;
-      background: radial-gradient(ellipse at 50% 30%, #0f2238 0%, var(--color-bg) 68%);
+      background: radial-gradient(ellipse at 50% 30%, #0f2238 0%, var(--bg) 68%);
     }
+    .hero-bg { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
+    .hero-circle { position: absolute; border-radius: 50%; }
 
-    /* Animated background circles */
-    .hero-bg {
-      position: absolute;
-      inset: 0;
-      z-index: 0;
-      pointer-events: none;
-    }
+    @keyframes floatUp    { 0%{transform:translateY(0)scale(1);opacity:.06}100%{transform:translateY(-65px)scale(1.07);opacity:.14} }
+    @keyframes floatDrift { 0%{transform:translate(0,0)scale(1);opacity:.05}100%{transform:translate(35px,-55px)scale(1.09);opacity:.13} }
+    @keyframes floatSway  { 0%{transform:translate(0,0)rotate(0);opacity:.08}100%{transform:translate(-42px,-38px)rotate(18deg);opacity:.15} }
+    @keyframes floatPulse { 0%{transform:scale(1);opacity:.04}100%{transform:scale(1.14);opacity:.13} }
 
-    .hero-circle {
-      position: absolute;
-      border-radius: 50%;
-    }
+    .hero-circle:nth-child(1)  {width:200px;height:200px;top:8%;left:6%;background:rgba(201,168,76,.08);border:1px solid rgba(201,168,76,.10);animation:floatUp 22s ease-in-out infinite alternate}
+    .hero-circle:nth-child(2)  {width:80px;height:80px;top:18%;left:24%;background:rgba(201,168,76,.10);border:2px solid rgba(201,168,76,.18);animation:floatDrift 18s ease-in-out infinite alternate;animation-delay:-3s}
+    .hero-circle:nth-child(3)  {width:140px;height:140px;top:4%;right:11%;background:transparent;border:2px solid rgba(201,168,76,.14);animation:floatSway 28s ease-in-out infinite alternate;animation-delay:-8s}
+    .hero-circle:nth-child(4)  {width:60px;height:60px;top:34%;right:19%;background:rgba(201,168,76,.12);border:1px solid rgba(201,168,76,.12);animation:floatPulse 15s ease-in-out infinite alternate;animation-delay:-2s}
+    .hero-circle:nth-child(5)  {width:180px;height:180px;bottom:14%;left:4%;background:transparent;border:1px solid rgba(201,168,76,.10);animation:floatDrift 35s ease-in-out infinite alternate;animation-delay:-12s}
+    .hero-circle:nth-child(6)  {width:50px;height:50px;bottom:24%;left:29%;background:rgba(201,168,76,.10);border:1px solid rgba(201,168,76,.14);animation:floatUp 20s ease-in-out infinite alternate;animation-delay:-5s}
+    .hero-circle:nth-child(7)  {width:110px;height:110px;bottom:9%;right:7%;background:rgba(201,168,76,.08);border:1px solid rgba(201,168,76,.13);animation:floatSway 32s ease-in-out infinite alternate;animation-delay:-18s}
+    .hero-circle:nth-child(8)  {width:30px;height:30px;top:54%;left:14%;background:rgba(201,168,76,.15);animation:floatPulse 17s ease-in-out infinite alternate;animation-delay:-7s}
+    .hero-circle:nth-child(9)  {width:90px;height:90px;top:64%;right:34%;background:transparent;border:2px solid rgba(201,168,76,.11);animation:floatUp 25s ease-in-out infinite alternate;animation-delay:-10s}
+    .hero-circle:nth-child(10) {width:160px;height:160px;top:44%;left:44%;background:transparent;border:1px solid rgba(201,168,76,.07);animation:floatDrift 40s ease-in-out infinite alternate;animation-delay:-20s}
 
-    @keyframes floatUp {
-      0%   { transform: translateY(0px) scale(1);    opacity: 0.06; }
-      100% { transform: translateY(-65px) scale(1.07); opacity: 0.14; }
-    }
-    @keyframes floatDrift {
-      0%   { transform: translate(0px, 0px) scale(1);    opacity: 0.05; }
-      100% { transform: translate(35px, -55px) scale(1.09); opacity: 0.13; }
-    }
-    @keyframes floatSway {
-      0%   { transform: translate(0px, 0px) rotate(0deg);   opacity: 0.08; }
-      100% { transform: translate(-42px, -38px) rotate(18deg); opacity: 0.15; }
-    }
-    @keyframes floatPulse {
-      0%   { transform: scale(1);    opacity: 0.04; }
-      100% { transform: scale(1.14); opacity: 0.13; }
-    }
-
-    .hero-circle:nth-child(1)  { width:200px; height:200px; top:8%;   left:6%;   background:rgba(201,168,76,0.08); border:1px solid rgba(201,168,76,0.10); animation:floatUp 22s ease-in-out infinite alternate; animation-delay:0s; }
-    .hero-circle:nth-child(2)  { width:80px;  height:80px;  top:18%;  left:24%;  background:rgba(201,168,76,0.10); border:2px solid rgba(201,168,76,0.18); animation:floatDrift 18s ease-in-out infinite alternate; animation-delay:-3s; }
-    .hero-circle:nth-child(3)  { width:140px; height:140px; top:4%;   right:11%; background:transparent;           border:2px solid rgba(201,168,76,0.14); animation:floatSway 28s ease-in-out infinite alternate; animation-delay:-8s; }
-    .hero-circle:nth-child(4)  { width:60px;  height:60px;  top:34%;  right:19%; background:rgba(201,168,76,0.12); border:1px solid rgba(201,168,76,0.12); animation:floatPulse 15s ease-in-out infinite alternate; animation-delay:-2s; }
-    .hero-circle:nth-child(5)  { width:180px; height:180px; bottom:14%; left:4%; background:transparent;           border:1px solid rgba(201,168,76,0.10); animation:floatDrift 35s ease-in-out infinite alternate; animation-delay:-12s; }
-    .hero-circle:nth-child(6)  { width:50px;  height:50px;  bottom:24%; left:29%; background:rgba(201,168,76,0.10); border:1px solid rgba(201,168,76,0.14); animation:floatUp 20s ease-in-out infinite alternate; animation-delay:-5s; }
-    .hero-circle:nth-child(7)  { width:110px; height:110px; bottom:9%;  right:7%; background:rgba(201,168,76,0.08); border:1px solid rgba(201,168,76,0.13); animation:floatSway 32s ease-in-out infinite alternate; animation-delay:-18s; }
-    .hero-circle:nth-child(8)  { width:30px;  height:30px;  top:54%;  left:14%;  background:rgba(201,168,76,0.15); border:none; animation:floatPulse 17s ease-in-out infinite alternate; animation-delay:-7s; }
-    .hero-circle:nth-child(9)  { width:90px;  height:90px;  top:64%;  right:34%; background:transparent; border:2px solid rgba(201,168,76,0.11); animation:floatUp 25s ease-in-out infinite alternate; animation-delay:-10s; }
-    .hero-circle:nth-child(10) { width:160px; height:160px; top:44%;  left:44%;  background:transparent; border:1px solid rgba(201,168,76,0.07); animation:floatDrift 40s ease-in-out infinite alternate; animation-delay:-20s; }
-    .hero-circle:nth-child(11) { width:45px;  height:45px;  top:79%;  left:54%;  background:rgba(201,168,76,0.13); border:none; animation:floatPulse 19s ease-in-out infinite alternate; animation-delay:-4s; }
-    .hero-circle:nth-child(12) { width:120px; height:120px; top:14%;  right:39%; background:transparent; border:1px solid rgba(201,168,76,0.09); animation:floatSway 30s ease-in-out infinite alternate; animation-delay:-15s; }
-
-    .hero-content {
-      position: relative;
-      z-index: 1;
-      max-width: 760px;
-    }
-
+    .hero-content { position: relative; z-index: 1; max-width: 760px; }
     .hero-kanji {
-      font-family: var(--font-serif);
+      font-family: var(--serif);
       font-size: clamp(3rem, 10vw, 6.5rem);
-      color: var(--color-gold);
-      text-shadow:
-        0 0 30px rgba(201, 168, 76, 0.5),
-        0 0 60px rgba(201, 168, 76, 0.25),
-        0 0 100px rgba(201, 168, 76, 0.12);
-      letter-spacing: 0.04em;
+      color: var(--gold);
+      text-shadow: 0 0 30px rgba(201,168,76,.5), 0 0 60px rgba(201,168,76,.25), 0 0 100px rgba(201,168,76,.12);
+      letter-spacing: .04em;
       line-height: 1.15;
       margin-bottom: 1.2rem;
     }
-
     .hero-subtitle {
-      font-family: var(--font-serif);
+      font-family: var(--serif);
       font-style: italic;
       font-size: clamp(1.1rem, 2.5vw, 1.5rem);
-      color: var(--color-text-muted);
-      margin-bottom: 2.6rem;
-      letter-spacing: 0.03em;
+      color: var(--muted);
+      margin-bottom: 0.85rem;
+      letter-spacing: .03em;
     }
-
+    .hero-eyebrow {
+      font-size: 0.82rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: rgba(201,168,76,.7);
+      margin-bottom: 2.8rem;
+    }
     .btn-cta {
       display: inline-block;
-      padding: 0.9rem 2.3rem;
-      border: 2px solid var(--color-gold);
+      padding: .9rem 2.3rem;
+      border: 2px solid var(--gold);
       border-radius: 4px;
-      color: var(--color-gold);
-      font-family: var(--font-sans);
+      color: var(--gold);
+      font-family: var(--sans);
       font-size: 1rem;
-      letter-spacing: 0.04em;
+      letter-spacing: .04em;
       background: transparent;
-      transition: background-color var(--transition), color var(--transition), box-shadow var(--transition);
+      transition: background-color var(--ease), color var(--ease), box-shadow var(--ease);
     }
-
     .btn-cta:hover {
-      background-color: var(--color-gold);
+      background: var(--gold);
       color: #0d1b2a;
-      box-shadow: 0 0 28px rgba(201, 168, 76, 0.38);
+      box-shadow: 0 0 28px rgba(201,168,76,.38);
     }
 
-    /* =============================================
-       SECTION 2: WHAT IS IKIGAI
-    ============================================= */
-    .section-ikigai {
+    /* ── MANIFESTO ──────────────────────────────────── */
+    .section-manifesto {
       padding: 6rem 2rem;
-      background: var(--color-bg);
+      background: linear-gradient(135deg, #060d18 0%, #0b1624 50%, #060d18 100%);
+      border-top: 1px solid rgba(201,168,76,.12);
+      border-bottom: 1px solid rgba(201,168,76,.12);
     }
-
-    .ikigai-grid {
+    .manifesto-inner { max-width: 820px; margin: 0 auto; }
+    .manifesto-eyebrow {
+      font-size: .75rem;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--gold);
+      opacity: .8;
+      margin-bottom: 1.4rem;
+    }
+    .manifesto-title {
+      font-family: var(--serif);
+      font-size: clamp(2rem, 5vw, 3.4rem);
+      line-height: 1.18;
+      color: var(--text);
+      margin-bottom: 2rem;
+    }
+    .manifesto-title span { color: var(--gold); }
+    .manifesto-body {
+      font-family: var(--serif2);
+      font-size: clamp(1.05rem, 2vw, 1.22rem);
+      color: var(--muted);
+      line-height: 1.88;
+      margin-bottom: 1.5rem;
+    }
+    .manifesto-body strong { color: var(--text); font-weight: 600; }
+    .manifesto-stats {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 3rem;
-      align-items: start;
-    }
-
-    /* Left column: etymology */
-    .etymology-block {
-      display: flex;
-      flex-direction: column;
+      grid-template-columns: repeat(3, 1fr);
       gap: 1.5rem;
+      margin: 3rem 0 1.2rem;
     }
-
-    .etymology-intro {
-      color: var(--color-text-muted);
-      font-size: 0.96rem;
-      line-height: 1.75;
+    .stat {
+      text-align: center;
+      padding: 1.6rem 1rem;
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      background: rgba(201,168,76,.04);
     }
-
-    .kanji-card {
-      background: var(--color-card-bg);
-      border-left: 3px solid var(--color-gold);
-      border-radius: 0 var(--radius) var(--radius) 0;
-      padding: 1.2rem 1.5rem;
-    }
-
-    .kanji-char {
-      font-family: var(--font-serif);
+    .stat-number {
+      display: block;
+      font-family: var(--serif);
       font-size: 2.4rem;
-      color: var(--color-gold);
-      line-height: 1.2;
-      display: block;
-      margin-bottom: 0.2rem;
+      color: var(--gold);
+      line-height: 1.1;
+      margin-bottom: .4rem;
     }
-
-    .kanji-reading {
-      font-size: 0.78rem;
-      color: var(--color-text-muted);
+    .stat-label {
+      display: block;
+      font-size: .8rem;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+    .manifesto-footnote {
+      font-size: .76rem;
+      color: rgba(240,236,228,.28);
       font-style: italic;
-      display: block;
-      margin-bottom: 0.35rem;
-      letter-spacing: 0.07em;
+      text-align: right;
     }
 
-    .kanji-meaning {
-      font-size: 1.04rem;
-      color: var(--color-text);
-      font-weight: 500;
-      display: block;
-      margin-bottom: 0.5rem;
-    }
-
-    .kanji-note {
-      font-size: 0.87rem;
-      color: var(--color-text-muted);
-      line-height: 1.6;
-    }
-
-    .etymology-compound {
-      background: rgba(201, 168, 76, 0.06);
-      border: 1px solid var(--color-border);
-      border-radius: var(--radius);
+    /* ── IKIGAI EXPLAINER ───────────────────────────── */
+    .section-ikigai { padding: 6rem 2rem; background: var(--bg); }
+    .ikigai-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start; }
+    .etymology-block { display: flex; flex-direction: column; gap: 1.5rem; }
+    .etymology-intro { color: var(--muted); font-size: .96rem; line-height: 1.75; }
+    .kanji-card {
+      background: var(--card-bg);
+      border-left: 3px solid var(--gold);
+      border-radius: 0 var(--r) var(--r) 0;
       padding: 1.2rem 1.5rem;
     }
+    .kanji-char { font-family: var(--serif); font-size: 2.4rem; color: var(--gold); line-height: 1.2; display: block; margin-bottom: .2rem; }
+    .kanji-reading { font-size: .78rem; color: var(--muted); font-style: italic; display: block; margin-bottom: .35rem; letter-spacing: .07em; }
+    .kanji-meaning { font-size: 1.04rem; color: var(--text); font-weight: 500; display: block; margin-bottom: .5rem; }
+    .kanji-note { font-size: .87rem; color: var(--muted); line-height: 1.6; }
+    .etymology-compound { background: rgba(201,168,76,.06); border: 1px solid var(--border); border-radius: var(--r); padding: 1.2rem 1.5rem; }
+    .etymology-compound p { font-size: .95rem; color: var(--muted); line-height: 1.78; }
+    .etymology-compound strong { color: var(--text); }
+    .right-column { display: flex; flex-direction: column; gap: 1.4rem; }
+    .four-domains-text { font-size: .97rem; color: var(--muted); line-height: 1.78; }
+    .four-domains-text strong { color: var(--text); }
+    .venn-wrapper { display: flex; justify-content: center; margin-top: .5rem; }
+    .venn-wrapper svg { max-width: 390px; width: 100%; height: auto; filter: drop-shadow(0 4px 28px rgba(0,0,0,.45)); }
 
-    .etymology-compound p {
-      font-size: 0.95rem;
-      color: var(--color-text-muted);
-      line-height: 1.78;
-    }
-
-    .etymology-compound strong {
-      color: var(--color-text);
-    }
-
-    /* Right column */
-    .right-column {
-      display: flex;
-      flex-direction: column;
-      gap: 1.4rem;
-    }
-
-    .four-domains-text {
-      font-size: 0.97rem;
-      color: var(--color-text-muted);
-      line-height: 1.78;
-    }
-
-    .four-domains-text strong {
-      color: var(--color-text);
-    }
-
-    .venn-wrapper {
-      display: flex;
-      justify-content: center;
-      margin-top: 0.5rem;
-    }
-
-    .venn-wrapper svg {
-      max-width: 390px;
-      width: 100%;
-      height: auto;
-      filter: drop-shadow(0 4px 28px rgba(0,0,0,0.45));
-    }
-
-    /* =============================================
-       SECTION 3: PHILOSOPHY — 3 CARDS
-    ============================================= */
+    /* ── PHILOSOPHY CARDS ───────────────────────────── */
     .section-philosophy {
       padding: 6rem 2rem;
       background: linear-gradient(180deg, #0d1b2a 0%, #09131e 50%, #0d1b2a 100%);
     }
+    .philosophy-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      padding: 2rem;
+      transition: transform var(--ease), box-shadow var(--ease), border-color var(--ease);
+    }
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 32px rgba(201,168,76,.15), 0 2px 10px rgba(0,0,0,.45);
+      border-color: rgba(201,168,76,.55);
+    }
+    .card-eyebrow { font-size: .7rem; letter-spacing: .12em; text-transform: uppercase; color: var(--gold); opacity: .75; margin-bottom: .6rem; }
+    .card-title { font-family: var(--serif); font-size: 1.25rem; color: var(--gold); margin-bottom: .9rem; }
+    .card-body { font-size: .92rem; color: var(--muted); line-height: 1.78; }
+    .card-body em { color: var(--text); font-style: italic; }
 
-    .philosophy-grid {
+    /* ── PHILOSOPHY PARALLELS (EAST–WEST) ───────────── */
+    .section-parallels {
+      padding: 6rem 2rem;
+      background: var(--bg);
+    }
+    .parallels-intro {
+      max-width: 700px;
+      margin: -2rem auto 3.5rem;
+      text-align: center;
+      font-size: .97rem;
+      color: var(--muted);
+      line-height: 1.78;
+    }
+    .parallels-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+    .parallel-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: .7rem;
+      transition: transform var(--ease), box-shadow var(--ease), border-color var(--ease);
+    }
+    .parallel-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 32px rgba(201,168,76,.12);
+      border-color: rgba(201,168,76,.48);
+    }
+    .parallel-tradition {
+      font-size: .7rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--gold);
+      opacity: .75;
+    }
+    .parallel-concept {
+      font-family: var(--serif);
+      font-size: 1.55rem;
+      color: var(--text);
+      line-height: 1.2;
+    }
+    .parallel-body { font-size: .9rem; color: var(--muted); line-height: 1.78; }
+    .parallel-body em { color: var(--text); font-style: italic; }
+    .parallel-bridge {
+      margin-top: .3rem;
+      padding: .8rem 1rem;
+      background: rgba(201,168,76,.07);
+      border-left: 2px solid rgba(201,168,76,.5);
+      font-size: .84rem;
+      color: var(--muted);
+      line-height: 1.65;
+      font-style: italic;
+    }
+    .parallel-bridge strong { color: var(--gold); font-style: normal; }
+
+    /* ── QUOTES ─────────────────────────────────────── */
+    .section-quotes {
+      padding: 6rem 2rem;
+      background: linear-gradient(180deg, #0d1b2a 0%, #09131e 50%, #0d1b2a 100%);
+    }
+    .quotes-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 1.5rem;
     }
-
-    .card {
-      background: var(--color-card-bg);
-      border: 1px solid var(--color-border);
-      border-radius: var(--radius);
-      padding: 2rem;
-      transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
-    }
-
-    .card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 8px 32px rgba(201, 168, 76, 0.15), 0 2px 10px rgba(0, 0, 0, 0.45);
-      border-color: rgba(201, 168, 76, 0.55);
-    }
-
-    .card-title {
-      font-family: var(--font-serif);
-      font-size: 1.25rem;
-      color: var(--color-gold);
-      margin-bottom: 0.9rem;
-    }
-
-    .card-body {
-      font-size: 0.92rem;
-      color: var(--color-text-muted);
-      line-height: 1.78;
-    }
-
-    .card-body em {
-      color: var(--color-text);
-      font-style: italic;
-    }
-
-    /* =============================================
-       SECTION 4: SOURCE LIBRARY
-    ============================================= */
-    .section-sources {
-      padding: 6rem 2rem;
-      background: var(--color-bg);
-    }
-
-    .sources-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 1.5rem;
-    }
-
-    .source-card {
-      background: var(--color-card-bg);
-      border: 1px solid var(--color-border);
-      border-radius: var(--radius);
-      padding: 1.5rem;
-      transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+    .quote-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      padding: 2rem 1.8rem 1.6rem;
       display: flex;
       flex-direction: column;
-      gap: 0.55rem;
+      gap: .9rem;
+      transition: transform var(--ease), box-shadow var(--ease);
     }
-
-    .source-card:hover {
+    .quote-card:hover {
       transform: translateY(-4px);
-      box-shadow: 0 8px 32px rgba(201, 168, 76, 0.14), 0 2px 8px rgba(0, 0, 0, 0.42);
-      border-color: rgba(201, 168, 76, 0.55);
+      box-shadow: 0 8px 32px rgba(201,168,76,.13);
     }
-
-    .source-author {
-      font-size: 0.76rem;
-      text-transform: uppercase;
-      letter-spacing: 0.09em;
-      color: var(--color-gold);
-      font-weight: 600;
+    .quote-mark {
+      font-family: var(--serif);
+      font-size: 3.5rem;
+      color: var(--gold);
+      opacity: .4;
+      line-height: .7;
+      user-select: none;
     }
-
-    .source-title {
-      font-family: var(--font-serif);
+    .quote-text {
+      font-family: var(--serif2);
       font-style: italic;
-      font-size: 1rem;
-      color: var(--color-text);
-      line-height: 1.4;
-    }
-
-    .source-publisher {
-      font-size: 0.8rem;
-      color: var(--color-text-muted);
-    }
-
-    .source-note {
-      font-size: 0.85rem;
-      color: var(--color-text-muted);
-      line-height: 1.65;
+      font-size: 1.02rem;
+      color: var(--text);
+      line-height: 1.72;
       flex: 1;
     }
-
-    .source-link {
-      font-size: 0.82rem;
-      color: var(--color-gold);
-      margin-top: 0.4rem;
-      display: inline-block;
-      transition: opacity var(--transition);
+    .quote-attribution {
+      border-top: 1px solid rgba(201,168,76,.15);
+      padding-top: .8rem;
+    }
+    .quote-author {
+      font-size: .82rem;
+      font-weight: 600;
+      letter-spacing: .04em;
+      color: var(--gold);
+      display: block;
+    }
+    .quote-source {
+      font-size: .76rem;
+      color: var(--muted);
+      font-style: italic;
     }
 
-    .source-link:hover {
-      opacity: 0.7;
+    /* ── SOURCE LIBRARY ─────────────────────────────── */
+    .section-sources { padding: 6rem 2rem; background: var(--bg); }
+    .sources-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; }
+    .source-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      padding: 1.5rem;
+      transition: transform var(--ease), box-shadow var(--ease), border-color var(--ease);
+      display: flex;
+      flex-direction: column;
+      gap: .55rem;
     }
+    .source-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 32px rgba(201,168,76,.14), 0 2px 8px rgba(0,0,0,.42);
+      border-color: rgba(201,168,76,.55);
+    }
+    .source-author { font-size: .76rem; text-transform: uppercase; letter-spacing: .09em; color: var(--gold); font-weight: 600; }
+    .source-title { font-family: var(--serif); font-style: italic; font-size: 1rem; color: var(--text); line-height: 1.4; }
+    .source-publisher { font-size: .8rem; color: var(--muted); }
+    .source-note { font-size: .85rem; color: var(--muted); line-height: 1.65; flex: 1; }
+    .source-link { font-size: .82rem; color: var(--gold); margin-top: .4rem; display: inline-block; transition: opacity var(--ease); }
+    .source-link:hover { opacity: .7; }
 
-    /* =============================================
-       SECTION 5: THREE PATHS
-    ============================================= */
+    /* ── PATHS ──────────────────────────────────────── */
     .section-paths {
       padding: 6rem 2rem;
       background: linear-gradient(180deg, #0d1b2a 0%, #09131e 50%, #0d1b2a 100%);
     }
-
-    .paths-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1.5rem;
-    }
-
+    .paths-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
     .path-card {
-      border-radius: var(--radius);
+      border-radius: var(--r);
       padding: 2.5rem 2rem;
-      background: var(--color-card-bg);
-      border: 1px solid var(--color-border);
-      transition: transform var(--transition), box-shadow var(--transition);
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      transition: transform var(--ease), box-shadow var(--ease);
       display: flex;
       flex-direction: column;
-      gap: 0.9rem;
+      gap: .9rem;
       text-align: center;
     }
-
-    .path-card:hover {
-      transform: translateY(-5px);
-    }
-
-    /* Thinker — warm gold */
-    .path-card--thinker {
-      border-color: rgba(201, 168, 76, 0.5);
-    }
-    .path-card--thinker:hover {
-      box-shadow: 0 10px 40px rgba(201, 168, 76, 0.2);
-    }
-
-    /* Maker — cool cyan-blue */
-    .path-card--maker {
-      border-color: rgba(58, 123, 213, 0.55);
-    }
-    .path-card--maker:hover {
-      box-shadow: 0 10px 40px rgba(58, 123, 213, 0.22);
-    }
-
-    /* Original — pure gold */
-    .path-card--original {
-      border-color: var(--color-gold);
-    }
-    .path-card--original:hover {
-      box-shadow: 0 10px 40px rgba(201, 168, 76, 0.28);
-    }
-
-    .path-icon {
-      font-size: 2.2rem;
-      line-height: 1;
-      margin-bottom: 0.1rem;
-    }
-
+    .path-card:hover { transform: translateY(-5px); }
+    .path-card--thinker  { border-color: rgba(201,168,76,.5); }
+    .path-card--maker    { border-color: rgba(58,123,213,.55); }
+    .path-card--original { border-color: var(--gold); }
+    .path-card--thinker:hover  { box-shadow: 0 10px 40px rgba(201,168,76,.2); }
+    .path-card--maker:hover    { box-shadow: 0 10px 40px rgba(58,123,213,.22); }
+    .path-card--original:hover { box-shadow: 0 10px 40px rgba(201,168,76,.28); }
+    .path-icon { font-size: 2.2rem; line-height: 1; margin-bottom: .1rem; }
     .path-icon--thinker  { color: #c9a84c; }
     .path-icon--maker    { color: #3a7bd5; }
-    .path-icon--original { color: var(--color-gold); }
-
-    .path-label {
-      font-size: 0.74rem;
-      text-transform: uppercase;
-      letter-spacing: 0.13em;
-      color: var(--color-text-muted);
-    }
-
-    .path-title {
-      font-family: var(--font-serif);
-      font-size: 1.45rem;
-    }
-
+    .path-icon--original { color: var(--gold); }
+    .path-label { font-size: .74rem; text-transform: uppercase; letter-spacing: .13em; color: var(--muted); }
+    .path-title { font-family: var(--serif); font-size: 1.45rem; }
     .path-title--thinker  { color: #d4b060; }
     .path-title--maker    { color: #5a9ae8; }
-    .path-title--original { color: var(--color-gold); }
-
-    .path-description {
-      font-size: 0.92rem;
-      color: var(--color-text-muted);
-      line-height: 1.72;
-      flex: 1;
-    }
-
+    .path-title--original { color: var(--gold); }
+    .path-description { font-size: .92rem; color: var(--muted); line-height: 1.72; flex: 1; }
     .btn-path {
       display: inline-block;
-      margin-top: 0.5rem;
-      padding: 0.75rem 1.4rem;
+      margin-top: .5rem;
+      padding: .75rem 1.4rem;
       border-radius: 4px;
-      font-size: 0.88rem;
-      letter-spacing: 0.03em;
-      transition: background-color var(--transition), color var(--transition), box-shadow var(--transition);
+      font-size: .88rem;
+      letter-spacing: .03em;
+      transition: background-color var(--ease), color var(--ease), box-shadow var(--ease);
     }
+    .btn-path--thinker  { border: 1px solid rgba(201,168,76,.55); color: #d4b060; }
+    .btn-path--thinker:hover  { background: rgba(201,168,76,.12); }
+    .btn-path--maker    { border: 1px solid rgba(58,123,213,.55); color: #5a9ae8; }
+    .btn-path--maker:hover    { background: rgba(58,123,213,.12); }
+    .btn-path--original { border: 1px solid var(--gold); color: var(--gold); }
+    .btn-path--original:hover { background: rgba(201,168,76,.12); }
 
-    .btn-path--thinker {
-      border: 1px solid rgba(201, 168, 76, 0.55);
-      color: #d4b060;
-    }
-    .btn-path--thinker:hover {
-      background: rgba(201, 168, 76, 0.12);
-    }
-
-    .btn-path--maker {
-      border: 1px solid rgba(58, 123, 213, 0.55);
-      color: #5a9ae8;
-    }
-    .btn-path--maker:hover {
-      background: rgba(58, 123, 213, 0.12);
-    }
-
-    .btn-path--original {
-      border: 1px solid var(--color-gold);
-      color: var(--color-gold);
-    }
-    .btn-path--original:hover {
-      background: rgba(201, 168, 76, 0.12);
-    }
-
-    /* =============================================
-       SECTION 6: FOOTER
-    ============================================= */
+    /* ── FOOTER ─────────────────────────────────────── */
     .footer {
       padding: 4rem 2rem 3rem;
       background: #080f18;
       text-align: center;
-      border-top: 1px solid rgba(201, 168, 76, 0.15);
+      border-top: 1px solid rgba(201,168,76,.15);
     }
-
     .footer-quote {
-      font-family: var(--font-serif);
+      font-family: var(--serif);
       font-style: italic;
       font-size: 1.07rem;
-      color: var(--color-text-muted);
+      color: var(--muted);
       max-width: 650px;
       margin: 0 auto 1.6rem;
       line-height: 1.82;
     }
+    .footer-quote::before { content: '\201C'; color: var(--gold); font-size: 1.3em; vertical-align: -.25em; margin-right: .05em; }
+    .footer-quote::after  { content: '\201D'; color: var(--gold); font-size: 1.3em; vertical-align: -.25em; margin-left: .05em; }
+    .footer-lang-links { display: flex; justify-content: center; gap: 1.5rem; margin-bottom: 1.6rem; }
+    .footer-lang-link { font-size: .82rem; color: var(--muted); transition: color var(--ease); }
+    .footer-lang-link:hover { color: var(--gold); }
+    .footer-note { font-size: .82rem; color: rgba(240,236,228,.35); margin-bottom: 1.3rem; }
+    .footer-copyright { font-size: .8rem; color: rgba(240,236,228,.28); letter-spacing: .07em; }
 
-    .footer-quote::before { content: '\201C'; color: var(--color-gold); font-size: 1.3em; vertical-align: -0.25em; margin-right: 0.05em; }
-    .footer-quote::after  { content: '\201D'; color: var(--color-gold); font-size: 1.3em; vertical-align: -0.25em; margin-left: 0.05em; }
-
-    .footer-note {
-      font-size: 0.82rem;
-      color: rgba(240, 236, 228, 0.35);
-      margin-bottom: 1.3rem;
+    /* ── RESPONSIVE ─────────────────────────────────── */
+    @media (max-width: 900px) {
+      .parallels-grid { grid-template-columns: 1fr; }
+      .philosophy-grid { grid-template-columns: repeat(2, 1fr); }
     }
-
-    .footer-copyright {
-      font-size: 0.8rem;
-      color: rgba(240, 236, 228, 0.28);
-      letter-spacing: 0.07em;
-    }
-
-    /* =============================================
-       RESPONSIVE — MOBILE
-    ============================================= */
     @media (max-width: 768px) {
-      .ikigai-grid        { grid-template-columns: 1fr; gap: 2.5rem; }
-      .philosophy-grid    { grid-template-columns: 1fr; }
-      .paths-grid         { grid-template-columns: 1fr; }
-      .sources-grid       { grid-template-columns: 1fr; }
-
-      .section-ikigai,
-      .section-philosophy,
-      .section-sources,
-      .section-paths { padding: 4rem 1.4rem; }
-
+      .ikigai-grid     { grid-template-columns: 1fr; gap: 2.5rem; }
+      .philosophy-grid { grid-template-columns: 1fr; }
+      .paths-grid      { grid-template-columns: 1fr; }
+      .sources-grid    { grid-template-columns: 1fr; }
+      .quotes-grid     { grid-template-columns: 1fr; }
+      .manifesto-stats { grid-template-columns: 1fr; }
+      .section-ikigai, .section-philosophy, .section-sources,
+      .section-paths, .section-parallels, .section-quotes,
+      .section-manifesto { padding: 4rem 1.4rem; }
       .hero-circle:nth-child(n+9) { display: none; }
     }
-
     @media (max-width: 520px) {
-      .card, .path-card, .source-card { padding: 1.4rem 1.2rem; }
+      .card, .path-card, .source-card, .quote-card, .parallel-card { padding: 1.4rem 1.2rem; }
     }
   </style>
 </head>
 <body>
 
-  <!-- =============================================
-       SECTION 1 — HERO
-  ============================================= -->
-  <section class="hero">
-
-    <div class="hero-bg" aria-hidden="true">
-      <div class="hero-circle"></div>
-      <div class="hero-circle"></div>
-      <div class="hero-circle"></div>
-      <div class="hero-circle"></div>
-      <div class="hero-circle"></div>
-      <div class="hero-circle"></div>
-      <div class="hero-circle"></div>
-      <div class="hero-circle"></div>
-      <div class="hero-circle"></div>
-      <div class="hero-circle"></div>
-      <div class="hero-circle"></div>
-      <div class="hero-circle"></div>
+  <!-- LANGUAGE NAV -->
+  <nav class="lang-nav" aria-label="Language selector">
+    <div class="container">
+      <span class="lang-nav-label">Language</span>
+      <a href="marketing.html"    class="lang-link lang-link--active" lang="en">English</a>
+      <a href="marketing-zh.html" class="lang-link" lang="zh">中文</a>
+      <a href="marketing-es.html" class="lang-link" lang="es">Español</a>
+      <a href="marketing-fr.html" class="lang-link" lang="fr">Français</a>
+      <a href="marketing-hi.html" class="lang-link" lang="hi">हिन्दी</a>
     </div>
+  </nav>
 
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg" aria-hidden="true">
+      <div class="hero-circle"></div><div class="hero-circle"></div>
+      <div class="hero-circle"></div><div class="hero-circle"></div>
+      <div class="hero-circle"></div><div class="hero-circle"></div>
+      <div class="hero-circle"></div><div class="hero-circle"></div>
+      <div class="hero-circle"></div><div class="hero-circle"></div>
+    </div>
     <div class="hero-content">
+      <p class="hero-eyebrow">Japanese Philosophy &nbsp;·&nbsp; Purpose &nbsp;·&nbsp; Meaning</p>
       <h1 class="hero-kanji">生き甲斐 · Ikigai</h1>
       <p class="hero-subtitle">The art of finding your reason for being.</p>
       <a href="index.html" class="btn-cta">Discover your ikigai →</a>
     </div>
-
   </section>
 
 
-  <!-- =============================================
-       SECTION 2 — WHAT IS IKIGAI
-  ============================================= -->
+  <!-- MANIFESTO -->
+  <section class="section-manifesto">
+    <div class="container">
+      <div class="manifesto-inner">
+        <p class="manifesto-eyebrow">A philosophy for the driven</p>
+        <h2 class="manifesto-title">Ikigai isn't for the<span> passive.</span></h2>
+        <p class="manifesto-body">
+          The driven person's problem is rarely a lack of ability. It is <strong>alignment.</strong>
+          You already know how to work hard. You already know how to push through. What gets obscured —
+          under years of external expectation, shifting metrics, and borrowed ambitions — is the quieter
+          question underneath all of it: <em>toward what?</em>
+        </p>
+        <p class="manifesto-body">
+          Ikigai is not a productivity hack. It is not a career framework. It is a philosophical orientation —
+          a way of interrogating your life deeply enough to find the thread that runs through everything you've
+          already done and points toward what comes next. <strong>The work is the easy part. The clarity is harder.</strong>
+        </p>
+        <p class="manifesto-body">
+          For centuries, the people of Okinawa have named this thing they carry — a reason to wake up before
+          the alarm, a pull stronger than circumstance. Psychiatrist Mieko Kamiya spent her life studying it.
+          Researchers across three continents have since found it measurable, teachable, and consequential.
+        </p>
+        <div class="manifesto-stats">
+          <div class="stat">
+            <span class="stat-number">1966</span>
+            <span class="stat-label">Year Mieko Kamiya published the first academic study of ikigai</span>
+          </div>
+          <div class="stat">
+            <span class="stat-number">3×</span>
+            <span class="stat-label">More centenarians in Okinawa per capita than mainland Japan</span>
+          </div>
+          <div class="stat">
+            <span class="stat-number">73%</span>
+            <span class="stat-label">Of Japanese adults report a clear sense of ikigai — vs. ~30% globally</span>
+          </div>
+        </div>
+        <p class="manifesto-footnote">* Okamoto &amp; Tanaka, 2004, as cited in Kumano 2018</p>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- WHAT IS IKIGAI -->
   <section class="section-ikigai">
     <div class="container">
-
       <h2 class="section-heading">What is Ikigai?</h2>
-
       <div class="ikigai-grid">
 
-        <!-- Left column: Etymology -->
         <div class="etymology-block">
-
           <p class="etymology-intro">
-            The word <em>ikigai</em> is a compound of two Japanese words whose union creates a meaning deeper than either holds alone — a philosophy of purpose inscribed in the language itself.
+            The word <em>ikigai</em> is a compound of two Japanese words whose union creates a meaning
+            deeper than either holds alone — a philosophy of purpose inscribed in the language itself.
           </p>
 
           <div class="kanji-card">
             <span class="kanji-char">生き</span>
             <span class="kanji-reading">iki &nbsp;·&nbsp; verb stem of 生きる (ikiru)</span>
             <span class="kanji-meaning">"to live" — the act and state of living</span>
-            <p class="kanji-note">Derived from the verb <em>ikiru</em>, meaning to be alive, to exist, to make a living. The stem <em>iki</em> carries the vitality of ongoing life — not merely existence, but active, conscious presence in the world.</p>
+            <p class="kanji-note">Derived from the verb <em>ikiru</em>, to be alive, to exist. The stem <em>iki</em>
+            carries the vitality of ongoing life — not merely existence, but active, conscious presence in the world.</p>
           </div>
 
           <div class="kanji-card">
             <span class="kanji-char">甲斐</span>
             <span class="kanji-reading">kai &nbsp;·&nbsp; noun</span>
             <span class="kanji-meaning">"worth / effect" — the result that makes effort worthwhile</span>
-            <p class="kanji-note">Originally meaning the result or effect of one's actions, <em>kai</em> evolved to encompass worth, value, and the satisfaction derived from outcome. It asks: was this effort worth it? Did it leave something real behind?</p>
+            <p class="kanji-note">Originally meaning the result of one's actions, <em>kai</em> evolved to encompass
+            worth, value, and the satisfaction derived from outcome. It asks: was this effort worth it? Did it leave
+            something real behind?</p>
           </div>
 
           <div class="etymology-compound">
-            <p>Together, <strong>生き甲斐</strong> — <em>ikigai</em> — names the quality that makes life feel worth living. Not happiness as an emotion, but the deeper substrate beneath it: a reason to rise in the morning, a sense that one's presence in the world is neither accidental nor wasted.</p>
+            <p>Together, <strong>生き甲斐</strong> — <em>ikigai</em> — names the quality that makes life feel
+            worth living. Not happiness as an emotion, but the deeper substrate beneath it: a reason to rise
+            in the morning, a sense that one's presence in the world is neither accidental nor wasted.</p>
           </div>
-
         </div>
 
-        <!-- Right column: Four domains + Venn -->
         <div class="right-column">
-
           <p class="four-domains-text">
-            The concept is ancient, but a widely circulated Western interpretation organises ikigai across <strong>four intersecting domains</strong>: what you love, what you are good at, what the world needs, and what you can be paid for. Where all four overlap, the framework suggests, ikigai may be found.
+            The concept is ancient, but a widely circulated Western interpretation organises ikigai across
+            <strong>four intersecting domains</strong>: what you love, what you are good at, what the world
+            needs, and what you can be paid for. Where all four overlap, the framework suggests, ikigai may be found.
           </p>
           <p class="four-domains-text">
-            Japanese scholars note that the original concept is more intimate and less transactional than this diagram implies — rooted in daily joy and small satisfactions rather than grand life architecture. Nevertheless, the diagram offers a useful entry point for reflection.
+            Japanese scholars note that the original concept is more intimate and less transactional than this
+            diagram implies — rooted in daily joy and small satisfactions rather than grand life architecture.
+            Nevertheless, the diagram offers a powerful entry point for reflection.
           </p>
 
           <div class="venn-wrapper">
-            <svg viewBox="0 0 400 420" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Ikigai Venn diagram with four overlapping circles representing What You Love, What You're Good At, What the World Needs, and What You Can Be Paid For">
-
-              <!-- Four overlapping circles -->
-              <!-- Top: What You Love — blue -->
-              <circle cx="200" cy="148" r="120" fill="#4a90d9" fill-opacity="0.18" stroke="#c9a84c" stroke-width="1.2" stroke-opacity="0.55"/>
-              <!-- Right: What You're Good At — green -->
-              <circle cx="260" cy="222" r="120" fill="#7bc67e" fill-opacity="0.18" stroke="#c9a84c" stroke-width="1.2" stroke-opacity="0.55"/>
-              <!-- Bottom: What the World Needs — red/coral -->
-              <circle cx="200" cy="258" r="120" fill="#e07070" fill-opacity="0.18" stroke="#c9a84c" stroke-width="1.2" stroke-opacity="0.55"/>
-              <!-- Left: What You Can Be Paid For — amber -->
-              <circle cx="140" cy="222" r="120" fill="#d4a017" fill-opacity="0.18" stroke="#c9a84c" stroke-width="1.2" stroke-opacity="0.55"/>
-
-              <!-- Outer circle labels -->
-              <!-- Top -->
-              <text x="200" y="18"  text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#f0ece4" opacity="0.85">What You</text>
-              <text x="200" y="33"  text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#f0ece4" opacity="0.85">Love</text>
-              <!-- Right -->
-              <text x="378" y="202" text-anchor="end"    font-family="system-ui,sans-serif" font-size="11" fill="#f0ece4" opacity="0.85">What You're</text>
-              <text x="378" y="216" text-anchor="end"    font-family="system-ui,sans-serif" font-size="11" fill="#f0ece4" opacity="0.85">Good At</text>
-              <!-- Bottom -->
-              <text x="200" y="394" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#f0ece4" opacity="0.85">What the World</text>
-              <text x="200" y="409" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#f0ece4" opacity="0.85">Needs</text>
-              <!-- Left -->
-              <text x="22"  y="202" text-anchor="start"  font-family="system-ui,sans-serif" font-size="11" fill="#f0ece4" opacity="0.85">What You Can</text>
-              <text x="22"  y="216" text-anchor="start"  font-family="system-ui,sans-serif" font-size="11" fill="#f0ece4" opacity="0.85">Be Paid For</text>
-
-              <!-- Intersection zone labels -->
-              <!-- Passion: Love + Good At (top-right) -->
-              <text x="247" y="158" text-anchor="middle" font-family="system-ui,sans-serif" font-size="10.5" fill="#f0ece4" opacity="0.75">Passion</text>
-              <!-- Mission: Love + World Needs (top-left) -->
-              <text x="153" y="158" text-anchor="middle" font-family="system-ui,sans-serif" font-size="10.5" fill="#f0ece4" opacity="0.75">Mission</text>
-              <!-- Vocation: World Needs + Paid For (bottom-left) -->
-              <text x="153" y="290" text-anchor="middle" font-family="system-ui,sans-serif" font-size="10.5" fill="#f0ece4" opacity="0.75">Vocation</text>
-              <!-- Profession: Good At + Paid For (bottom-right) -->
-              <text x="247" y="290" text-anchor="middle" font-family="system-ui,sans-serif" font-size="10.5" fill="#f0ece4" opacity="0.75">Profession</text>
-
-              <!-- IKIGAI center -->
+            <svg viewBox="0 0 400 420" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Ikigai Venn diagram">
+              <circle cx="200" cy="148" r="120" fill="#4a90d9" fill-opacity=".18" stroke="#c9a84c" stroke-width="1.2" stroke-opacity=".55"/>
+              <circle cx="260" cy="222" r="120" fill="#7bc67e" fill-opacity=".18" stroke="#c9a84c" stroke-width="1.2" stroke-opacity=".55"/>
+              <circle cx="200" cy="258" r="120" fill="#e07070" fill-opacity=".18" stroke="#c9a84c" stroke-width="1.2" stroke-opacity=".55"/>
+              <circle cx="140" cy="222" r="120" fill="#d4a017" fill-opacity=".18" stroke="#c9a84c" stroke-width="1.2" stroke-opacity=".55"/>
+              <text x="200" y="18"  text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#f0ece4" opacity=".85">What You</text>
+              <text x="200" y="33"  text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#f0ece4" opacity=".85">Love</text>
+              <text x="378" y="202" text-anchor="end"    font-family="system-ui,sans-serif" font-size="11" fill="#f0ece4" opacity=".85">What You're</text>
+              <text x="378" y="216" text-anchor="end"    font-family="system-ui,sans-serif" font-size="11" fill="#f0ece4" opacity=".85">Good At</text>
+              <text x="200" y="394" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#f0ece4" opacity=".85">What the World</text>
+              <text x="200" y="409" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#f0ece4" opacity=".85">Needs</text>
+              <text x="22"  y="202" text-anchor="start"  font-family="system-ui,sans-serif" font-size="11" fill="#f0ece4" opacity=".85">What You Can</text>
+              <text x="22"  y="216" text-anchor="start"  font-family="system-ui,sans-serif" font-size="11" fill="#f0ece4" opacity=".85">Be Paid For</text>
+              <text x="247" y="158" text-anchor="middle" font-family="system-ui,sans-serif" font-size="10.5" fill="#f0ece4" opacity=".75">Passion</text>
+              <text x="153" y="158" text-anchor="middle" font-family="system-ui,sans-serif" font-size="10.5" fill="#f0ece4" opacity=".75">Mission</text>
+              <text x="153" y="290" text-anchor="middle" font-family="system-ui,sans-serif" font-size="10.5" fill="#f0ece4" opacity=".75">Vocation</text>
+              <text x="247" y="290" text-anchor="middle" font-family="system-ui,sans-serif" font-size="10.5" fill="#f0ece4" opacity=".75">Profession</text>
               <text x="200" y="209" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" font-weight="bold" fill="#c9a84c" letter-spacing="2">IKIGAI</text>
-
             </svg>
           </div>
-
         </div>
       </div>
     </div>
   </section>
 
 
-  <!-- =============================================
-       SECTION 3 — THE PHILOSOPHY
-  ============================================= -->
+  <!-- THE PHILOSOPHY -->
   <section class="section-philosophy">
     <div class="container">
-
       <h2 class="section-heading">The Philosophy</h2>
-
       <div class="philosophy-grid">
 
         <div class="card">
+          <p class="card-eyebrow">Japan · 1966</p>
           <h3 class="card-title">Ancient Roots</h3>
           <p class="card-body">
-            The concept of ikigai predates the Western Venn diagram interpretation by centuries. Mieko Kamiya — psychiatrist and scholar — first gave it systematic academic form in her 1966 work <em>Ikigai-ni-tsuite</em> (生き甲斐について), published by Misuzu Shobo. The Westernised diagram was a later, separate development.
+            Mieko Kamiya — psychiatrist and scholar — first gave ikigai systematic academic form in her
+            1966 work <em>Ikigai-ni-tsuite</em> (生き甲斐について), published by Misuzu Shobo. Drawing on her
+            clinical work and her own experience living with leprosy patients at Nagashima Aiseien, she argued
+            ikigai was not about grand achievement — it was the felt sense of a life that matters.
           </p>
         </div>
 
         <div class="card">
+          <p class="card-eyebrow">Okinawa, Japan · 2008</p>
           <h3 class="card-title">The Blue Zones</h3>
           <p class="card-body">
-            Okinawa, Japan — where ikigai is woven into daily life — has produced three times the centenarians of mainland Japan per capita. Researcher and National Geographic Fellow Dan Buettner documented this phenomenon in his landmark Blue Zones study (2008), noting that Okinawan elders rarely retire from purpose.
+            Okinawa, where ikigai is woven into daily conversation, produces three times the centenarians
+            of mainland Japan per capita. Dan Buettner's landmark Blue Zones study documented how Okinawan
+            elders rarely retire from purpose — they simply keep doing what gives their life meaning, in smaller
+            doses, until the end. The word "retirement" has no direct Japanese equivalent.
           </p>
         </div>
 
         <div class="card">
+          <p class="card-eyebrow">Japan · 2018</p>
           <h3 class="card-title">Modern Science</h3>
           <p class="card-body">
-            In 2018, Japanese researcher Michiko Kumano published a formal psychological analysis connecting ikigai to eudaimonic well-being — distinguishing it from hedonic happiness. Her work in the <em>Japanese Psychological Research</em> journal gave the concept rigorous academic grounding in modern positive psychology.
+            In 2018, Michiko Kumano published a formal psychological analysis connecting ikigai to
+            <em>eudaimonic</em> well-being — distinguishing it sharply from hedonic happiness. Her work
+            in the <em>Japanese Psychological Research</em> journal established ikigai as a measurable,
+            culturally specific form of flourishing that predicts longevity, resilience under stress, and
+            resistance to depression.
+          </p>
+        </div>
+
+        <div class="card">
+          <p class="card-eyebrow">Ancient Greece · ~350 BCE</p>
+          <h3 class="card-title">Eudaimonia</h3>
+          <p class="card-body">
+            Long before ikigai had a name, Aristotle called it <em>eudaimonia</em> — the flourishing life.
+            Not happiness as pleasure, but excellence as full expression. In the <em>Nicomachean Ethics</em>,
+            he argued that the highest human good was the activity of the soul in accordance with virtue and
+            excellence — doing the thing you are distinctly capable of, as well as it can be done. The Japanese
+            and Greek traditions arrived at the same insight 2,300 years apart.
+          </p>
+        </div>
+
+        <div class="card">
+          <p class="card-eyebrow">Hungary / USA · 1990</p>
+          <h3 class="card-title">The Flow State</h3>
+          <p class="card-body">
+            Psychologist Mihaly Csikszentmihalyi spent decades studying optimal experience. He found that humans
+            feel most alive when fully absorbed in a challenge pitched at the edge of their capability — a state
+            he named <em>Flow</em>. His research maps precisely onto ikigai's intersection of love and mastery:
+            the activity you love doing and are exceptional at is exactly where flow lives. This is where time
+            disappears and effort feels effortless.
+          </p>
+        </div>
+
+        <div class="card">
+          <p class="card-eyebrow">Austria · 1946</p>
+          <h3 class="card-title">Logotherapy</h3>
+          <p class="card-body">
+            Viktor Frankl, who survived Auschwitz, observed that those most likely to survive the camps were
+            those with a sense of purpose — a reason to endure. His psychotherapy, <em>logotherapy</em>, placed
+            the search for meaning at the centre of mental health. <em>"He who has a why to live for can bear
+            almost any how."</em> Purpose, Frankl argued, was not a luxury of comfortable people — it was a
+            biological necessity.
           </p>
         </div>
 
@@ -762,29 +748,190 @@
   </section>
 
 
-  <!-- =============================================
-       SECTION 4 — SOURCE LIBRARY
-  ============================================= -->
+  <!-- PHILOSOPHY PARALLELS — EAST MEETS WEST -->
+  <section class="section-parallels">
+    <div class="container">
+      <h2 class="section-heading">East Meets West</h2>
+      <p class="parallels-intro">
+        Ikigai is Japanese, but it names something universal. Every great philosophical tradition has approached
+        the same question from a different angle. What follows are four of the clearest parallels.
+      </p>
+      <div class="parallels-grid">
+
+        <div class="parallel-card">
+          <p class="parallel-tradition">Aristotle · Ancient Greece · ~350 BCE</p>
+          <h3 class="parallel-concept">Eudaimonia (εὐδαιμονία)</h3>
+          <p class="parallel-body">
+            Aristotle's <em>eudaimonia</em> — often translated as happiness but more accurately as <em>flourishing</em>
+            — is the full expression of one's highest capacities in accordance with virtue. It is not a feeling;
+            it is an activity. You cannot be eudaimon in a moment; it is the shape of a whole life, assessed
+            in retrospect by whether you became what you were capable of becoming.
+          </p>
+          <div class="parallel-bridge">
+            <strong>Parallel:</strong> Where ikigai asks what you love and what you're good at, eudaimonia demands
+            you become excellent at what you are distinctly capable of. Both treat excellence as the route to meaning.
+          </div>
+        </div>
+
+        <div class="parallel-card">
+          <p class="parallel-tradition">Viktor Frankl · Vienna · 1946</p>
+          <h3 class="parallel-concept">Logotherapy</h3>
+          <p class="parallel-body">
+            Frankl's logotherapy holds that the primary human drive is not pleasure (Freud) or power (Adler)
+            but <em>meaning</em>. Developed partly in the concentration camps, it treats existential emptiness —
+            the "existential vacuum" — as the root of modern suffering. His method: interrogate your life until
+            you find what cannot be taken from you, then serve that with everything you have.
+          </p>
+          <div class="parallel-bridge">
+            <strong>Parallel:</strong> Where ikigai asks what the world needs, logotherapy insists that meaning
+            is found in contribution — specifically in giving something of yourself to something beyond yourself.
+          </div>
+        </div>
+
+        <div class="parallel-card">
+          <p class="parallel-tradition">Bhagavad Gita · India · ~200 BCE</p>
+          <h3 class="parallel-concept">Swadharma (स्वधर्म)</h3>
+          <p class="parallel-body">
+            In the Bhagavad Gita, Krishna tells Arjuna: <em>"Better is one's own dharma, though imperfectly
+            performed, than the dharma of another well performed."</em> Swadharma — one's own dharma — is the
+            unique path that arises from your nature, your station, and your gifts. To live against your
+            swadharma is to live inauthentically; to pursue it fully is liberation.
+          </p>
+          <div class="parallel-bridge">
+            <strong>Parallel:</strong> Swadharma and ikigai both insist that purpose is not generic. Your ikigai
+            is yours alone — it cannot be borrowed, inherited, or assigned. It must be discovered from within.
+          </div>
+        </div>
+
+        <div class="parallel-card">
+          <p class="parallel-tradition">Mihaly Csikszentmihalyi · USA · 1990</p>
+          <h3 class="parallel-concept">Flow State</h3>
+          <p class="parallel-body">
+            Csikszentmihalyi's decades of research across painters, surgeons, chess grandmasters, and factory
+            workers converged on a single finding: humans perform at their peak — and feel most alive — when
+            operating at the edge of their capacity in a task they find intrinsically meaningful. He called this
+            state <em>flow</em>. The conditions that create it are identical to the conditions that create ikigai.
+          </p>
+          <div class="parallel-bridge">
+            <strong>Parallel:</strong> The ikigai intersection of <em>what you love</em> and <em>what you're
+            good at</em> is precisely where flow lives. Finding your ikigai is finding the domain where
+            flow becomes your natural state of being.
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- VOICES ON PURPOSE -->
+  <section class="section-quotes">
+    <div class="container">
+      <h2 class="section-heading">Voices on Purpose</h2>
+      <div class="quotes-grid">
+
+        <div class="quote-card">
+          <div class="quote-mark" aria-hidden="true">"</div>
+          <p class="quote-text">He who has a why to live for can bear almost any how.</p>
+          <div class="quote-attribution">
+            <span class="quote-author">Friedrich Nietzsche</span>
+            <span class="quote-source">Twilight of the Idols, 1889 — as cited by Viktor Frankl</span>
+          </div>
+        </div>
+
+        <div class="quote-card">
+          <div class="quote-mark" aria-hidden="true">"</div>
+          <p class="quote-text">Happiness is the meaning and the purpose of life, the whole aim and end of human existence.</p>
+          <div class="quote-attribution">
+            <span class="quote-author">Aristotle</span>
+            <span class="quote-source">Nicomachean Ethics, ~350 BCE</span>
+          </div>
+        </div>
+
+        <div class="quote-card">
+          <div class="quote-mark" aria-hidden="true">"</div>
+          <p class="quote-text">Life is not primarily a quest for pleasure, as Freud believed, or a quest for power, as Adler taught, but a quest for meaning.</p>
+          <div class="quote-attribution">
+            <span class="quote-author">Viktor Frankl</span>
+            <span class="quote-source">Man's Search for Meaning, 1946</span>
+          </div>
+        </div>
+
+        <div class="quote-card">
+          <div class="quote-mark" aria-hidden="true">"</div>
+          <p class="quote-text">The best moments usually occur when a person's body or mind is stretched to its limits in a voluntary effort to accomplish something difficult and worthwhile.</p>
+          <div class="quote-attribution">
+            <span class="quote-author">Mihaly Csikszentmihalyi</span>
+            <span class="quote-source">Flow: The Psychology of Optimal Experience, 1990</span>
+          </div>
+        </div>
+
+        <div class="quote-card">
+          <div class="quote-mark" aria-hidden="true">"</div>
+          <p class="quote-text">At fifteen my mind was fixed on learning. At thirty, I stood firm. At forty, I had no doubts. At fifty, I understood heaven's decrees. At sixty, my ear attuned to truth. At seventy, I could follow my heart's desire without transgressing what was right.</p>
+          <div class="quote-attribution">
+            <span class="quote-author">Confucius</span>
+            <span class="quote-source">The Analects, 2:4, ~500 BCE</span>
+          </div>
+        </div>
+
+        <div class="quote-card">
+          <div class="quote-mark" aria-hidden="true">"</div>
+          <p class="quote-text">You have power over your mind, not outside events. Realize this, and you will find strength. Waste no more time arguing about what a good man should be — be one.</p>
+          <div class="quote-attribution">
+            <span class="quote-author">Marcus Aurelius</span>
+            <span class="quote-source">Meditations, ~180 CE</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- SOURCE LIBRARY -->
   <section class="section-sources">
     <div class="container">
-
       <h2 class="section-heading">Source Library</h2>
-
       <div class="sources-grid">
 
         <div class="source-card">
           <span class="source-author">Mieko Kamiya</span>
-          <span class="source-title">Ikigai-ni-tsuite</span>
-          <span class="source-publisher">Misuzu Shobo, 1966</span>
-          <p class="source-note">The foundational Japanese-language academic text. The original scholarly treatment of ikigai as a psychological concept — drawn from Kamiya's work as a psychiatrist.</p>
+          <span class="source-title">Ikigai-ni-tsuite (生き甲斐について)</span>
+          <span class="source-publisher">Misuzu Shobo, Tokyo, 1966</span>
+          <p class="source-note">The foundational Japanese academic text. Kamiya's systematic treatment of ikigai as a psychological concept, drawn from her work as a psychiatrist treating terminal patients and her own experience with meaning-making under constraint. The Westernised diagram came decades later and separately.</p>
           <a href="https://www.worldcat.org/search?q=Ikigai-ni-tsuite+Kamiya" class="source-link" target="_blank" rel="noopener noreferrer">Search on WorldCat →</a>
+        </div>
+
+        <div class="source-card">
+          <span class="source-author">Aristotle</span>
+          <span class="source-title">Nicomachean Ethics (Ἠθικὰ Νικομάχεια)</span>
+          <span class="source-publisher">~350 BCE · Multiple publishers</span>
+          <p class="source-note">The foundational Western text on eudaimonia — the flourishing life. Written 2,300 years before ikigai entered academic literature, it poses the same central question: what does it mean to live well? The Ross translation (Oxford) and the Irwin translation (Hackett) are both excellent.</p>
+          <a href="https://www.worldcat.org/search?q=Nicomachean+Ethics+Aristotle" class="source-link" target="_blank" rel="noopener noreferrer">Search on WorldCat →</a>
+        </div>
+
+        <div class="source-card">
+          <span class="source-author">Viktor Frankl</span>
+          <span class="source-title">Man's Search for Meaning</span>
+          <span class="source-publisher">Beacon Press, 1946 (English trans. 1959)</span>
+          <p class="source-note">Logotherapy as a parallel framework — purpose as survival. Frankl's account of finding meaning in extremity remains one of the most widely read books in psychology. Its central thesis is that meaning is not found but made — an act of will in the face of whatever circumstances give.</p>
+          <a href="https://www.worldcat.org/search?q=Man%27s+Search+for+Meaning+Frankl" class="source-link" target="_blank" rel="noopener noreferrer">Search on WorldCat →</a>
+        </div>
+
+        <div class="source-card">
+          <span class="source-author">Mihaly Csikszentmihalyi</span>
+          <span class="source-title">Flow: The Psychology of Optimal Experience</span>
+          <span class="source-publisher">Harper &amp; Row, 1990</span>
+          <p class="source-note">The definitive study of optimal human performance. Csikszentmihalyi's decades of research map directly onto ikigai's intersection of love and mastery. If ikigai is the why, flow is the how it feels — the state that naturally emerges when you are doing the thing you were built to do.</p>
+          <a href="https://www.worldcat.org/search?q=Flow+Psychology+Optimal+Experience+Csikszentmihalyi" class="source-link" target="_blank" rel="noopener noreferrer">Search on WorldCat →</a>
         </div>
 
         <div class="source-card">
           <span class="source-author">Héctor García &amp; Francesc Miralles</span>
           <span class="source-title">Ikigai: The Japanese Secret to a Long and Happy Life</span>
           <span class="source-publisher">Hutchinson, 2016</span>
-          <p class="source-note">The book that brought ikigai to a global audience. Accessible and widely read, it introduced the four-circle framework to Western readers.</p>
+          <p class="source-note">The book that brought ikigai to a global audience. Accessible and widely read, it introduced the four-circle framework to Western readers and sparked an international conversation about purpose. García lived in Japan for many years; this is not an armchair account.</p>
           <a href="https://www.worldcat.org/search?q=Ikigai+Japanese+Secret+Garcia+Miralles" class="source-link" target="_blank" rel="noopener noreferrer">Search on WorldCat →</a>
         </div>
 
@@ -792,7 +939,7 @@
           <span class="source-author">Ken Mogi</span>
           <span class="source-title">The Little Book of Ikigai</span>
           <span class="source-publisher">Quercus, 2017</span>
-          <p class="source-note">A neuroscientist's exploration of ikigai's five pillars. Mogi grounds the concept in brain science and Japanese cultural observation.</p>
+          <p class="source-note">A neuroscientist's exploration of ikigai's five pillars: small beginnings, acceptance, harmony, the pursuit of small joys, and being in the here and now. Mogi grounds the concept in cognitive science and Japanese cultural practice, complicating the simple Western diagram.</p>
           <a href="https://www.worldcat.org/search?q=Little+Book+of+Ikigai+Mogi" class="source-link" target="_blank" rel="noopener noreferrer">Search on WorldCat →</a>
         </div>
 
@@ -800,31 +947,31 @@
           <span class="source-author">Dan Buettner</span>
           <span class="source-title">The Blue Zones</span>
           <span class="source-publisher">National Geographic Books, 2008</span>
-          <p class="source-note">Documents Okinawa's centenarian population and ikigai's role in longevity. A landmark demographic study of the world's longest-lived communities.</p>
+          <p class="source-note">Documents Okinawa's centenarian population and ikigai's role in exceptional longevity. A landmark demographic study of the world's longest-lived communities, examining what Sardinia, Okinawa, Loma Linda, Nicoya, and Ikaria have in common — purpose chief among them.</p>
           <a href="https://www.worldcat.org/search?q=Blue+Zones+Buettner" class="source-link" target="_blank" rel="noopener noreferrer">Search on WorldCat →</a>
-        </div>
-
-        <div class="source-card">
-          <span class="source-author">Viktor Frankl</span>
-          <span class="source-title">Man's Search for Meaning</span>
-          <span class="source-publisher">Beacon Press, 1959</span>
-          <p class="source-note">Logotherapy as a parallel framework — purpose as survival. Frankl's account of meaning-making in extremity resonates deeply with ikigai's core premise.</p>
-          <a href="https://www.worldcat.org/search?q=Man%27s+Search+for+Meaning+Frankl" class="source-link" target="_blank" rel="noopener noreferrer">Search on WorldCat →</a>
         </div>
 
         <div class="source-card">
           <span class="source-author">Michiko Kumano</span>
           <span class="source-title">On the Concept of Well-Being in Japan</span>
           <span class="source-publisher">Japanese Psychological Research, 2018</span>
-          <p class="source-note">Formal academic analysis linking ikigai to eudaimonic well-being. Distinguishes ikigai from hedonic happiness and situates it in positive psychology.</p>
+          <p class="source-note">Formal academic analysis linking ikigai to eudaimonic well-being. Distinguishes ikigai from hedonic happiness and situates it in positive psychology. One of the most important recent academic treatments — peer-reviewed, rigorous, and readable.</p>
           <a href="https://www.worldcat.org/search?q=Kumano+Well-Being+Japan+Ikigai" class="source-link" target="_blank" rel="noopener noreferrer">Search on WorldCat →</a>
+        </div>
+
+        <div class="source-card">
+          <span class="source-author">Marcus Aurelius</span>
+          <span class="source-title">Meditations (Τὰ εἰς ἑαυτόν)</span>
+          <span class="source-publisher">~180 CE · Multiple publishers</span>
+          <p class="source-note">A Roman emperor's private journal of purpose, duty, and inner alignment. Aurelius never intended this to be published — it was his daily practice of keeping aligned with what mattered. A Stoic parallel to ikigai practiced at the highest level of public life. Gregory Hays' translation (Modern Library) is exceptional.</p>
+          <a href="https://www.worldcat.org/search?q=Meditations+Marcus+Aurelius" class="source-link" target="_blank" rel="noopener noreferrer">Search on WorldCat →</a>
         </div>
 
         <div class="source-card">
           <span class="source-author">Mitsuhiro Nakamura</span>
           <span class="source-title">Ikigai: The Concept of Ikigai and its Significance</span>
           <span class="source-publisher">Studies in Regional Science, 2013</span>
-          <p class="source-note">Sociological examination of ikigai's role in regional identity and longevity. Connects individual purpose to community cohesion in Japanese society.</p>
+          <p class="source-note">Sociological examination of ikigai's role in regional identity and longevity. Connects individual purpose to community cohesion in Japanese society, and to the moai — Okinawa's social support groups — as the structural reinforcement of personal ikigai.</p>
           <a href="https://www.worldcat.org/search?q=Nakamura+Ikigai+regional+science" class="source-link" target="_blank" rel="noopener noreferrer">Search on WorldCat →</a>
         </div>
 
@@ -833,40 +980,33 @@
   </section>
 
 
-  <!-- =============================================
-       SECTION 5 — CHOOSE YOUR PATH
-  ============================================= -->
+  <!-- CHOOSE YOUR PATH -->
   <section class="section-paths">
     <div class="container">
-
       <h2 class="section-heading">Choose Your Path</h2>
-
       <div class="paths-grid">
 
-        <!-- The Thinker -->
         <div class="path-card path-card--thinker">
           <div class="path-icon path-icon--thinker" aria-hidden="true">❧</div>
           <span class="path-label">For the Thinker</span>
           <h3 class="path-title path-title--thinker">The Scholar's Path</h3>
-          <p class="path-description">A contemplative journey through eight questions. Candlelit. Unhurried. For those who find meaning in reflection.</p>
+          <p class="path-description">A contemplative journey through eight questions. Candlelit. Unhurried. For those who find meaning in deep reflection and the written word.</p>
           <a href="../themes/scholar/index.html" class="btn-path btn-path--thinker">Begin the scholar's path →</a>
         </div>
 
-        <!-- The Maker -->
         <div class="path-card path-card--maker">
           <div class="path-icon path-icon--maker" aria-hidden="true">▶</div>
           <span class="path-label">For the Maker</span>
           <h3 class="path-title path-title--maker">The Maker's Path</h3>
-          <p class="path-description">A direct, terminal-style interface. Eight prompts. Typed answers. For those who think by building.</p>
+          <p class="path-description">A direct, terminal-style interface. Eight prompts. Typed answers. For those who think by building, shipping, and iterating.</p>
           <a href="../themes/maker/index.html" class="btn-path btn-path--maker">Begin the maker's path →</a>
         </div>
 
-        <!-- The Original -->
         <div class="path-card path-card--original">
           <div class="path-icon path-icon--original" aria-hidden="true">◎</div>
           <span class="path-label">The Original</span>
           <h3 class="path-title path-title--original">First Light</h3>
-          <p class="path-description">The default ikigai experience — clean, focused, universal.</p>
+          <p class="path-description">The default ikigai experience — clean, focused, universal. Available in English, 中文, हिन्दी, Español, and Français.</p>
           <a href="index.html" class="btn-path btn-path--original">Begin with first light →</a>
         </div>
 
@@ -875,11 +1015,16 @@
   </section>
 
 
-  <!-- =============================================
-       SECTION 6 — FOOTER
-  ============================================= -->
+  <!-- FOOTER -->
   <footer class="footer">
-    <p class="footer-quote">The ikigai framework synthesises four questions that have been asked in different forms across cultures and centuries.</p>
+    <p class="footer-quote">The ikigai framework synthesises four questions that have been asked in different forms across cultures and centuries. The question is ancient. The moment to ask it is now.</p>
+    <div class="footer-lang-links">
+      <a href="marketing.html"    class="footer-lang-link">English</a>
+      <a href="marketing-zh.html" class="footer-lang-link">中文</a>
+      <a href="marketing-es.html" class="footer-lang-link">Español</a>
+      <a href="marketing-fr.html" class="footer-lang-link">Français</a>
+      <a href="marketing-hi.html" class="footer-lang-link">हिन्दी</a>
+    </div>
     <p class="footer-note">This application connects to an AI reflection engine. Your answers are processed but not stored.</p>
     <p class="footer-copyright">© 2024 Ikigai · Built with intention</p>
   </footer>
