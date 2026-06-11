@@ -1,0 +1,987 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>生き甲斐 · 生命存在的意义 — 探寻你活着的理由</title>
+  <meta name="description" content="生き甲斐：日本关于生命意义的哲学。博大精深，历史悠久，为有志之士深入探究工作与生命背后的本质意义而生。" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=Noto+Sans+SC:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg:          #0c0c12;
+      --accent:      #c53b2a;
+      --gold:        #c9a84c;
+      --text:        #f0ece4;
+      --muted:       rgba(240,236,228,0.60);
+      --card-bg:     #141418;
+      --border:      rgba(197,59,42,0.30);
+      --serif:       'Noto Serif SC', 'Songti SC', 'SimSun', Georgia, serif;
+      --sans:        'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', system-ui, sans-serif;
+      --ease:        0.28s ease;
+      --r:           8px;
+      --max:         1100px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--sans);
+      font-size: 16px;
+      line-height: 1.80;
+      overflow-x: hidden;
+    }
+    a { color: var(--gold); text-decoration: none; transition: color var(--ease), opacity var(--ease); }
+
+    .container { max-width: var(--max); margin: 0 auto; width: 100%; }
+
+    /* ── PAPER GRAIN TEXTURE ───────────────────────── */
+    .grain {
+      background-image:
+        repeating-linear-gradient(
+          0deg,
+          transparent,
+          transparent 2px,
+          rgba(197,59,42,0.012) 2px,
+          rgba(197,59,42,0.012) 4px
+        ),
+        repeating-linear-gradient(
+          90deg,
+          transparent,
+          transparent 3px,
+          rgba(201,168,76,0.008) 3px,
+          rgba(201,168,76,0.008) 6px
+        );
+    }
+
+    /* ── LANGUAGE NAV ───────────────────────────────── */
+    .lang-nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(12,12,18,0.92);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 2rem;
+    }
+    .lang-nav .container {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      height: 46px;
+    }
+    .lang-nav-label {
+      font-size: 0.70rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-right: 1.2rem;
+      font-family: var(--sans);
+    }
+    .lang-link {
+      display: inline-flex;
+      align-items: center;
+      height: 46px;
+      padding: 0 0.95rem;
+      font-size: 0.80rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      color: var(--muted);
+      border-bottom: 2px solid transparent;
+      transition: color var(--ease), border-color var(--ease);
+      font-family: var(--sans);
+    }
+    .lang-link:hover { color: var(--text); }
+    .lang-link--active { color: var(--accent); border-bottom-color: var(--accent); }
+
+    /* ── SECTION HEADING ────────────────────────────── */
+    .section-heading {
+      font-family: var(--serif);
+      font-size: clamp(1.7rem, 4vw, 2.5rem);
+      color: var(--text);
+      text-align: center;
+      margin-bottom: 3.5rem;
+      position: relative;
+      padding-bottom: 1.2rem;
+      letter-spacing: 0.06em;
+    }
+    .section-heading::after {
+      content: '';
+      display: block;
+      position: absolute;
+      bottom: 0; left: 50%;
+      transform: translateX(-50%);
+      width: 60px; height: 2px;
+      background: linear-gradient(90deg, var(--accent), var(--gold));
+    }
+    .section-heading .en {
+      font-size: 0.55em;
+      color: var(--muted);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      display: block;
+      margin-top: 0.35rem;
+      font-family: var(--sans);
+    }
+
+    /* ── HERO ───────────────────────────────────────── */
+    .hero {
+      position: relative;
+      overflow: hidden;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 4rem 2rem;
+      background: radial-gradient(ellipse at 50% 35%, #1a0d0a 0%, var(--bg) 70%);
+    }
+    .hero-bg { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
+    .hero-circle { position: absolute; border-radius: 50%; }
+
+    @keyframes floatUp    { 0%{transform:translateY(0)scale(1);opacity:.05}100%{transform:translateY(-65px)scale(1.07);opacity:.16} }
+    @keyframes floatDrift { 0%{transform:translate(0,0)scale(1);opacity:.05}100%{transform:translate(35px,-55px)scale(1.09);opacity:.14} }
+    @keyframes floatSway  { 0%{transform:translate(0,0)rotate(0);opacity:.07}100%{transform:translate(-42px,-38px)rotate(18deg);opacity:.16} }
+    @keyframes floatPulse { 0%{transform:scale(1);opacity:.04}100%{transform:scale(1.14);opacity:.14} }
+
+    .hero-circle:nth-child(1)  {width:220px;height:220px;top:8%;left:6%;background:rgba(197,59,42,.07);border:1px solid rgba(197,59,42,.12);animation:floatUp 22s ease-in-out infinite alternate}
+    .hero-circle:nth-child(2)  {width:80px;height:80px;top:18%;left:24%;background:rgba(201,168,76,.10);border:2px solid rgba(201,168,76,.18);animation:floatDrift 18s ease-in-out infinite alternate;animation-delay:-3s}
+    .hero-circle:nth-child(3)  {width:140px;height:140px;top:4%;right:11%;background:transparent;border:2px solid rgba(197,59,42,.14);animation:floatSway 28s ease-in-out infinite alternate;animation-delay:-8s}
+    .hero-circle:nth-child(4)  {width:60px;height:60px;top:34%;right:19%;background:rgba(201,168,76,.10);border:1px solid rgba(201,168,76,.14);animation:floatPulse 15s ease-in-out infinite alternate;animation-delay:-2s}
+    .hero-circle:nth-child(5)  {width:180px;height:180px;bottom:14%;left:4%;background:transparent;border:1px solid rgba(197,59,42,.10);animation:floatDrift 35s ease-in-out infinite alternate;animation-delay:-12s}
+    .hero-circle:nth-child(6)  {width:50px;height:50px;bottom:24%;left:29%;background:rgba(197,59,42,.08);border:1px solid rgba(197,59,42,.14);animation:floatUp 20s ease-in-out infinite alternate;animation-delay:-5s}
+    .hero-circle:nth-child(7)  {width:110px;height:110px;bottom:9%;right:7%;background:rgba(201,168,76,.07);border:1px solid rgba(201,168,76,.12);animation:floatSway 32s ease-in-out infinite alternate;animation-delay:-18s}
+    .hero-circle:nth-child(8)  {width:30px;height:30px;top:54%;left:14%;background:rgba(197,59,42,.14);animation:floatPulse 17s ease-in-out infinite alternate;animation-delay:-7s}
+    .hero-circle:nth-child(9)  {width:90px;height:90px;top:64%;right:34%;background:transparent;border:2px solid rgba(201,168,76,.10);animation:floatUp 25s ease-in-out infinite alternate;animation-delay:-10s}
+    .hero-circle:nth-child(10) {width:160px;height:160px;top:44%;left:44%;background:transparent;border:1px solid rgba(197,59,42,.07);animation:floatDrift 40s ease-in-out infinite alternate;animation-delay:-20s}
+
+    .hero-content { position: relative; z-index: 1; max-width: 780px; }
+    .hero-eyebrow {
+      font-family: var(--sans);
+      font-size: 0.78rem;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: rgba(197,59,42,0.80);
+      margin-bottom: 2rem;
+    }
+    .hero-kanji {
+      font-family: var(--serif);
+      font-size: clamp(3.2rem, 11vw, 7rem);
+      color: var(--gold);
+      text-shadow:
+        0 0 20px rgba(197,59,42,.55),
+        0 0 50px rgba(201,168,76,.40),
+        0 0 90px rgba(197,59,42,.22),
+        0 0 140px rgba(201,168,76,.10);
+      letter-spacing: .06em;
+      line-height: 1.10;
+      margin-bottom: 1rem;
+    }
+    .hero-subtitle {
+      font-family: var(--serif);
+      font-size: clamp(1.05rem, 2.8vw, 1.55rem);
+      color: var(--muted);
+      margin-bottom: 0.6rem;
+      letter-spacing: .05em;
+    }
+    .hero-tagline {
+      font-family: var(--serif);
+      font-size: clamp(1.4rem, 3.5vw, 2rem);
+      color: var(--text);
+      margin-bottom: 2.8rem;
+      letter-spacing: .04em;
+    }
+    .hero-tagline em {
+      color: var(--accent);
+      font-style: normal;
+    }
+    .btn-cta {
+      display: inline-block;
+      padding: .95rem 2.5rem;
+      border: 2px solid var(--accent);
+      border-radius: 2px;
+      color: var(--accent);
+      font-family: var(--sans);
+      font-size: 1rem;
+      letter-spacing: .06em;
+      background: transparent;
+      transition: background-color var(--ease), color var(--ease), box-shadow var(--ease);
+    }
+    .btn-cta:hover {
+      background: var(--accent);
+      color: #f0ece4;
+      box-shadow: 0 0 32px rgba(197,59,42,.45);
+    }
+
+    /* ── ETYMOLOGY ──────────────────────────────────── */
+    .section-etymology {
+      padding: 6rem 2rem;
+      background: linear-gradient(135deg, #0c0a0a 0%, #110e0c 50%, #0c0a0a 100%);
+      border-top: 1px solid rgba(197,59,42,.15);
+      border-bottom: 1px solid rgba(197,59,42,.15);
+    }
+    .etymology-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start; }
+    .etymology-block { display: flex; flex-direction: column; gap: 1.5rem; }
+    .etymology-intro { color: var(--muted); font-size: .97rem; line-height: 1.82; }
+    .kanji-card {
+      background: var(--card-bg);
+      border-left: 3px solid var(--accent);
+      border-radius: 0 var(--r) var(--r) 0;
+      padding: 1.3rem 1.6rem;
+    }
+    .kanji-card.gold-border { border-left-color: var(--gold); }
+    .kanji-char {
+      font-family: var(--serif);
+      font-size: 2.6rem;
+      color: var(--gold);
+      line-height: 1.2;
+      display: block;
+      margin-bottom: .2rem;
+    }
+    .kanji-reading {
+      font-size: .76rem;
+      color: var(--muted);
+      font-style: italic;
+      display: block;
+      margin-bottom: .35rem;
+      letter-spacing: .08em;
+      font-family: var(--sans);
+    }
+    .kanji-meaning {
+      font-size: 1.02rem;
+      color: var(--text);
+      font-weight: 600;
+      display: block;
+      margin-bottom: .55rem;
+    }
+    .kanji-note { font-size: .88rem; color: var(--muted); line-height: 1.72; }
+    .etymology-compound {
+      background: rgba(197,59,42,.06);
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      padding: 1.3rem 1.6rem;
+    }
+    .etymology-compound p { font-size: .96rem; color: var(--muted); line-height: 1.82; }
+    .etymology-compound strong { color: var(--text); }
+    .parallel-block {
+      background: var(--card-bg);
+      border: 1px solid rgba(201,168,76,.20);
+      border-radius: var(--r);
+      padding: 1.3rem 1.6rem;
+    }
+    .parallel-block-title {
+      font-family: var(--serif);
+      font-size: 1.1rem;
+      color: var(--gold);
+      margin-bottom: .7rem;
+      letter-spacing: .04em;
+    }
+    .parallel-block p { font-size: .93rem; color: var(--muted); line-height: 1.78; }
+    .parallel-block strong { color: var(--text); }
+
+    /* ── PHILOSOPHY CARDS ───────────────────────────── */
+    .section-philosophy {
+      padding: 6rem 2rem;
+      background: var(--bg);
+    }
+    .philosophy-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.6rem;
+    }
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      padding: 2.2rem;
+      transition: transform var(--ease), box-shadow var(--ease), border-color var(--ease);
+      position: relative;
+      overflow: hidden;
+    }
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent), transparent);
+      opacity: 0;
+      transition: opacity var(--ease);
+    }
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 40px rgba(197,59,42,.18), 0 2px 12px rgba(0,0,0,.5);
+      border-color: rgba(197,59,42,.55);
+    }
+    .card:hover::before { opacity: 1; }
+    .card-concept {
+      font-family: var(--serif);
+      font-size: 2.2rem;
+      color: var(--accent);
+      line-height: 1.1;
+      margin-bottom: .3rem;
+      text-shadow: 0 0 20px rgba(197,59,42,.25);
+    }
+    .card-eyebrow {
+      font-size: .72rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--gold);
+      opacity: .80;
+      margin-bottom: .55rem;
+      font-family: var(--sans);
+    }
+    .card-title {
+      font-family: var(--serif);
+      font-size: 1.2rem;
+      color: var(--text);
+      margin-bottom: .9rem;
+      letter-spacing: .04em;
+    }
+    .card-body { font-size: .92rem; color: var(--muted); line-height: 1.82; }
+    .card-body em { color: var(--text); font-style: normal; font-weight: 500; }
+    .card-quote {
+      margin-top: 1rem;
+      padding: .85rem 1.1rem;
+      background: rgba(197,59,42,.07);
+      border-left: 2px solid rgba(197,59,42,.5);
+      font-family: var(--serif);
+      font-size: .9rem;
+      color: rgba(240,236,228,.75);
+      line-height: 1.70;
+      font-style: italic;
+    }
+
+    /* ── VENN DIAGRAM ───────────────────────────────── */
+    .section-venn {
+      padding: 6rem 2rem;
+      background: linear-gradient(180deg, #0c0c12 0%, #100c0a 50%, #0c0c12 100%);
+      border-top: 1px solid rgba(197,59,42,.12);
+      border-bottom: 1px solid rgba(197,59,42,.12);
+    }
+    .venn-layout { display: grid; grid-template-columns: 1fr 1.1fr; gap: 3rem; align-items: center; }
+    .venn-text { display: flex; flex-direction: column; gap: 1.2rem; }
+    .venn-intro { font-size: .97rem; color: var(--muted); line-height: 1.82; }
+    .venn-intro strong { color: var(--text); }
+    .venn-wrapper { display: flex; justify-content: center; }
+    .venn-wrapper svg { max-width: 400px; width: 100%; height: auto; filter: drop-shadow(0 4px 32px rgba(0,0,0,.55)); }
+
+    /* ── QUOTES ─────────────────────────────────────── */
+    .section-quotes {
+      padding: 6rem 2rem;
+      background: var(--bg);
+    }
+    .quotes-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.6rem;
+    }
+    .quote-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      padding: 2.2rem 2rem 1.8rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      transition: transform var(--ease), box-shadow var(--ease), border-color var(--ease);
+    }
+    .quote-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 32px rgba(197,59,42,.15);
+      border-color: rgba(197,59,42,.5);
+    }
+    .quote-mark {
+      font-family: var(--serif);
+      font-size: 4rem;
+      color: var(--accent);
+      opacity: .35;
+      line-height: .65;
+      user-select: none;
+    }
+    .quote-text {
+      font-family: var(--serif);
+      font-size: 1rem;
+      color: var(--text);
+      line-height: 1.80;
+      flex: 1;
+    }
+    .quote-translation {
+      font-size: .85rem;
+      color: var(--muted);
+      line-height: 1.70;
+      font-style: italic;
+      padding-top: .6rem;
+      border-top: 1px solid rgba(197,59,42,.12);
+    }
+    .quote-attribution {
+      border-top: 1px solid rgba(201,168,76,.15);
+      padding-top: .8rem;
+    }
+    .quote-author {
+      font-size: .82rem;
+      font-weight: 600;
+      letter-spacing: .05em;
+      color: var(--gold);
+      display: block;
+      font-family: var(--sans);
+    }
+    .quote-source {
+      font-size: .76rem;
+      color: var(--muted);
+      font-style: italic;
+    }
+
+    /* ── SOURCE LIBRARY ─────────────────────────────── */
+    .section-sources { padding: 6rem 2rem; background: linear-gradient(180deg, #0c0c12 0%, #100c0a 50%, #0c0c12 100%); }
+    .sources-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 1.5rem; }
+    .source-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      padding: 1.6rem;
+      transition: transform var(--ease), box-shadow var(--ease), border-color var(--ease);
+      display: flex;
+      flex-direction: column;
+      gap: .55rem;
+    }
+    .source-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 32px rgba(197,59,42,.16), 0 2px 8px rgba(0,0,0,.45);
+      border-color: rgba(197,59,42,.55);
+    }
+    .source-author {
+      font-size: .75rem;
+      text-transform: uppercase;
+      letter-spacing: .10em;
+      color: var(--accent);
+      font-weight: 600;
+      font-family: var(--sans);
+    }
+    .source-title {
+      font-family: var(--serif);
+      font-size: 1rem;
+      color: var(--text);
+      line-height: 1.45;
+    }
+    .source-publisher { font-size: .80rem; color: var(--muted); font-family: var(--sans); }
+    .source-note { font-size: .87rem; color: var(--muted); line-height: 1.70; flex: 1; }
+    .source-link {
+      font-size: .82rem;
+      color: var(--gold);
+      margin-top: .4rem;
+      display: inline-block;
+      transition: opacity var(--ease);
+      font-family: var(--sans);
+    }
+    .source-link:hover { opacity: .7; }
+
+    /* ── PATHS ──────────────────────────────────────── */
+    .section-paths {
+      padding: 6rem 2rem;
+      background: var(--bg);
+    }
+    .paths-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.6rem; }
+    .path-card {
+      border-radius: var(--r);
+      padding: 2.6rem 2rem;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      transition: transform var(--ease), box-shadow var(--ease);
+      display: flex;
+      flex-direction: column;
+      gap: .9rem;
+      text-align: center;
+    }
+    .path-card:hover { transform: translateY(-5px); }
+    .path-card--scholar  { border-color: rgba(201,168,76,.45); }
+    .path-card--maker    { border-color: rgba(58,123,213,.50); }
+    .path-card--original { border-color: rgba(197,59,42,.50); }
+    .path-card--scholar:hover  { box-shadow: 0 12px 44px rgba(201,168,76,.20); }
+    .path-card--maker:hover    { box-shadow: 0 12px 44px rgba(58,123,213,.22); }
+    .path-card--original:hover { box-shadow: 0 12px 44px rgba(197,59,42,.22); }
+    .path-icon { font-size: 2.4rem; line-height: 1; margin-bottom: .1rem; }
+    .path-icon--scholar  { color: var(--gold); }
+    .path-icon--maker    { color: #5a9ae8; }
+    .path-icon--original { color: var(--accent); }
+    .path-label {
+      font-size: .72rem;
+      text-transform: uppercase;
+      letter-spacing: .14em;
+      color: var(--muted);
+      font-family: var(--sans);
+    }
+    .path-title {
+      font-family: var(--serif);
+      font-size: 1.4rem;
+      letter-spacing: .04em;
+    }
+    .path-title--scholar  { color: var(--gold); }
+    .path-title--maker    { color: #5a9ae8; }
+    .path-title--original { color: var(--accent); }
+    .path-description { font-size: .92rem; color: var(--muted); line-height: 1.75; flex: 1; }
+    .btn-path {
+      display: inline-block;
+      margin-top: .5rem;
+      padding: .78rem 1.5rem;
+      border-radius: 2px;
+      font-size: .88rem;
+      letter-spacing: .04em;
+      transition: background-color var(--ease), color var(--ease), box-shadow var(--ease);
+      font-family: var(--sans);
+    }
+    .btn-path--scholar  { border: 1px solid rgba(201,168,76,.55); color: var(--gold); }
+    .btn-path--scholar:hover  { background: rgba(201,168,76,.12); }
+    .btn-path--maker    { border: 1px solid rgba(58,123,213,.55); color: #5a9ae8; }
+    .btn-path--maker:hover    { background: rgba(58,123,213,.12); }
+    .btn-path--original { border: 1px solid rgba(197,59,42,.65); color: var(--accent); }
+    .btn-path--original:hover { background: rgba(197,59,42,.12); }
+
+    /* ── FOOTER ─────────────────────────────────────── */
+    .footer {
+      padding: 4.5rem 2rem 3rem;
+      background: #080808;
+      text-align: center;
+      border-top: 1px solid rgba(197,59,42,.18);
+    }
+    .footer-divider {
+      width: 80px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--accent), transparent);
+      margin: 0 auto 2rem;
+    }
+    .footer-quote {
+      font-family: var(--serif);
+      font-size: 1.10rem;
+      color: var(--muted);
+      max-width: 600px;
+      margin: 0 auto 1.2rem;
+      line-height: 1.88;
+    }
+    .footer-attribution {
+      font-size: .78rem;
+      color: rgba(240,236,228,.35);
+      margin-bottom: 2rem;
+      font-family: var(--sans);
+    }
+    .footer-lang-links { display: flex; justify-content: center; gap: 1.6rem; margin-bottom: 1.8rem; flex-wrap: wrap; }
+    .footer-lang-link { font-size: .82rem; color: var(--muted); transition: color var(--ease); font-family: var(--sans); }
+    .footer-lang-link:hover { color: var(--accent); }
+    .footer-copyright { font-size: .78rem; color: rgba(240,236,228,.28); letter-spacing: .08em; font-family: var(--sans); }
+
+    /* ── RESPONSIVE ─────────────────────────────────── */
+    @media (max-width: 900px) {
+      .philosophy-grid { grid-template-columns: 1fr; }
+      .venn-layout { grid-template-columns: 1fr; }
+      .venn-text { order: 2; }
+    }
+    @media (max-width: 768px) {
+      .etymology-grid  { grid-template-columns: 1fr; gap: 2.5rem; }
+      .philosophy-grid { grid-template-columns: 1fr; }
+      .paths-grid      { grid-template-columns: 1fr; }
+      .sources-grid    { grid-template-columns: 1fr; }
+      .quotes-grid     { grid-template-columns: 1fr; }
+      .section-etymology, .section-philosophy, .section-sources,
+      .section-paths, .section-venn, .section-quotes { padding: 4rem 1.4rem; }
+      .hero-circle:nth-child(n+9) { display: none; }
+    }
+    @media (max-width: 520px) {
+      .card, .path-card, .source-card, .quote-card { padding: 1.5rem 1.2rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- LANGUAGE NAV -->
+  <nav class="lang-nav" aria-label="语言选择">
+    <div class="container">
+      <span class="lang-nav-label">Language</span>
+      <a href="marketing.html"    class="lang-link" lang="en">English</a>
+      <a href="marketing-zh.html" class="lang-link lang-link--active" lang="zh">中文</a>
+      <a href="marketing-es.html" class="lang-link" lang="es">Español</a>
+      <a href="marketing-fr.html" class="lang-link" lang="fr">Français</a>
+      <a href="marketing-hi.html" class="lang-link" lang="hi">हिन्दी</a>
+    </div>
+  </nav>
+
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg" aria-hidden="true">
+      <div class="hero-circle"></div><div class="hero-circle"></div>
+      <div class="hero-circle"></div><div class="hero-circle"></div>
+      <div class="hero-circle"></div><div class="hero-circle"></div>
+      <div class="hero-circle"></div><div class="hero-circle"></div>
+      <div class="hero-circle"></div><div class="hero-circle"></div>
+    </div>
+    <div class="hero-content">
+      <p class="hero-eyebrow">日本哲学 &nbsp;·&nbsp; 意义 &nbsp;·&nbsp; 使命</p>
+      <h1 class="hero-kanji">生き甲斐</h1>
+      <p class="hero-subtitle">生命存在的意义</p>
+      <p class="hero-tagline"><em>你，</em>为何而活？</p>
+      <a href="index.html" class="btn-cta">探寻你的生き甲斐 →</a>
+    </div>
+  </section>
+
+
+  <!-- ETYMOLOGY 字源 -->
+  <section class="section-etymology">
+    <div class="container">
+      <h2 class="section-heading">字源<span class="en">Etymology</span></h2>
+      <div class="etymology-grid">
+
+        <div class="etymology-block">
+          <p class="etymology-intro">
+            「生き甲斐」是两个日文词语的复合体，其交汇之处生发出一种比任何单字都深远的意蕴——一种铸入语言本身的人生哲学。
+            汉字的书写，也正对应着中国文化对意义与价值的古老思考。
+          </p>
+
+          <div class="kanji-card">
+            <span class="kanji-char">生き</span>
+            <span class="kanji-reading">iki &nbsp;·&nbsp; 动词「生きる」的词干</span>
+            <span class="kanji-meaning">活着——生命的行为与状态</span>
+            <p class="kanji-note">源于动词「生きる」（ikiru），意为存活、存在。词干「iki」承载着持续生命的活力——不仅仅是存在，而是有意识地、主动地临在于世界之中。</p>
+          </div>
+
+          <div class="kanji-card gold-border">
+            <span class="kanji-char">甲斐</span>
+            <span class="kanji-reading">kai &nbsp;·&nbsp; 名词</span>
+            <span class="kanji-meaning">价值、效益——使努力值得的收获</span>
+            <p class="kanji-note">「甲斐」本义指行动的结果，后演变为涵盖价值、意义，以及由此而来的满足感。它追问：这份付出值得吗？它是否留下了真实的印记？</p>
+          </div>
+
+          <div class="etymology-compound">
+            <p>两者合而为一，<strong>生き甲斐</strong>（ikigai）所命名的，是令生命感到值得的那种品质。不是情绪意义上的快乐，而是快乐之下更深的根基：一个清晨醒来的理由，一种感知到自己在世界上的存在既非偶然、也非多余的确信。</p>
+          </div>
+        </div>
+
+        <div class="etymology-block">
+          <p class="etymology-intro">
+            「生き甲斐」与中国哲学的核心命题高度共鸣。中国思想从未将生命意义视为奢侈品——而是视之为人之所以为人的根本追问。
+          </p>
+
+          <div class="parallel-block">
+            <p class="parallel-block-title">意义 (Yìyì) — 意义的中国维度</p>
+            <p>「意义」在汉语中融合了「意」（内心的意向、意志）与「义」（合乎道德的正当性）。真正的意义，不仅是个人的渴望，更是对更大秩序的回应。这与「生き甲斐」中「甲斐」的价值维度遥相呼应——<strong>真正有价值的事，既对自己有意义，也对天下有价值。</strong></p>
+          </div>
+
+          <div class="parallel-block">
+            <p class="parallel-block-title">价值 (Jiàzhí) — 价值的双重维度</p>
+            <p>「价值」在汉语中既指市场上可度量的「价」，也指道德意义上的「值」。这一张力——个人价值与社会价值之间的平衡——正是「生き甲斐」四圆模型的核心：<strong>世界所需要的，与你能够提供的，必须找到交汇点。</strong></p>
+          </div>
+
+          <div class="parallel-block">
+            <p class="parallel-block-title">天命 (Tiānmìng) — 天赋的使命</p>
+            <p>儒家的「天命」观认为，每个人都有其独特的天赋使命，无法转让，也无法逃避。孔子五十而知天命——这不是宿命论，而是对自身本质的深刻认识。<strong>认识自己的天命，便是找到了自己的「生き甲斐」。</strong></p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- CONFUCIAN-TAOIST PHILOSOPHY 儒道哲学 -->
+  <section class="section-philosophy">
+    <div class="container">
+      <h2 class="section-heading">儒道哲学<span class="en">Confucian-Taoist Philosophy</span></h2>
+      <div class="philosophy-grid">
+
+        <div class="card grain">
+          <div class="card-concept">仁</div>
+          <p class="card-eyebrow">儒家 · 孔子 · 约公元前500年</p>
+          <h3 class="card-title">Rén — 仁爱·人道</h3>
+          <p class="card-body">
+            「仁」是孔子学说的核心，是人之为人的根本德性。它不是孤立的内心状态，而是在与他人的关系中不断生成的品质——在家庭、社群、天下的连接中得以彰显。你对世界的贡献，本身就是你的「生き甲斐」。
+          </p>
+          <p class="card-body" style="margin-top:.7rem;">
+            仁者不问「我能得到什么」，而是问「我能给予什么」。当你的才能与世界的需要对齐，当你的付出使他人的生命更丰盛，那种深沉的满足感——正是仁的回响，也是生き甲斐最真实的样貌。
+          </p>
+          <div class="card-quote">
+            克己复礼为仁。一日克己复礼，天下归仁焉。
+            <br /><span style="font-size:.82em;opacity:.75;">——《论语·颜渊》12:1</span>
+          </div>
+        </div>
+
+        <div class="card grain">
+          <div class="card-concept">道</div>
+          <p class="card-eyebrow">道家 · 老子 · 约公元前400年</p>
+          <h3 class="card-title">Dào — 无为·顺道</h3>
+          <p class="card-body">
+            老子的「道」是万物运行的根本法则，不可名状，无法强求，却无处不在。「无为」并非无所作为，而是不强行、不造作——让行动从你的本性中自然流出，如水就下，润泽万物而不争先。
+          </p>
+          <p class="card-body" style="margin-top:.7rem;">
+            当你的工作如水流般寻到它天然的去处，当努力感觉不像抵抗而像顺从，那正是你与道对齐的时刻——也正是日本人所说的「生き甲斐」。<em>强求的目的，不是目的；自然流出的使命，才是使命。</em>
+          </p>
+          <div class="card-quote">
+            为学日益，为道日损。损之又损，以至于无为。无为而无不为。
+            <br /><span style="font-size:.82em;opacity:.75;">——《道德经》第四十八章</span>
+          </div>
+        </div>
+
+        <div class="card grain">
+          <div class="card-concept">知行合一</div>
+          <p class="card-eyebrow">心学 · 王阳明 · 明代·1472—1529</p>
+          <h3 class="card-title">Zhī Xíng Héyī — 知与行的统一</h3>
+          <p class="card-body">
+            王阳明是明代最伟大的哲学家之一，他提出「知行合一」——真正的知识必然包含行动，真正的行动必然包含认知。知而不行，只是未知；行而不觉，只是盲动。
+          </p>
+          <p class="card-body" style="margin-top:.7rem;">
+            你的「生き甲斐」不是一个思想——它必须被活出来。在反复的实践中你才能认识它，在深切的认识中你才能真正实践它。那些说「我知道自己该做什么，但就是做不到」的人，王阳明会说：<em>你其实还不真正知道。</em>
+          </p>
+          <div class="card-quote">
+            知之真切笃实处即是行，行之明觉精察处即是知。知行功夫，本不可离。
+            <br /><span style="font-size:.82em;opacity:.75;">——王阳明，《传习录》</span>
+          </div>
+        </div>
+
+        <div class="card grain">
+          <div class="card-concept">自强不息</div>
+          <p class="card-eyebrow">《易经》· 中国古代 · 约公元前1000年</p>
+          <h3 class="card-title">Zìqiáng Bùxī — 永不停歇的自我超越</h3>
+          <p class="card-body">
+            《易经》乾卦象辞曰：「天行健，君子以自强不息。」天道运行，刚健不已；君子效法天道，永不停步。这不是焦虑驱动的内卷，而是对自身潜能的持续召唤——每一天都比昨天更接近你本来可以成为的人。
+          </p>
+          <p class="card-body" style="margin-top:.7rem;">
+            「生き甲斐」不是一次寻得便永久拥有的宝藏。它是一种日日更新的耕耘——在修炼中深化，在坚持中生长。<em>你今天的生き甲斐，是明天更深版本的起点。</em>
+          </p>
+          <div class="card-quote">
+            天行健，君子以自强不息。地势坤，君子以厚德载物。
+            <br /><span style="font-size:.82em;opacity:.75;">——《周易·乾卦·象辞》</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- VENN DIAGRAM 四圆交汇 -->
+  <section class="section-venn">
+    <div class="container">
+      <h2 class="section-heading">四圆交汇<span class="en">The Four Circles</span></h2>
+      <div class="venn-layout">
+
+        <div class="venn-text">
+          <p class="venn-intro">
+            「生き甲斐」在西方的普及，往往通过一个<strong>四圆维恩图</strong>来呈现：你热爱的、你擅长的、世界需要的、有人愿意为之付报酬的——四圆的交汇之处，便是生き甲斐所在。
+          </p>
+          <p class="venn-intro">
+            日本学者指出，这一图示比原初概念更为系统化——真正的「生き甲斐」更多根植于日常的小小满足，而非宏大的人生架构。然而，这四个圆提供了一个极有力的自我追问框架：<strong>当这四个问题的答案在你身上汇聚，你便触到了意义的核心。</strong>
+          </p>
+          <p class="venn-intro">
+            儒家的「仁」呼应「世界需要」；道家的「无为」呼应「热爱」；王阳明的「知行合一」呼应「擅长」；「自强不息」则是让四圆不断深化、永不凝固的内驱力。
+          </p>
+        </div>
+
+        <div class="venn-wrapper">
+          <svg viewBox="0 0 420 440" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="生き甲斐维恩图，四圆：热爱、擅长、世界需要、有价值">
+            <!-- Four overlapping circles -->
+            <circle cx="210" cy="155" r="125" fill="#c53b2a" fill-opacity=".13" stroke="#c53b2a" stroke-width="1.3" stroke-opacity=".45"/>
+            <circle cx="272" cy="232" r="125" fill="#c9a84c" fill-opacity=".12" stroke="#c9a84c" stroke-width="1.3" stroke-opacity=".40"/>
+            <circle cx="210" cy="270" r="125" fill="#c53b2a" fill-opacity=".10" stroke="#c53b2a" stroke-width="1.3" stroke-opacity=".35"/>
+            <circle cx="148" cy="232" r="125" fill="#c9a84c" fill-opacity=".12" stroke="#c9a84c" stroke-width="1.3" stroke-opacity=".40"/>
+            <!-- Labels: outer -->
+            <text x="210" y="14"  text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="13" fill="#f0ece4" opacity=".90">热爱</text>
+            <text x="210" y="31"  text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="10" fill="#f0ece4" opacity=".65">What You Love</text>
+            <text x="406" y="213" text-anchor="end"    font-family="'Noto Sans SC',sans-serif" font-size="13" fill="#f0ece4" opacity=".90">擅长</text>
+            <text x="406" y="228" text-anchor="end"    font-family="'Noto Sans SC',sans-serif" font-size="10" fill="#f0ece4" opacity=".65">Good At</text>
+            <text x="210" y="416" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="13" fill="#f0ece4" opacity=".90">世界需要</text>
+            <text x="210" y="432" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="10" fill="#f0ece4" opacity=".65">World Needs</text>
+            <text x="14"  y="213" text-anchor="start"  font-family="'Noto Sans SC',sans-serif" font-size="13" fill="#f0ece4" opacity=".90">有价值</text>
+            <text x="14"  y="228" text-anchor="start"  font-family="'Noto Sans SC',sans-serif" font-size="10" fill="#f0ece4" opacity=".65">Paid For</text>
+            <!-- Intersection labels -->
+            <text x="258" y="163" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="10" fill="#f0ece4" opacity=".70">热情</text>
+            <text x="162" y="163" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="10" fill="#f0ece4" opacity=".70">使命</text>
+            <text x="162" y="305" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="10" fill="#f0ece4" opacity=".70">事业</text>
+            <text x="258" y="305" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="10" fill="#f0ece4" opacity=".70">职业</text>
+            <!-- Center label -->
+            <text x="210" y="218" text-anchor="middle" font-family="'Noto Serif SC',serif" font-size="16" font-weight="700" fill="#c9a84c" letter-spacing="2">生き甲斐</text>
+          </svg>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- QUOTES 先贤语录 -->
+  <section class="section-quotes">
+    <div class="container">
+      <h2 class="section-heading">先贤语录<span class="en">Voices of the Ancients</span></h2>
+      <div class="quotes-grid">
+
+        <div class="quote-card">
+          <div class="quote-mark" aria-hidden="true">「</div>
+          <p class="quote-text">
+            吾十有五而志于学，三十而立，四十而不惑，五十而知天命，六十而耳顺，七十而从心所欲，不逾矩。
+          </p>
+          <div class="quote-attribution">
+            <span class="quote-author">孔子</span>
+            <span class="quote-source">《论语·为政》2:4，约公元前500年</span>
+          </div>
+        </div>
+
+        <div class="quote-card">
+          <div class="quote-mark" aria-hidden="true">「</div>
+          <p class="quote-text">
+            致虚极，守静笃。万物并作，吾以观复。
+          </p>
+          <div class="quote-translation">
+            达到极致的空明，保持深沉的宁静。万物一同生长，我由此观察到它们归返的规律。
+          </div>
+          <div class="quote-attribution">
+            <span class="quote-author">老子</span>
+            <span class="quote-source">《道德经》第十六章，约公元前400年</span>
+          </div>
+        </div>
+
+        <div class="quote-card">
+          <div class="quote-mark" aria-hidden="true">「</div>
+          <p class="quote-text">
+            知之真切笃实处即是行，行之明觉精察处即是知。
+          </p>
+          <div class="quote-translation">
+            知识若真切而笃实，便已是行动；行动若清明而精察，便已是知识。
+          </div>
+          <div class="quote-attribution">
+            <span class="quote-author">王阳明</span>
+            <span class="quote-source">《传习录》，明代，约1518年</span>
+          </div>
+        </div>
+
+        <div class="quote-card">
+          <div class="quote-mark" aria-hidden="true">"</div>
+          <p class="quote-text" lang="en">
+            Dream is not what you see in sleep. Dream is the thing which doesn't let you sleep.
+          </p>
+          <div class="quote-translation">
+            梦想不是让你在睡眠中见到的东西，而是让你无法入睡的东西。
+          </div>
+          <div class="quote-attribution">
+            <span class="quote-author">A.P.J. 阿卜杜勒·卡拉姆</span>
+            <span class="quote-source">印度科学家与第11任总统，科学与使命的融合象征</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- SOURCE LIBRARY 书库 -->
+  <section class="section-sources">
+    <div class="container">
+      <h2 class="section-heading">书库<span class="en">Source Library</span></h2>
+      <div class="sources-grid">
+
+        <div class="source-card">
+          <span class="source-author">神谷美恵子 · Mieko Kamiya</span>
+          <span class="source-title">《生き甲斐について》（关于生き甲斐）</span>
+          <span class="source-publisher">みすず書房 · Misuzu Shobo，东京，1966</span>
+          <p class="source-note">这是「生き甲斐」概念的奠基文本。神谷美恵子以精神科医生的身份，通过与濑户内海岛上麻风病患者多年的临床相处，将「生き甲斐」系统化为心理学概念。西方流行的四圆图示，是数十年后另行发展的演绎，与神谷的原初洞察既有联系，又有差异。</p>
+          <a href="https://www.worldcat.org/search?q=Ikigai-ni-tsuite+Kamiya+Mieko" class="source-link" target="_blank" rel="noopener noreferrer">在 WorldCat 上搜索 →</a>
+        </div>
+
+        <div class="source-card">
+          <span class="source-author">孔子 · Confucius</span>
+          <span class="source-title">《论语》(Analects)</span>
+          <span class="source-publisher">约公元前500年 · 多个出版社</span>
+          <p class="source-note">儒家思想的核心文本，尤其是「为政篇」第二章，详述了孔子自身从志于学到从心所欲的修养历程——这正是一个人认识并活出「天命」（自身使命）的生命叙事。这部书不是规范的教条，而是一位不断探索者真实生命的记录。</p>
+          <a href="https://www.worldcat.org/search?q=%E8%AE%BA%E8%AF%AD+%E5%AD%94%E5%AD%90+Analects" class="source-link" target="_blank" rel="noopener noreferrer">在 WorldCat 上搜索 →</a>
+        </div>
+
+        <div class="source-card">
+          <span class="source-author">老子 · Laozi</span>
+          <span class="source-title">《道德经》(Tao Te Ching)</span>
+          <span class="source-publisher">约公元前400年 · 多个出版社</span>
+          <p class="source-note">道家哲学的根本典籍，五千言，论及「无为」（顺应本性的行动）与「自知者明」（自我认知的智慧）。对于寻找生き甲斐的人，老子的核心启示在于：真正的使命不是被追逐来的，而是在放下多余执念之后，自然显现的。</p>
+          <a href="https://www.worldcat.org/search?q=%E9%81%93%E5%BE%B7%E7%BB%8F+%E8%80%81%E5%AD%90+Tao+Te+Ching" class="source-link" target="_blank" rel="noopener noreferrer">在 WorldCat 上搜索 →</a>
+        </div>
+
+        <div class="source-card">
+          <span class="source-author">埃克托尔·加西亚 &amp; 弗朗塞斯克·米拉莱斯</span>
+          <span class="source-title">《生之意义：发现你的生命价值》</span>
+          <span class="source-publisher">中文版，2017年</span>
+          <p class="source-note">这本书将「生き甲斐」带向全球大众。加西亚在日本生活多年，书中记录了冲绳百岁老人的生命哲学，以及他们如何将日常微小的事物转化为持续的生命动力。易读而富有洞见，是进入这一主题的理想入口。</p>
+          <a href="https://www.worldcat.org/search?q=%E7%94%9F%E4%B9%8B%E6%84%8F%E4%B9%89+%E7%94%9F%E5%91%BD%E4%BB%B7%E5%80%BC+Garcia+Miralles" class="source-link" target="_blank" rel="noopener noreferrer">在 WorldCat 上搜索 →</a>
+        </div>
+
+        <div class="source-card">
+          <span class="source-author">茂木健一郎 · Ken Mogi</span>
+          <span class="source-title">《生之意义》(Little Book of Ikigai，中文版)</span>
+          <span class="source-publisher">中文版，2018年</span>
+          <p class="source-note">日本神经科学家茂木健一郎从脑科学与日本文化实践两个维度解析「生き甲斐」的五大支柱：微小的起步、接受自我、和谐与可持续、追寻微小的喜悦、在当下临在。他有效地挑战了简单化的西方图示，还原了这一概念的日常纹理。</p>
+          <a href="https://www.worldcat.org/search?q=%E7%94%9F%E4%B9%8B%E6%84%8F%E4%B9%89+%E8%8C%82%E6%9C%A8%E5%81%A5%E4%B8%80%E9%83%8E+Mogi+Ikigai" class="source-link" target="_blank" rel="noopener noreferrer">在 WorldCat 上搜索 →</a>
+        </div>
+
+        <div class="source-card">
+          <span class="source-author">维克多·弗兰克尔 · Viktor Frankl</span>
+          <span class="source-title">《活出生命的意义》(Man's Search for Meaning，中文版)</span>
+          <span class="source-publisher">光明日报出版社，中文版</span>
+          <p class="source-note">弗兰克尔在奥斯维辛集中营的极端苦难中发现：活下来的人，往往是那些保有生命意义感的人。他的「意义疗法」（logotherapy）将意义的追寻置于心理健康的核心。对中国读者而言，这与儒家「志」的概念遥相呼应——<strong>一个人若有足够深的「为何」，便能承受几乎任何「如何」。</strong></p>
+          <a href="https://www.worldcat.org/search?q=%E6%B4%BB%E5%87%BA%E7%94%9F%E5%91%BD%E7%9A%84%E6%84%8F%E4%B9%89+%E5%BC%97%E5%85%B0%E5%85%8B%E5%B0%94+Frankl" class="source-link" target="_blank" rel="noopener noreferrer">在 WorldCat 上搜索 →</a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- CHOOSE YOUR PATH 选择你的道路 -->
+  <section class="section-paths">
+    <div class="container">
+      <h2 class="section-heading">选择你的道路<span class="en">Choose Your Path</span></h2>
+      <div class="paths-grid">
+
+        <div class="path-card path-card--scholar">
+          <div class="path-icon path-icon--scholar" aria-hidden="true">❧</div>
+          <span class="path-label">For the Scholar · 学者之路</span>
+          <h3 class="path-title path-title--scholar">学者的道路</h3>
+          <p class="path-description">在烛光下，缓缓行过八个深刻的追问。为那些在沉思与文字中寻找意义的人而生。不急于结论，只在于深度的临在。</p>
+          <a href="../themes/scholar/index.html" class="btn-path btn-path--scholar">踏上学者之路 →</a>
+        </div>
+
+        <div class="path-card path-card--maker">
+          <div class="path-icon path-icon--maker" aria-hidden="true">▶</div>
+          <span class="path-label">For the Maker · 创造者之路</span>
+          <h3 class="path-title path-title--maker">创造者的道路</h3>
+          <p class="path-description">终端风格的直接界面，八个提示，键入你的回答。为那些在构建、推进与迭代中思考的人而设。从做中知，知即是做。</p>
+          <a href="../themes/maker/index.html" class="btn-path btn-path--maker">踏上创造者之路 →</a>
+        </div>
+
+        <div class="path-card path-card--original">
+          <div class="path-icon path-icon--original" aria-hidden="true">◎</div>
+          <span class="path-label">The Original · 本源之路</span>
+          <h3 class="path-title path-title--original">本源之光</h3>
+          <p class="path-description">原始的「生き甲斐」探寻体验——清洁、专注、普适。支持中文、English、हिन्दी、Español、Français五种语言。</p>
+          <a href="index.html" class="btn-path btn-path--original">从本源开始 →</a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-divider"></div>
+    <p class="footer-quote">
+      吾日三省吾身——为人谋而不忠乎？与朋友交而不信乎？传不习乎？
+    </p>
+    <p class="footer-attribution">——《论语·学而》1:4 &nbsp;·&nbsp; 每日的自我叩问，正是生き甲斐的修炼</p>
+    <div class="footer-lang-links">
+      <a href="marketing.html"    class="footer-lang-link">English</a>
+      <a href="marketing-zh.html" class="footer-lang-link" style="color:var(--accent)">中文</a>
+      <a href="marketing-es.html" class="footer-lang-link">Español</a>
+      <a href="marketing-fr.html" class="footer-lang-link">Français</a>
+      <a href="marketing-hi.html" class="footer-lang-link">हिन्दी</a>
+    </div>
+    <p class="footer-copyright">© 2024 生き甲斐 · 以意为建</p>
+  </footer>
+
+</body>
+</html>
